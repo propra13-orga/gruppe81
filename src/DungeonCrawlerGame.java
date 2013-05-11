@@ -5,8 +5,7 @@ public class DungeonCrawlerGame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		MyKeyListener keyListener = new MyKeyListener(); 
 	}
 
 }
