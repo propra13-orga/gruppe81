@@ -17,7 +17,7 @@ public class DCMenue extends JFrame implements ActionListener{
 
 
 	public DCMenue() {
-		super("Menü");
+		super("Menu");
 		/*
 		 * JFrame.
 		 */
@@ -63,6 +63,7 @@ public class DCMenue extends JFrame implements ActionListener{
 
 	
 }
+
 
 
 
