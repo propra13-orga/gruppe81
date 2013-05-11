@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 
-public class DCMenü extends JFrame implements ActionListener{
+public class DCMen extends JFrame implements ActionListener{
 	
 	/**
 	 * 
@@ -16,8 +16,8 @@ public class DCMenü extends JFrame implements ActionListener{
 
 
 
-	public DCMenü() {
-		super("Menü");
+	public DCMen {
+		super("Men");
 		/*
 		 * JFrame.
 		 */
