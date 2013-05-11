@@ -4,6 +4,9 @@ public class MyKeyListener implements KeyListener {
 	
 	boolean[] keys = new boolean[256];
 	
+	
+	
+	
 	public boolean isKeyPressed(int keyCode) {
 		if (this.keys[keyCode]) 
 			return true;
@@ -14,6 +17,7 @@ public class MyKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		this.keys[e.getKeyCode()] = true; 
+		System.out.println(e.getKeyCode());
 	}
 
 	@Override

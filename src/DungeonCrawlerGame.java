@@ -34,17 +34,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	//Game Objects
 	World world;
 	Player p1;
-	
+	MyKeyListener k1;
 	//Constructor
 	public DungeonCrawlerGame(){
 		world = new World();
 		p1 = new Player(world);
+		this.k1 = new MyKeyListener(); 
+		addKeyListener(k1);
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		requestFocus(true);
 		//Handles users key inputs
-		addKeyListener(new KeyAdapter() {
+	/*	addKeyListener(new KeyAdapter() {
 			public void keyPressed (KeyEvent e){
 				
 				int c = e.getKeyCode();
@@ -84,8 +86,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 			}
 		});
-		
-	}
+		*/
+	} 
 	
 	public void run(){
 		
@@ -113,7 +115,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if(System.currentTimeMillis() - timer > 1000){
 				timer +=1000;
 			
-				System.out.println(updates + " ups, "+ frames + " fps");
+		//		System.out.println(updates + " ups, "+ frames + " fps");
 				
 				updates=0;
 				frames=0;
@@ -125,7 +127,34 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
-			
+			if(k1.isKeyPressed(KeyEvent.VK_UP)){
+				if (!p1.checkForCollision())
+				{
+				p1.setYDirection(-1);
+				
+				}
+			}
+			else if(k1.isKeyPressed(KeyEvent.VK_DOWN)){
+				if (!p1.checkForCollision())
+				{
+				p1.setYDirection(+1);
+				}
+			}else{			
+				p1.setYDirection(0);
+				if(k1.isKeyPressed(KeyEvent.VK_LEFT)){
+					if (!p1.checkForCollision())
+					{
+						p1.setXDirection(-1);
+					}
+				}else if(k1.isKeyPressed(KeyEvent.VK_RIGHT)){
+					if (!p1.checkForCollision())
+					{
+						p1.setXDirection(+1);
+					}
+				}else{			
+					p1.setXDirection(0);
+					}
+			}
 			p1.update(); //Updating Player
 		//	requestFocus(true); //to be able to move the player
 		}

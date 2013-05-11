@@ -33,6 +33,11 @@ public class DCMenue extends JFrame implements ActionListener{
 		startButton.setSize(200,70);
 		startButton.setLocation(200,150);
 		startButton.setVisible(true);
+		startButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			new MainWindow();
+			setVisible(false);
+		}});
 		
 		JButton sButton = new JButton("Beenden");//The JButton name.
 		getContentPane().add(sButton);

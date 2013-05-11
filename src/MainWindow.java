@@ -31,10 +31,11 @@ public class MainWindow extends JFrame{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 new MainWindow();
+		new DCMenue(); 
+		
 		 
 		//	MyKeyListener keyListener = new MyKeyListener(); 
-		//	new DCMenue();
+			
 	
 	}
 

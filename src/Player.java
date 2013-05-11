@@ -41,7 +41,7 @@ public class Player {
 		}else{
 			setYDirection(0);
 			setXDirection(0);
-		}
+		 } 
 	}
 	
 	public boolean checkForCollision(){ //Checking for collision
