@@ -16,22 +16,26 @@ public class DCMenue extends JFrame implements ActionListener{
 
 
 
+	@SuppressWarnings("deprecation")
 	public DCMenue() {
 		super("Menu");
 		/*
 		 * JFrame.
 		 */
-		setSize(600,600);//Size of JFrame
+		setSize(1000,600);//Size of JFrame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);//Sets if its visible.
+		setLayout(null);
+		setLocationRelativeTo(null);
 		/*
 		 * JButton.
 		 */
 		JButton startButton = new JButton("Start");//The JButton name.
-		getContentPane().add(startButton);
+		add(startButton);
+		//getContentPane().add(startButton);
 		startButton.setLabel("Start");
-		startButton.setSize(200,70);
-		startButton.setLocation(200,150);
+		startButton.setSize(400,70);
+		startButton.setLocation(300,150);
 		startButton.setVisible(true);
 		startButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
@@ -40,11 +44,11 @@ public class DCMenue extends JFrame implements ActionListener{
 		}});
 		
 		JButton sButton = new JButton("Beenden");//The JButton name.
-		getContentPane().add(sButton);
-		
+		//getContentPane().add(sButton);
+		add(sButton);
 		sButton.setLabel("Beenden");
-		sButton.setSize(200,70);
-		sButton.setLocation(200,250);
+		sButton.setSize(400,70);
+		sButton.setLocation(300,250);
 		sButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
 			dispose();
