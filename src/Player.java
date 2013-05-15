@@ -18,7 +18,7 @@ public class Player {
 		this.world = world;
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
-		playerImg = new ImageIcon("mario.png").getImage();
+		playerImg = new ImageIcon("BoyRechts1.1.png").getImage();
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,world.BLOCKSIZE);
 	}
 	public  void setXDirection(int d){
