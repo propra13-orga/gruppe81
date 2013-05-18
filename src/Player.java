@@ -18,17 +18,21 @@ public class Player {
 		this.world = world;
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
-		playerImg = new ImageIcon("BoyRechts1.1.png").getImage();
+		playerImg = new ImageIcon("mario.png").getImage();
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,world.BLOCKSIZE);
 	}
 	public  void setXDirection(int d){
+		if(!checkForCollision()){
 		xDirection =d;
 		yDirection =0;
+		}
 	}
 	
 	public void setYDirection(int d){
+		if(!checkForCollision()){
 		yDirection =d;
 		xDirection =0;
+		}
 	}
 	public void update(){
 		move();
@@ -54,7 +58,22 @@ public class Player {
 		//			setYDirection(0);
 		//			setXDirection(0);
 					colide =true;
-				}if(playerRect.x<0) //Prevents player to move back from start Point
+				
+				}
+				if(world.exits[i][j] && (playerRect.intersects(world.blocks[i][j]))){
+	//				playerRect.setLocation(0, 25);
+		//			world.levelNumber = 2;
+			//		world = null;
+				//	world = new World(2);
+					DungeonCrawlerGame.hitExit=true;
+//				DungeonCrawlerGame.newWorld(2);
+				//	this.world= World();
+					
+					// NEUES LEVEL LADEN!!!!
+				//	world.getLevel("level"+world.levelNumber+".txt");
+				}
+				
+				if(playerRect.x<0) //Prevents player to move back from start Point
 					playerRect.x=0;
 			}
 		
