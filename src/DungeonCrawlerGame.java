@@ -149,6 +149,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		if (p1.isHitExit()) {
 			currentLevel++;
+			if(currentLevel>3)
+				currentLevel =1;
             newWorld(currentLevel);
             p1.changestate();
 			}
