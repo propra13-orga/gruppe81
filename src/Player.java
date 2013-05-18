@@ -12,7 +12,7 @@ public class Player {
 	private Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
 	protected int xDirection, yDirection;
-	private boolean colide = false;
+	private boolean colide, hitExit = false;
 	
 	public Player(World world){
 		this.world = world;
@@ -36,6 +36,21 @@ public class Player {
 	}
 	public void update(){
 		move();
+		
+		
+	}
+	
+	public boolean isHitExit(){
+		return hitExit;
+	}
+	
+	public void changestate(){
+		if(hitExit){
+			hitExit = false;
+		}
+		
+		
+		;
 	}
 	
 	private void move(){
@@ -65,7 +80,9 @@ public class Player {
 		//			world.levelNumber = 2;
 			//		world = null;
 				//	world = new World(2);
-					DungeonCrawlerGame.hitExit=true;
+									
+					hitExit=true;
+					
 //				DungeonCrawlerGame.newWorld(2);
 				//	this.world= World();
 					

@@ -30,15 +30,16 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	// Game Variales
 	private Thread game;
 	private volatile boolean running = false;
+	private int currentLevel = 1;
 	
 	//Game Objects
 	World world;
 	Player p1;
 	MyKeyListener k1;
-	public static boolean hitExit;
+	private static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(){
-		world = new World(1);
+		world = new World(currentLevel);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
 		addKeyListener(k1);
@@ -90,6 +91,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		*/
 	} 
 	
+	public void changelevel(){
+		hitExit =true;
+		
+		
+	}
+	
 	public void newWorld(int levelNumber){
 		world = null;
 		world = new World(levelNumber);
@@ -137,6 +144,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 	}
 	
+	private void changestate(){
+		
+		
+		if (p1.isHitExit()) {
+			currentLevel++;
+            newWorld(currentLevel);
+            p1.changestate();
+			}
+		
+	}
+	;
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
@@ -171,10 +189,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			p1.update(); //Updating Player
 		//	requestFocus(true); //to be able to move the player
 			
-			if (hitExit) {
-	              newWorld(2);
-	              hitExit=false;
-				}
+			changestate();
 		}
 	}
 	
