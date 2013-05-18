@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -36,10 +35,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	World world;
 	Player p1;
 	MyKeyListener k1;
-	public static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(){
-		world = new World(1);
+		world = new World();
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
 		addKeyListener(k1);
@@ -91,17 +89,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		*/
 	} 
 	
-	public void newWorld(int levelNumber){
-		world = null;
-		world = new World(levelNumber);
-		p1 = null;
-		p1 = new Player(world);
-	}
-	
 	public void run(){
 		
 		long lastTime = System.nanoTime();
-		final double ns = 1000000000.0 /200.0; //Make the divisor smaller to increase the SPEED
+		final double ns = 1000000000.0 /60.0; //Make the divisor smaller to increase the SPEED
 		long timer =System.currentTimeMillis(); //Current time for FPS
 		double delta = 0;
 		int frames =0;
@@ -117,11 +108,6 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				updates ++;
 				delta--;
 			}
-	/*		if (hitExit) {
-              newWorld(2);
-              hitExit=false;
-			}
-	*/
 			gameRender();
 			paintScreen();
 			frames++;
@@ -142,11 +128,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		if(running && game !=null){
 			//Update state
 			if(k1.isKeyPressed(KeyEvent.VK_UP)){
-		//		if (!p1.checkForCollision())
-		//		{
+				if (!p1.checkForCollision())
+				{
 				p1.setYDirection(-1);
 				
-		//		}
+				}
 			}
 			else if(k1.isKeyPressed(KeyEvent.VK_DOWN)){
 				if (!p1.checkForCollision())
@@ -171,11 +157,6 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 			p1.update(); //Updating Player
 		//	requestFocus(true); //to be able to move the player
-			
-			if (hitExit) {
-	              newWorld(2);
-	              hitExit=false;
-				}
 		}
 	}
 	
@@ -228,7 +209,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	
 	//Start game method
 	
-	public synchronized void startGame(){  //Need to check performance if with synchronized is better than without?
+	private synchronized void startGame(){  //Need to check performance if with synchronized is better than without?
 		if(game==null  || ! running )
 		{
 			game = new Thread(this);
@@ -237,7 +218,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 	}
 	
-	public synchronized void stopGame(){   //Private or should I make it public, to call it from other class?
+	private synchronized void stopGame(){   //Private or should I make it public, to call it from other class?
 		if (running){
 			running = false;
 		}

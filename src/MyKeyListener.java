@@ -1,4 +1,3 @@
-
 import java.awt.event.*;
 
 public class MyKeyListener implements KeyListener {
@@ -18,7 +17,7 @@ public class MyKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		this.keys[e.getKeyCode()] = true; 
-		//System.out.println(e.getKeyCode());
+		System.out.println(e.getKeyCode());
 	}
 
 	@Override

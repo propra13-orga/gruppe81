@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -13,27 +12,23 @@ public class Player {
 	private Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
 	protected int xDirection, yDirection;
-	private boolean collide = false;
+	private boolean colide = false;
 	
 	public Player(World world){
 		this.world = world;
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
-		playerImg = new ImageIcon("mario.png").getImage();
+		playerImg = new ImageIcon("BoyRechts1.1.png").getImage();
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,world.BLOCKSIZE);
 	}
 	public  void setXDirection(int d){
-		if(!checkForCollision()){
 		xDirection =d;
 		yDirection =0;
-		}
 	}
 	
 	public void setYDirection(int d){
-		if(!checkForCollision()){
 		yDirection =d;
 		xDirection =0;
-		}
 	}
 	public void update(){
 		move();
@@ -50,7 +45,7 @@ public class Player {
 	}
 	
 	public boolean checkForCollision(){ //Checking for collision
-		collide =false;
+		colide =false;
 		for(int i=0;i<world.AWIDTH;i++){
 			for(int j=0;j<world.AHIGHT;j++){
 				if(world.isSolid[i][j] && (playerRect.intersects(world.blocks[i][j]))){
@@ -58,23 +53,8 @@ public class Player {
 					playerRect.y-=yDirection;
 		//			setYDirection(0);
 		//			setXDirection(0);
-					collide =true;
-				
-				}
-				if(world.exits[i][j] && (playerRect.intersects(world.blocks[i][j]))){
-	//				playerRect.setLocation(0, 25);
-		//			world.levelNumber = 2;
-			//		world = null;
-				//	world = new World(2);
-					DungeonCrawlerGame.hitExit=true;
-//				DungeonCrawlerGame.newWorld(2);
-				//	this.world= World();
-					
-					// NEUES LEVEL LADEN!!!!
-				//	world.getLevel("level"+world.levelNumber+".txt");
-				}
-				
-				if(playerRect.x<0) //Prevents player to move back from start Point
+					colide =true;
+				}if(playerRect.x<0) //Prevents player to move back from start Point
 					playerRect.x=0;
 			}
 		
@@ -88,7 +68,7 @@ public class Player {
 //		System.out.println(0);
 		}
 	*/	
-		return collide;
+		return colide;
 		
 	}
 	
