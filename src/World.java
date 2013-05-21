@@ -136,6 +136,13 @@ public void getLevel(String fileName) { //reading level from file
         					trap[i][j] = true;
         					finish[i][j] = false;
         					break;
+        		case '8': 	blockImage[i][j]= SMALLWALL;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =false;
+        					exits[i][j] = false;
+        					trap[i][j] = false;
+        					finish[i][j] = false;
+        					break;
         		case '9': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
