@@ -12,7 +12,7 @@ public class Player {
 	private Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
 	protected int xDirection, yDirection;
-	private boolean colide, hitExit = false;
+	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false;
 	
 	public Player(World world){
 		this.world = world;
@@ -44,6 +44,14 @@ public class Player {
 		return hitExit;
 	}
 	
+	public boolean isHitTrap(){
+		return hitTrap;
+	}
+	
+	public boolean isHitFinish(){
+		return hitFinish;
+	}
+
 	public void changestate(){
 		if(hitExit){
 			hitExit = false;
@@ -90,6 +98,14 @@ public class Player {
 				//	world.getLevel("level"+world.levelNumber+".txt");
 				}
 				
+				if(world.trap[i][j] && (playerRect.intersects(world.blocks[i][j]))){
+					hitTrap=true;
+				}
+				
+				if(world.finish[i][j] && (playerRect.intersects(world.blocks[i][j]))){
+					hitFinish=true;
+				}
+
 				if(playerRect.x<0) //Prevents player to move back from start Point
 					playerRect.x=0;
 			}
