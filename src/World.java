@@ -19,12 +19,14 @@ public class World {
 	private Image[][] blockImage;
 	public boolean[][] isSolid;
 	public boolean [][] exits;
+	public boolean [][] trap;
+	public boolean [][] finish;
 	public boolean [][] npc;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	
 	//Block images
-	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT; 
+	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAP; 
 	private int x=0, y=0;
 	
 
@@ -33,12 +35,15 @@ public class World {
 	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
 	 SMALLWALL = new ImageIcon("wall.png").getImage();
 	 EXIT =new ImageIcon("exit.gif").getImage();
+	 TRAP =new ImageIcon("trap.gif").getImage();
 	 this.levelNumber = levelNumber;
 	// WALL = new ImageIcon("wall.jpg").getImage();
 	// LEER = new ImageIcon("whiteBlock.gif").getImage();
 	 blocks = new Rectangle[AWIDTH][AHIGHT];
 	 blockImage = new Image [AWIDTH][AHIGHT];
 	 isSolid = new boolean[AWIDTH][AHIGHT];
+	 trap = new boolean[AWIDTH][AHIGHT];
+	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -107,16 +112,36 @@ public void getLevel(String fileName) { //reading level from file
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
                 			exits[i][j] = false;
+            				trap[i][j] = false;
+            				finish[i][j] = false;
                 			break;
         		case '0': 	blockImage[i][j]=SMALLWHITE;
             				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
             				isSolid[i][j] =false;
             				exits[i][j] = false;
+            				trap[i][j] = false;
+            				finish[i][j] = false;
             				break;
         		case '2': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
 							exits[i][j] = true;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							break;
+        		case '3': 	blockImage[i][j]=TRAP;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =false;
+        					exits[i][j] = false;
+        					trap[i][j] = true;
+        					finish[i][j] = false;
+        					break;
+        		case '9': 	blockImage[i][j]=EXIT;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = true;
 							break;
 				default:{}
         		}

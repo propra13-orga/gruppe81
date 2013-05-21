@@ -36,9 +36,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	World world;
 	Player p1;
 	MyKeyListener k1;
+	private MainWindow mainWindow;
 	private static boolean hitExit;
 	//Constructor
-	public DungeonCrawlerGame(){
+	public DungeonCrawlerGame(MainWindow mainWindow){
+		this.mainWindow = mainWindow;
 		world = new World(currentLevel);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
@@ -128,6 +130,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
               hitExit=false;
 			}
 	*/
+			if (p1.isHitFinish()) {
+				mainWindow.showFinish();
+			}
+			if (p1.isHitTrap()) {
+				mainWindow.showDCMenue();
+			}
 			gameRender();
 			paintScreen();
 			frames++;
