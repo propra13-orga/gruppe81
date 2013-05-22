@@ -18,8 +18,8 @@ public class Player {
 		this.world = world;
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
-		playerImg = new ImageIcon("mario.png").getImage();
-		playerRect = new Rectangle(1,25,world.BLOCKSIZE,world.BLOCKSIZE);
+		playerImg = new ImageIcon("Boyrechts0.0.png").getImage();
+		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
 	}
 	public  void setXDirection(int d){
 		if(!checkForCollision()){
