@@ -26,7 +26,7 @@ public class World {
 	public final int BLOCKSIZE=25;
 	
 	//Block images
-	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAP; 
+	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
 	private int x=0, y=0;
 	
 
@@ -34,9 +34,11 @@ public class World {
 	 
 //	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
 	 SMALLWHITE = new ImageIcon("Boden2525.png").getImage();
-	 SMALLWALL = new ImageIcon("wall.png").getImage();
+	 SMALLWALL = new ImageIcon("Wall2525.png").getImage();
 	 EXIT =new ImageIcon("Door2550.png").getImage();
-	 TRAP =new ImageIcon("Falle2525.png").getImage();
+	 TRAPH =new ImageIcon("Falle_mit_Hintergrund_Oben2525.png").getImage();
+	 TRAPL =new ImageIcon("Falle_mit_Hintergrund_Unten2525.png").getImage();
+	 SPIDER =new ImageIcon("Spinne_mit_Hintergrund2525.png").getImage();
 	 this.levelNumber = levelNumber;
 	// WALL = new ImageIcon("wall.jpg").getImage();
 	// LEER = new ImageIcon("whiteBlock.gif").getImage();
@@ -130,13 +132,27 @@ public void getLevel(String fileName) { //reading level from file
 							trap[i][j] = false;
 							finish[i][j] = false;
 							break;
-        		case '3': 	blockImage[i][j]=TRAP;
+        		case '3': 	blockImage[i][j]=TRAPH;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =false;
         					exits[i][j] = false;
         					trap[i][j] = true;
         					finish[i][j] = false;
         					break;
+        		case '4': 	blockImage[i][j]=TRAPL;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = true;
+							finish[i][j] = false;
+							break;
+        		case '5': 	blockImage[i][j]=SPIDER;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = true;
+							finish[i][j] = false;
+							break;
         		case '8': 	blockImage[i][j]= SMALLWALL;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =false;
