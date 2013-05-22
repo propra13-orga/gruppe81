@@ -32,10 +32,11 @@ public class World {
 
  public World(int levelNumber){
 	 
-	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
+//	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
+	 SMALLWHITE = new ImageIcon("Boden2525.png").getImage();
 	 SMALLWALL = new ImageIcon("wall.png").getImage();
-	 EXIT =new ImageIcon("exit.gif").getImage();
-	 TRAP =new ImageIcon("trap.gif").getImage();
+	 EXIT =new ImageIcon("Door2550.png").getImage();
+	 TRAP =new ImageIcon("Falle2525.png").getImage();
 	 this.levelNumber = levelNumber;
 	// WALL = new ImageIcon("wall.jpg").getImage();
 	// LEER = new ImageIcon("whiteBlock.gif").getImage();
