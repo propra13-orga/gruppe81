@@ -107,6 +107,7 @@ public class MainWindow extends JFrame{
 //        gw.newWorld(1);
         gw.startGame();
         gw.requestFocus();
+        pack();
     }
     
 	public static void main(String[] args) {
