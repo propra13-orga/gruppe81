@@ -3,7 +3,7 @@ import java.awt.Image;
 import java.awt.*;
 
 
-abstract class GameObject	
+abstract class GameObject extends Rectangle
 	{
 //=====================================_____Class____Start
     private boolean alive = false,  explode = false;
@@ -11,6 +11,8 @@ abstract class GameObject
     private int live;
     private static Image imageBuffer;
     private static Graphics graphicsBuffer;
+    private boolean solid = false;
+    
 //    private int width=1000, height=600;                  
 //
 //
@@ -41,8 +43,8 @@ abstract class GameObject
     public void setX (int x)    { this.x=x;  }
     public void setY (int y)    { this.y=y;  }
 
-    public int getX ()          { return x;  }
-    public int getY ()          { return y;  }
+    public double getX ()          { return x;  }
+    public double getY ()          { return y;  }
 //---------Сoordinates--Ende
 //
 //

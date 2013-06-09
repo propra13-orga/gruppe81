@@ -29,6 +29,7 @@ public class World {
 	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
 	private int x=0, y=0;
 	
+	
 
  public World(int levelNumber){
 	 

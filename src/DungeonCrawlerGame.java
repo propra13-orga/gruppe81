@@ -36,6 +36,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	World world;
 	Player p1;
 	MyKeyListener k1;
+	NPC mob1;
 	private MainWindow mainWindow;
 	private static boolean hitExit;
 	//Constructor
@@ -44,6 +45,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(currentLevel);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
+		mob1 = new NPC( 250, 250);
 		addKeyListener(k1);
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -120,7 +122,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			
 			delta+= (now-lastTime)/ns;
 			lastTime = now;
-			while (delta >=1){
+			if (delta >=1){
 				gameUpdate();
 				updates ++;
 				delta--;
@@ -168,35 +170,55 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
+			p1.setYDirection(0);
+			p1.setXDirection(0);
 			if(k1.isKeyPressed(KeyEvent.VK_UP)){
-				if (!p1.checkForCollision())
-				{
-				p1.setYDirection(-1);
-				
-				}
+				p1.setYDirection(-1);				
 			}
 			else if(k1.isKeyPressed(KeyEvent.VK_DOWN)){
-				if (!p1.checkForCollision())
-				{
 				p1.setYDirection(+1);
-				}
 			}else{			
-				p1.setYDirection(0);
 				if(k1.isKeyPressed(KeyEvent.VK_LEFT)){
-					if (!p1.checkForCollision())
-					{
 						p1.setXDirection(-1);
-					}
 				}else if(k1.isKeyPressed(KeyEvent.VK_RIGHT)){
-					if (!p1.checkForCollision())
-					{
 						p1.setXDirection(+1);
-					}
-				}else{			
-					p1.setXDirection(0);
-					}
+				}
 			}
-			p1.update(); //Updating Player
+		p1.update(); //Updating Player
+		checkForCollision();
+		mob1.update();
+//		if (!checkForCollision())
+//		{
+//			p1.update(); //Updating Player
+//		}
+//			if(k1.isKeyPressed(KeyEvent.VK_UP)){
+//				if (!checkForCollision())
+//				{
+//				p1.setYDirection(-1);				
+//				}
+//			}
+//			else if(k1.isKeyPressed(KeyEvent.VK_DOWN)){
+//				if (!checkForCollision())
+//				{
+//				p1.setYDirection(+1);
+//				}
+//			}else{			
+//				p1.setYDirection(0);
+//				if(k1.isKeyPressed(KeyEvent.VK_LEFT)){
+//					if (!checkForCollision())
+//					{
+//						p1.setXDirection(-1);
+//					}
+//				}else if(k1.isKeyPressed(KeyEvent.VK_RIGHT)){
+//					if (!checkForCollision())
+//					{
+//						p1.setXDirection(+1);
+//					}
+//				}else{			
+//					p1.setXDirection(0);
+//					}
+//			}
+//			p1.update(); //Updating Player
 		//	requestFocus(true); //to be able to move the player
 			
 			changestate();
@@ -227,8 +249,69 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void draw (Graphics g){
 		world.draw(g);
 		p1.draw(g); //Drawing Player
+		mob1.draw(g);
 		
 	}
+
+	public boolean checkForCollision(){ //Checking for collision
+		boolean colide = false;
+		for(int i=0;i<world.AWIDTH;i++){
+			for(int j=0;j<world.AHIGHT;j++){
+				if(world.isSolid[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+					System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
+					p1.playerRect.x-=p1.getXDirection();
+					p1.playerRect.y-=p1.getYDirection();
+					System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
+					p1.setYDirection(0);
+					p1.setXDirection(0);
+					colide =true;
+				
+				}
+				if(world.exits[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+	//				playerRect.setLocation(0, 25);
+		//			world.levelNumber = 2;
+			//		world = null;
+				//	world = new World(2);
+									
+					p1.setHitExit(true);
+					
+//				DungeonCrawlerGame.newWorld(2);
+				//	this.world= World();
+					
+					// NEUES LEVEL LADEN!!!!
+				//	world.getLevel("level"+world.levelNumber+".txt");
+				}
+				
+//				if(world.checkpoint[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+//					p1.setCheckpoint(currentLevel,i,j);
+//				}
+
+				if(world.trap[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+					p1.setHitTrap(true);
+				}
+				
+				if(world.finish[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+					p1.setHitFinish(true);
+				}
+
+				if(p1.playerRect.x<0) //Prevents player to move back from start Point
+					p1.playerRect.x=0;
+			}
+		
+		}
+	//	playerRect.x-=1;
+	//	playerRect.y-=1;
+	/*	if (colide) {
+		System.out.println("Collision DETECTED at"+playerRect.x +":"+playerRect.y);
+		}
+		else {
+//		System.out.println(0);
+		}
+	*/	
+		return colide;
+		
+	}
+	
 	
 	private void paintScreen(){
 		Graphics g;
