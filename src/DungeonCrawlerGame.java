@@ -296,8 +296,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 				if(p1.playerRect.x<0) //Prevents player to move back from start Point
 					p1.playerRect.x=0;
+				
 			}
-		
+			if(p1.playerRect.intersects(mob1.getBounds())){
+				System.out.println("Collision DETECTED PLAYER/MOB");
+				
+					
+				
+			}
 		}
 	//	playerRect.x-=1;
 	//	playerRect.y-=1;

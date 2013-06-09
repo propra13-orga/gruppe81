@@ -14,6 +14,7 @@ public class NPC extends GameObject implements Entity {
 	this.picPath = picPath;
 		this.x=x;
 		this.y=y;
+		setBounds((int)x, (int)y, 25, 25);
 	}
 	
 	@Override
