@@ -36,7 +36,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	World world;
 	Player p1;
 	MyKeyListener k1;
-//	NPC mob1;
+	NPC mob1;
 	private MainWindow mainWindow;
 	private static boolean hitExit;
 	//Constructor
@@ -45,7 +45,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(currentLevel);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
-//		mob1 = new NPC( 250, 250);
+		mob1 = new NPC( 250, 250);
 		addKeyListener(k1);
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -187,7 +187,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		p1.update(); //Updating Player
 		checkForCollision();
-//		mob1.update();
+		mob1.update();
 //		if (!checkForCollision())
 //		{
 //			p1.update(); //Updating Player
@@ -250,7 +250,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void draw (Graphics g){
 		world.draw(g);
 		p1.draw(g); //Drawing Player
-//		mob1.draw(g);
+		mob1.draw(g);
 		
 	}
 
@@ -299,12 +299,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					p1.playerRect.x=0;
 				
 			}
-	//		if(p1.playerRect.intersects(mob1.getBounds())){
-	//			System.out.println("Collision DETECTED PLAYER/MOB");
-	//			
-	//				
-	//			
-	//		}
+			if(p1.playerRect.intersects(mob1.getBounds())){
+				System.out.println("Collision DETECTED PLAYER/MOB");
+				
+					
+				
+			}
 		}
 	//	playerRect.x-=1;
 	//	playerRect.y-=1;

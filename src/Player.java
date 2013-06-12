@@ -17,6 +17,7 @@ public class Player {
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
 	private boolean alive=true;	
+	private int playerMoney;	
 	private int playerLife;	
 	private long playerCoolOf;	
 	private int playerLifepoints;	
@@ -47,6 +48,14 @@ public class Player {
 
 	public void setAlive(boolean alive){
 		this.alive=alive;
+	}
+
+	public int getPlayerMoney(){
+		return playerMoney;
+	}
+
+	public void changePlayerMoney(int playerMoneyChange){
+		this.playerMoney = this.playerMoney+playerMoneyChange;
 	}
 
 	public int getPlayerLifepoints(){
@@ -251,6 +260,10 @@ public class Player {
 			g.setColor(Color.red);
 			g.fill3DRect(440, 6, 7, 10, true);
 		}
+		g.setColor(Color.yellow);
+		g.fill3DRect(454, 5, 50, 12, true);
+		g.setColor(Color.black);
+		g.drawString("¥"+playerMoney, 460, 15);
 		/*
 		if((xDirection!=0) || (yDirection!=0)){
 			g.drawImage(playerImgGO, playerRect.x, playerRect.y, null);
