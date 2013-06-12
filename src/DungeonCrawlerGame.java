@@ -300,6 +300,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				
 			}
 			if(p1.playerRect.intersects(mob1.getBounds())){
+				p1.changePlayerLifepoints(-12,250000000);
 				System.out.println("Collision DETECTED PLAYER/MOB");
 				
 					
