@@ -51,6 +51,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		requestFocus(true);
+		
 		//Handles users key inputs
 	/*	addKeyListener(new KeyAdapter() {
 			public void keyPressed (KeyEvent e){
@@ -135,7 +136,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if (p1.isHitFinish()) {
 				mainWindow.showFinish();
 			}
-			if (p1.isHitTrap()) {
+			if (!p1.isAlive()) {
 				mainWindow.showDCMenue();
 			}
 			gameRender();
@@ -287,7 +288,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //				}
 
 				if(world.trap[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
-					p1.setHitTrap(true);
+					p1.changePlayerLifepoints(-12,250000000);
 				}
 				
 				if(world.finish[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
