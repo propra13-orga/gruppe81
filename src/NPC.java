@@ -9,7 +9,7 @@ public class NPC extends GameObject implements Entity {
 	private Image pic = new ImageIcon("mario.png").getImage();
 	private double x, y;
 	boolean solid = true;
-	NPC(double x, double y){
+	NPC(double x,  double  y){
 		
 	this.picPath = picPath;
 		this.x=x;
@@ -51,23 +51,7 @@ public class NPC extends GameObject implements Entity {
 		return y;
 	}
 
-	@Override
-	void ladenImage(Object... args) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	void erase(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	Image paint(Graphics g) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	void explode(boolean explode) {

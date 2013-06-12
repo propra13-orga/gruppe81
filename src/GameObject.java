@@ -7,27 +7,34 @@ abstract class GameObject extends Rectangle
 	{
 //=====================================_____Class____Start
     private boolean alive = false,  explode = false;
-    private int x,y;
+    private double x,y;
+    private boolean solid;
+    private Image Bild;
+    
     private int live;
     private static Image imageBuffer;
     private static Graphics graphicsBuffer;
-    private boolean solid = false;
+   
     
 //    private int width=1000, height=600;                  
 //
 //
 //    
-    public GameObject ()       // Construktor  !!!!!!!
-    {
-    this.alive = true;  
+    public GameObject (){	// Construktor  !!!!!!!
+    this.alive = true; 
+    this.x =x;
+    this.y= y;
+    this.Bild = Bild;
+    this.solid = solid;
+    
     }  
 
 //    
 //    
 //+++++++++Graphics
-    abstract void ladenImage (Object ... args);         // ABSTRACT  Methode fur Image aufzuladen  !!!!!!!
-    abstract void erase (Graphics g);                  // ABSTRACT  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    abstract Image paint (Graphics g);                // ABSTRACT  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//  abstract void ladenImage (Object ... args);         // ABSTRACT  Methode fur Image aufzuladen  !!!!!!!
+//    abstract void erase (Graphics g);                  // ABSTRACT  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//  abstract Image paint (Graphics g);                // ABSTRACT  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 //    public Image pushImage (Image nextImage)     
 //	{

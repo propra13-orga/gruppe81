@@ -8,12 +8,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
+	
+
 
 
 public class World {
 
+	private LinkedList<NPC> n = new LinkedList<NPC>();
+	
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
@@ -25,8 +30,10 @@ public class World {
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	
+	public Wall walls[][];
+	boolean sol = true;
 	//Block images
-	private Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
 	private int x=0, y=0;
 	
 	
@@ -49,6 +56,7 @@ public class World {
 	 trap = new boolean[AWIDTH][AHIGHT];
 	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
+	 walls = new Wall[AWIDTH][AHIGHT];
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
 	 
@@ -69,6 +77,9 @@ public void draw(Graphics g){
 	for(int i=0;i <AWIDTH;i++){
 		for(int j=0;j<AHIGHT; j++){
 			g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
+			if (walls[i][j]!=null) {
+				walls[i][j].draw(g);
+			}
 		}
 	}
 
@@ -112,13 +123,14 @@ public void getLevel(String fileName) { //reading level from file
         		
         		
         		switch (line.charAt(j)){
-        		case '1': 	blockImage[i][j]= SMALLWALL;
+        		case '1': 	walls[i][j] = new Wall(x, y, sol);
+        				    blockImage[i][j]= SMALLWALL;
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
                 			exits[i][j] = false;
             				trap[i][j] = false;
             				finish[i][j] = false;
-                			break;
+            				break;
         		case '0': 	blockImage[i][j]=SMALLWHITE;
             				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
             				isSolid[i][j] =false;

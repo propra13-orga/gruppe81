@@ -45,7 +45,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(currentLevel);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
-		mob1 = new NPC( 250, 250);
+		mob1 = new NPC( 250, 26);
 		addKeyListener(k1);
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
