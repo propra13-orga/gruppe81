@@ -19,7 +19,7 @@ public class Controller {
 		for (int i=0;i<e.size();i++){
 			tempEnt = e.get(i);
 			tempEnt.update();
-			if(tempEnt.getX()>1100 || tempEnt.getY()>650)
+			if(tempEnt.getX()>1100 || tempEnt.getY()>650 || tempEnt.getX()<0 || tempEnt.getY()<0)
 				removeEntity(tempEnt);
 		}
 	}

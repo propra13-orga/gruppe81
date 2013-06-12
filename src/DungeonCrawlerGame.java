@@ -180,15 +180,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			p1.setYDirection(0);
 			p1.setXDirection(0);
 			if(k1.isKeyPressed(KeyEvent.VK_UP)){
-				p1.setYDirection(-1);				
+				p1.setYDirection(-1);
+				p1.lastDirection =3;
 			}
 			else if(k1.isKeyPressed(KeyEvent.VK_DOWN)){
 				p1.setYDirection(+1);
+				p1.lastDirection =1;
 			}else{			
 				if(k1.isKeyPressed(KeyEvent.VK_LEFT)){
 						p1.setXDirection(-1);
+						p1.lastDirection =2;
 				}else if(k1.isKeyPressed(KeyEvent.VK_RIGHT)){
-						p1.setXDirection(+1);
+						p1.setXDirection(+1);       
+						p1.lastDirection =0;
 				}
 			}
 			if (k1.isKeyPressed(KeyEvent.VK_SPACE)){

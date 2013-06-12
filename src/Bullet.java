@@ -7,12 +7,14 @@ import javax.swing.ImageIcon;
 public class Bullet extends GameObject implements Entity {
 		double x,y;
 		Player p;
+		int direction;
 		private Image pic = new ImageIcon("bullet.gif").getImage();
 	public Bullet(double x, double y, Player p){
 		//if(p1.lastDirection==0 )
 		this.x = x;
 		this.y = y;
 		this.p =p;
+		this.direction=p.lastDirection;
 		setBounds((int)x,(int) y  ,16,16	);
 		
 		
@@ -24,12 +26,22 @@ public class Bullet extends GameObject implements Entity {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		x+=1.2;
-		setBounds((int)x,(int) y-10 ,16,16	);
-		
-		
+		switch(direction){
+		case 0:	x+=1.2;
+				setBounds((int)x,(int) y-10 ,16,16	);
+				break;
+		case 1:	y+=1.2;
+				setBounds((int)x,(int) y-10 ,16,16	);
+				break;
+		case 2:	x-=1.2;
+				setBounds((int)x,(int) y-10 ,16,16	);
+				break;
+		case 3:	y-=1.2;
+				setBounds((int)x,(int) y-10 ,16,16	);
+				break;		
+		default:{}
+		}
 	}
-
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
