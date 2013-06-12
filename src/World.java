@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 
 public class World {
 
-	private LinkedList<NPC> n = new LinkedList<NPC>();
+	private LinkedList<Bullet> b = new LinkedList<Bullet>();
 	
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
@@ -60,6 +60,8 @@ public class World {
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
 	 
+	 
+	 
  }
   
  
@@ -72,6 +74,8 @@ private void loadArrays(){
 }
 
 public void draw(Graphics g){
+	
+	
 	//g.setColor(Color.RED);
 	//g.drawString("TEST DRAW STRING", 100, 250);
 	for(int i=0;i <AWIDTH;i++){
@@ -82,7 +86,7 @@ public void draw(Graphics g){
 			}
 		}
 	}
-
+	
 }
 
   /*
@@ -124,7 +128,7 @@ public void getLevel(String fileName) { //reading level from file
         		
         		switch (line.charAt(j)){
         		case '1': 	walls[i][j] = new Wall(x, y, sol);
-        				    blockImage[i][j]= SMALLWALL;
+        				 //   blockImage[i][j]= SMALLWALL;
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
                 			exits[i][j] = false;

@@ -9,6 +9,8 @@ public class NPC extends GameObject implements Entity {
 	private Image pic = new ImageIcon("mario.png").getImage();
 	private double x, y;
 	boolean solid = true;
+	private int stop=300;
+	private int direction =0;
 	NPC(double x,  double  y){
 		
 	this.picPath = picPath;
@@ -19,13 +21,26 @@ public class NPC extends GameObject implements Entity {
 	
 	@Override
 	public void update() {
-		// TODO 
-		
-		if(x<300){
-			x+=1;
-		}else{
-				x=250;
+		// TODO Update NPC state
+		setBounds((int)x, (int)y, 25, 25);
+		if(direction==0){
+				if(x<500){
+				x++;
+				}else{
+					direction =1;
+				}
+		}else{ 
+			if(x>200){
+				x--;
+			}else{
+				direction =0;
 			}
+			
+				
+			}
+			
+			
+		
 				
 		
 		

@@ -37,6 +37,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	Player p1;
 	MyKeyListener k1;
 	NPC mob1;
+	Bullet b;
+	private Controller c;
 	private MainWindow mainWindow;
 	private static boolean hitExit;
 	//Constructor
@@ -46,7 +48,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
 		mob1 = new NPC( 250, 26);
+		b = new Bullet(p1.getX(), p1.getY(), p1);
 		addKeyListener(k1);
+		c = new Controller(this);
+		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
 		setFocusable(true);
@@ -185,9 +190,16 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 						p1.setXDirection(+1);
 				}
 			}
+			if (k1.isKeyPressed(KeyEvent.VK_SPACE)){
+				c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+			}
+			
 		p1.update(); //Updating Player
 		checkForCollision();
 		mob1.update();
+		c.update();	
+		
+		
 //		if (!checkForCollision())
 //		{
 //			p1.update(); //Updating Player
@@ -250,7 +262,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void draw (Graphics g){
 		world.draw(g);
 		p1.draw(g); //Drawing Player
+		c.draw(g);
 		mob1.draw(g);
+		
 		
 	}
 

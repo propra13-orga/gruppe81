@@ -7,12 +7,13 @@ import javax.swing.ImageIcon;
 
 
 
-public class Player {
+public class Player extends GameObject {
 
 	private World world;
 	public Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
-	protected int xDirection, yDirection, lastDirection;
+	double xDirection, yDirection;
+	protected int  lastDirection;
 	
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
@@ -94,7 +95,7 @@ public class Player {
 	}
 	
 	
-	public  void setXDirection(int d){
+	public  void setXDirection(double d){
 //		if(!checkForCollision()){
 		
 		xDirection =d;
@@ -102,18 +103,18 @@ public class Player {
 //		}
 	}
 	
-	public void setYDirection(int d){
+	public void setYDirection(double d){
 //		if(!checkForCollision()){
-		yDirection =d;
+		yDirection =(int) d;
 		xDirection =0;
 //		}
 	}
 
-	public int getXDirection(){
+	public double getXDirection(){
 		return xDirection;
 	}
 
-	public int getYDirection(){
+	public double getYDirection(){
 		return yDirection;
 	}
 
@@ -270,6 +271,12 @@ public class Player {
 		}else
 			g.drawImage(playerImgStop, playerRect.x, playerRect.y, null);
 	*/
+	}
+
+	@Override
+	void explode(boolean explode) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
