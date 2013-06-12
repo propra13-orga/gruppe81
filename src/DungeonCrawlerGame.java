@@ -105,8 +105,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void newWorld(int levelNumber){
 		world = null;
 		world = new World(levelNumber);
-		p1 = null;
-		p1 = new Player(world);
+		p1.setWorld(world);
+//		p1 = null;
+//		p1 = new Player(world);
 	}
 	
 	public void run(){

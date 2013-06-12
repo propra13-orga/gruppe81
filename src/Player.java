@@ -42,6 +42,11 @@ public class Player {
 		playerManapointsMax = 100;
 	}
 
+	public void setWorld(World world){
+		this.world = world;
+		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
+	}
+
 	public boolean isAlive(){
 		return alive;
 	}
