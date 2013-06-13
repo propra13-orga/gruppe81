@@ -8,16 +8,18 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
+
 
 import javax.swing.ImageIcon;
+
+import Object.EntityDestroyable;
 	
 
 
 
 public class World {
 
-	private LinkedList<Bullet> b = new LinkedList<Bullet>();
+	
 	
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
@@ -29,16 +31,21 @@ public class World {
 	public boolean [][] npc;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
+	NPC mob;
 	
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
 	private int x=0, y=0;
-	
+	DungeonCrawlerGame game;
+	Controller c;
 	
 
- public World(int levelNumber){
+ public World(int levelNumber, DungeonCrawlerGame game){
+
+	 this.game = game;
+
 	 
 //	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
 	 SMALLWHITE = new ImageIcon("Boden2525.png").getImage();
@@ -59,19 +66,19 @@ public class World {
 	 walls = new Wall[AWIDTH][AHIGHT];
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
-	 
+	
 	 
 	 
  }
   
  
  
-private void loadArrays(){
+ private void loadArrays(){
 
 		
 			
 	
-}
+ }
 
 public void draw(Graphics g){
 	
@@ -80,6 +87,7 @@ public void draw(Graphics g){
 	//g.drawString("TEST DRAW STRING", 100, 250);
 	for(int i=0;i <AWIDTH;i++){
 		for(int j=0;j<AHIGHT; j++){
+			if(blockImage[i][j]!=null)
 			g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
 			if (walls[i][j]!=null) {
 				walls[i][j].draw(g);
@@ -184,10 +192,20 @@ public void getLevel(String fileName) { //reading level from file
 							trap[i][j] = false;
 							finish[i][j] = true;
 							break;
-				default:{}
+				
+        		case '7':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							log("X="+x+" Y="+y);
+							game.addNPC(x, y);
+							break;
+        		default:{}
         		}
         		
-        		
+        	
         		
         		
                 x=x+BLOCKSIZE;
@@ -210,5 +228,7 @@ public void getLevel(String fileName) { //reading level from file
    
     
 }
- 
+private void log(String s){
+	System.out.println(s);
+}
 }

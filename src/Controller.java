@@ -1,46 +1,78 @@
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import Object.EntityDestroyable;
+import Object.EntityMovable;
+
 
 public class Controller {
 
 	
-	LinkedList<Entity> e = new LinkedList<Entity>();
+	LinkedList<EntityDestroyable> ed = new LinkedList<EntityDestroyable>();
+	LinkedList<EntityMovable> em = new LinkedList<EntityMovable>();
 	
-	Entity tempEnt;
-	
+	EntityDestroyable tempEntDe;
+	EntityMovable tempEntMov;
+	DungeonCrawlerGame game;
 	public Controller(DungeonCrawlerGame game){
 		
+		this.game=game;
 		
 		
 	}
 	
 	public void update(){
-		for (int i=0;i<e.size();i++){
-			tempEnt = e.get(i);
-			tempEnt.update();
-			if(tempEnt.getX()>1100 || tempEnt.getY()>650 || tempEnt.getX()<0 || tempEnt.getY()<0)
-				removeEntity(tempEnt);
+		//Entity Destroyable
+		for (int i=0;i<ed.size();i++){
+			tempEntDe = ed.get(i);
+			if(tempEntDe!=null){
+			tempEntDe.update();
+			if(tempEntDe.getX()>1100 || tempEntDe.getY()>650 || tempEntDe.getX()<0 || tempEntDe.getY()<0)
+				removeEntity(tempEntDe);
+			}
+		}
+		//Entity Movable
+		for (int i=0;i<em.size();i++){
+			tempEntMov = em.get(i);
+			tempEntMov.update();
+			if(tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0)
+				removeEntity(tempEntMov);
 		}
 	}
 	
 	public void draw(Graphics g){
-		for (int i=0;i<e.size();i++){
-			tempEnt = e.get(i);
-			tempEnt.draw(g);
+		//Entity Destroyable
+		for (int i=0;i<ed.size();i++){
+			tempEntDe = ed.get(i);
+			tempEntDe.draw(g);
+			}
+		//Entity Movable
+		for (int i=0;i<em.size();i++){
+			tempEntMov = em.get(i);
+			tempEntMov.draw(g);
 			}
 	}
 
-	public void addEntity(Entity ent) {
-		e.add(ent);
+	public void addEntity(EntityDestroyable ent) {
+		ed.add(ent);
 		
 	
 	}
 
-	public void removeEntity(Entity ent){
-		e.remove(ent);
+	public void removeEntity(EntityDestroyable ent){
+		ed.remove(ent);
 	
 	}
-
+	
+	public void addEntity(EntityMovable ent) {
+		em.add(ent);
+		
+	
+	}
+	
+	public void removeEntity(EntityMovable ent){
+		em.remove(ent);
+	
+	}
 }
 

@@ -3,17 +3,26 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import Object.EntityMovable;
 
-public class Bullet extends GameObject implements Entity {
+
+public class Bullet extends GameObject implements EntityMovable {
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7491567929155038278L;
 		double x,y;
 		Player p;
+		DungeonCrawlerGame game;
 		int direction;
 		private Image pic = new ImageIcon("bullet.gif").getImage();
-	public Bullet(double x, double y, Player p){
+		
+	public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )
 		this.x = x;
 		this.y = y;
 		this.p =p;
+		this.game = game;
 		this.direction=p.lastDirection;
 		setBounds((int)x,(int) y  ,16,16	);
 		
@@ -41,7 +50,22 @@ public class Bullet extends GameObject implements Entity {
 				break;		
 		default:{}
 		}
+//	checkforcollision();
+	
 	}
+	
+	/*
+	private void checkforcollision() {
+		// TODO checking collision Bullet/ Mob
+		if(game.mob1!=null)
+			if(this.intersects(game.mob1)){
+				game.mob1 = null;
+			}
+		}
+
+*/
+
+
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
@@ -77,8 +101,11 @@ public class Bullet extends GameObject implements Entity {
 	@Override
 	void explode(boolean explode) {
 		// TODO Auto-generated method stub
-		pic = null;
+		
 		
 	}
-
+	
+	private void log(String s){
+		System.out.println(s);
+	}
 }

@@ -10,7 +10,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import Object.EntityDestroyable;
+
 
 
 public class DungeonCrawlerGame extends JPanel implements Runnable {
@@ -31,7 +34,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private Thread game;
 	private volatile boolean running = false;
 	private int currentLevel = 1;
-	
+	double delta = 0; //Time var
 	//Game Objects
 	World world;
 	Player p1;
@@ -40,17 +43,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	Bullet b;
 	private Controller c;
 	private MainWindow mainWindow;
-	private static boolean hitExit;
+	// private static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(MainWindow mainWindow){
 		this.mainWindow = mainWindow;
-		world = new World(currentLevel);
+		c = new Controller(this);
+		world = new World(currentLevel,  this);
 		p1 = new Player(world);
 		this.k1 = new MyKeyListener(); 
-		mob1 = new NPC( 250, 26);
-		b = new Bullet(p1.getX(), p1.getY(), p1);
+		// mob1 = new NPC( 250, 26, this, p1);
+		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		addKeyListener(k1);
-		c = new Controller(this);
+		
+		
 		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -102,14 +107,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	} 
 	
 	public void changelevel(){
-		hitExit =true;
+	//	hitExit =true;
 		
 		
 	}
 	
 	public void newWorld(int levelNumber){
 		world = null;
-		world = new World(levelNumber);
+		world = new World(levelNumber, this);
 		p1.setWorld(world);
 //		p1 = null;
 //		p1 = new Player(world);
@@ -120,7 +125,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		long lastTime = System.nanoTime();
 		final double ns = 1000000000.0 /200.0; //Make the divisor smaller to increase the SPEED
 		long timer =System.currentTimeMillis(); //Current time for FPS
-		double delta = 0;
+		// double delta = 0;
 		int frames =0;
 		int updates =0;
 		
@@ -173,7 +178,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		
 	}
-	;
+	
+	private void shoot(){
+		
+		if(c.em.size()< 500)
+			c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+	}
+	
+	
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
@@ -196,12 +208,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				}
 			}
 			if (k1.isKeyPressed(KeyEvent.VK_SPACE)){
-				c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+				shoot();
 			}
 			
 		p1.update(); //Updating Player
 		checkForCollision();
-		mob1.update();
+//		if(mob1!=null)
+//		mob1.update();
 		c.update();	
 		
 		
@@ -268,7 +282,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world.draw(g);
 		p1.draw(g); //Drawing Player
 		c.draw(g);
-		mob1.draw(g);
+//		if(mob1!=null)
+//		mob1.draw(g);
 		
 		
 	}
@@ -288,18 +303,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				
 				}
 				if(world.exits[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
-	//				playerRect.setLocation(0, 25);
-		//			world.levelNumber = 2;
-			//		world = null;
-				//	world = new World(2);
+	
 									
 					p1.setHitExit(true);
 					
-//				DungeonCrawlerGame.newWorld(2);
-				//	this.world= World();
-					
-					// NEUES LEVEL LADEN!!!!
-				//	world.getLevel("level"+world.levelNumber+".txt");
+
 				}
 				
 //				if(world.checkpoint[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
@@ -318,14 +326,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					p1.playerRect.x=0;
 				
 			}
-			if(p1.playerRect.intersects(mob1.getBounds())){
+			if(p1.playerRect.intersects(c.tempEntDe.getBounds())  ){
 				p1.changePlayerLifepoints(-12,250000000);
 				System.out.println("Collision DETECTED PLAYER/MOB");
-				
+				}
 					
-				
+			
 			}
-		}
+		
+		return colide;	
+	}
+	
 	//	playerRect.x-=1;
 	//	playerRect.y-=1;
 	/*	if (colide) {
@@ -335,9 +346,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //		System.out.println(0);
 		}
 	*/	
-		return colide;
 		
-	}
+		
+	
 	
 	
 	private void paintScreen(){
@@ -353,6 +364,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 		
 		
+	}
+	
+	public void addNPC(double x, double y){
+		c.addEntity(new NPC(x, y, this, p1));
 	}
 	@Override
 	public void addNotify(){

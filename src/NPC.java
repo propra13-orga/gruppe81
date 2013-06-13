@@ -1,46 +1,57 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
 
-public class NPC extends GameObject implements Entity {
+import Object.EntityDestroyable;
+
+
+public class NPC extends GameObject implements EntityDestroyable {
 	String picPath;
 	private Image pic = new ImageIcon("mario.png").getImage();
-	private double x, y;
+	 double x, y;
 	boolean solid = true;
-	private int stop=300;
+	double tempx;
 	private int direction =0;
-	NPC(double x,  double  y){
-		
-	this.picPath = picPath;
+	Player p;
+	Random r;
+	DungeonCrawlerGame game;
+	NPC(double x,  double  y, DungeonCrawlerGame game, Player p){
+		r = new Random();
+		tempx =x;
 		this.x=x;
 		this.y=y;
+		this.game = game;
+		this.p =p;
 		setBounds((int)x, (int)y, 25, 25);
 	}
 	
 	@Override
 	public void update() {
 		// TODO Update NPC state
-		setBounds((int)x, (int)y, 25, 25);
+		
 		if(direction==0){
-				if(x<500){
-				x++;
+				if(x<tempx+50){
+				x+=r.nextDouble();
+				log("(x++)X="+x);
 				}else{
+					log("X="+x);
 					direction =1;
 				}
 		}else{ 
-			if(x>200){
-				x--;
+			if(x>tempx){
+				x-=r.nextDouble();
 			}else{
 				direction =0;
 			}
 			
 				
-			}
+		}
 			
 			
-		
+		setBounds((int)x, (int)y, 25, 25);
 				
 		
 		
@@ -50,6 +61,7 @@ public class NPC extends GameObject implements Entity {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Draw the NPC on the screen
+		if(this !=null)
 		g.drawImage(pic ,(int) x,(int) y, null);
 	}
 
@@ -86,5 +98,7 @@ public class NPC extends GameObject implements Entity {
 		this.y= y;
 		
 	}
-
+	private void log(String s){
+		System.out.println(s);
+	}
 }

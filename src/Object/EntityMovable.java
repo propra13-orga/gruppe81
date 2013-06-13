@@ -1,8 +1,9 @@
+package Object;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-public interface Entity {
+public interface EntityMovable {
 	
 	public void update();
 	public void draw(Graphics g);

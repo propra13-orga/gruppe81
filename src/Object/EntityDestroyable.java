@@ -1,8 +1,10 @@
+package Object;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 
-public interface Entity {
+public interface EntityDestroyable {
 	
 	public void update();
 	public void draw(Graphics g);
