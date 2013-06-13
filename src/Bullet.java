@@ -34,7 +34,7 @@ public class Bullet extends GameObject implements EntityMovable {
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		// TODO Bullets are flying  ;)
 		switch(direction){
 		case 0:	x+=1.2;
 				setBounds((int)x,(int) y-10 ,16,16	);

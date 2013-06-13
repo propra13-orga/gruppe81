@@ -1,17 +1,19 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Frame;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+//import java.awt.event.KeyListener;
 
-import javax.swing.JLabel;
+//import javax.swing.JLabel;
 import javax.swing.JPanel;
+//import Object.EntityDestroyable;
+
 import Object.EntityDestroyable;
 
 
@@ -306,6 +308,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	
 									
 					p1.setHitExit(true);
+					c.ed.clear();
 					
 
 				}
