@@ -11,8 +11,8 @@ public class Controller {
 	LinkedList<EntityDestroyable> ed = new LinkedList<EntityDestroyable>();
 	LinkedList<EntityMovable> em = new LinkedList<EntityMovable>();
 	
-	EntityDestroyable tempEntDe;
-	EntityMovable tempEntMov;
+	public EntityDestroyable tempEntDe;
+	public EntityMovable tempEntMov;
 	DungeonCrawlerGame game;
 	public Controller(DungeonCrawlerGame game){
 		
@@ -27,16 +27,19 @@ public class Controller {
 			tempEntDe = ed.get(i);
 			if(tempEntDe!=null){
 			tempEntDe.update();
-			if(tempEntDe.getX()>1100 || tempEntDe.getY()>650 || tempEntDe.getX()<0 || tempEntDe.getY()<0)
+			if((tempEntDe.getX()>1100 || tempEntDe.getY()>650 || tempEntDe.getX()<0 || tempEntDe.getY()<0) || Physics.CollisionWithMovable(tempEntDe, game.em))
 				removeEntity(tempEntDe);
 			}
 		}
 		//Entity Movable
 		for (int i=0;i<em.size();i++){
 			tempEntMov = em.get(i);
-			tempEntMov.update();
-			if(tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0)
+			
+			if(((tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0))|| tempEntMov.isHited() ){
 				removeEntity(tempEntMov);
+				
+			}
+			tempEntMov.update();
 		}
 	}
 	
@@ -73,6 +76,15 @@ public class Controller {
 	public void removeEntity(EntityMovable ent){
 		em.remove(ent);
 	
+	}
+	
+	public LinkedList<EntityDestroyable> getEntDestrList(){
+		
+		return ed;
+	}
+	public LinkedList<EntityMovable> getEntMovList(){
+		
+		return em;
 	}
 }
 

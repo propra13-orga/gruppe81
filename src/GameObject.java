@@ -6,7 +6,7 @@ import java.awt.*;
 abstract class GameObject extends Rectangle
 	{
 //=====================================_____Class____Start
-    private boolean alive = false,  explode = false;
+    private boolean alive = true,  explode = false;
     private double x,y;
     private boolean solid;
     private Image Bild;
@@ -65,6 +65,11 @@ abstract class GameObject extends Rectangle
 //
 //
 //
+    public boolean kill(GameObject ob){
+    	ob.alive = false;
+    	return alive;
+    }
+    
 //
     void explode ()
     {

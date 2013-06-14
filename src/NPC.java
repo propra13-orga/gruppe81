@@ -39,9 +39,9 @@ public class NPC extends GameObject implements EntityDestroyable {
 		if(direction==0){
 				if(x<tempx+50){
 				x+=r.nextDouble();
-				log("(x++)X="+x);
+			//	log("(x++)X="+x);
 				}else{
-					log("X="+x);
+				//	log("X="+x);
 					direction =1;
 				}
 		}else{ 
@@ -57,7 +57,13 @@ public class NPC extends GameObject implements EntityDestroyable {
 			
 		setBounds((int)x, (int)y, 25, 25);
 				
-		
+		if(Physics.CollisionWithMovable(this, game.em)){
+			log("Collision IN NPC DETECTED");
+			
+		//	kill(this);
+			//game.em.remove();
+			
+		}
 		
 
 	}
