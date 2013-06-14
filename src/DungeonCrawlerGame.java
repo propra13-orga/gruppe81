@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 //import java.awt.event.ActionListener;
 //import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 //import java.awt.event.KeyListener;
 
 //import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import javax.swing.JPanel;
 //import Object.EntityDestroyable;
 
 import Object.EntityDestroyable;
+import Object.EntityMovable;
 
 
 
@@ -37,14 +39,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private volatile boolean running = false;
 	private int currentLevel = 1;
 	double delta = 0; //Time var
+	private long bulletCoolOf =0;
 	//Game Objects
 	World world;
 	Player p1;
 	MyKeyListener k1;
 	NPC mob1;
 	Bullet b;
-	private Controller c;
+	public Controller c;
 	private MainWindow mainWindow;
+	public LinkedList<EntityDestroyable> ed;
+	public LinkedList<EntityMovable> em;
 	// private static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(MainWindow mainWindow){
@@ -52,6 +57,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		c = new Controller(this);
 		world = new World(currentLevel,  this);
 		p1 = new Player(world);
+		ed = c.getEntDestrList();
+		em = c.getEntMovList();
 		this.k1 = new MyKeyListener(); 
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
@@ -181,12 +188,16 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 	}
 	
-	private void shoot(){
-		
-		if(c.em.size()< 500)
-			c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+	private void shoot(long coolOf){
+		if (bulletCoolOf<System.nanoTime()) {
+			
+			bulletCoolOf = System.nanoTime()+coolOf;
+			if(c.em.size()< 500){
+				c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+				bulletCoolOf = System.nanoTime()+coolOf;
+			}
+		}
 	}
-	
 	
 	private void gameUpdate(){
 		if(running && game !=null){
@@ -211,7 +222,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 			if (k1.isKeyPressed(KeyEvent.VK_SPACE)){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
-				shoot();
+				shoot(250000000);
 			}
 			
 		p1.update(); //Updating Player

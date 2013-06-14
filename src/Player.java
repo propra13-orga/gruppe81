@@ -41,6 +41,7 @@ public class Player extends GameObject {
 		playerLifepointsMax = 100;
 		playerManapoints = 0;
 		playerManapointsMax = 100;
+		setBounds(playerRect);
 	}
 
 	public void setWorld(World world){

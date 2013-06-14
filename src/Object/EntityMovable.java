@@ -14,6 +14,7 @@ public interface EntityMovable {
 	public void setY(double y);
 	public void setBounds(int x, int y, int width,int height);
 	public Rectangle getBounds();
-	
+	public boolean isHited(); 
+	public void hit();
 	
 }

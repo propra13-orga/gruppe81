@@ -15,6 +15,7 @@ public class Bullet extends GameObject implements EntityMovable {
 		Player p;
 		DungeonCrawlerGame game;
 		int direction;
+		private boolean hited;
 		private Image pic = new ImageIcon("bullet.gif").getImage();
 		
 	public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
@@ -24,6 +25,7 @@ public class Bullet extends GameObject implements EntityMovable {
 		this.p =p;
 		this.game = game;
 		this.direction=p.lastDirection;
+		hited = false;
 		setBounds((int)x,(int) y  ,16,16	);
 		
 		
@@ -50,8 +52,10 @@ public class Bullet extends GameObject implements EntityMovable {
 				break;		
 		default:{}
 		}
-//	checkforcollision();
-	
+		if(Physics.CollisionWithDesroyable(this, game.ed)){
+			hit();
+		}
+	//	log("Hited="+isHited());
 	}
 	
 	/*
@@ -103,6 +107,14 @@ public class Bullet extends GameObject implements EntityMovable {
 		// TODO Auto-generated method stub
 		
 		
+	}
+	
+	public void hit(){
+		hited = true;
+	}
+	
+	public boolean isHited(){
+		return hited;
 	}
 	
 	private void log(String s){
