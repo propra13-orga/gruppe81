@@ -13,9 +13,13 @@ public class Player extends GameObject implements Entity{
 	private World world;
 	public Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
+	private Image playerImgR1, playerImgR2, playerImgR3, playerImgL1, playerImgL2, playerImgL3;
 	double xDirection, yDirection;
-	protected int  lastDirection;
+	protected int displayDirection;
+	protected int lastDirection;
+	protected int imageCounter=0;
 	
+	// displayDirection : 0 = right, 2= left
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
 	private boolean alive=true;	
@@ -36,6 +40,12 @@ public class Player extends GameObject implements Entity{
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
 		playerImg = new ImageIcon("Boy_R1.png").getImage();
+		playerImgR1 = new ImageIcon("Boy_R1.png").getImage();
+		playerImgR2 = new ImageIcon("Boy_R2.png").getImage();
+		playerImgR3 = new ImageIcon("Boy_R3.png").getImage();
+		playerImgL1 = new ImageIcon("Boy_L1.png").getImage();
+		playerImgL2 = new ImageIcon("Boy_L2.png").getImage();
+		playerImgL3 = new ImageIcon("Boy_L3.png").getImage();
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
 		playerLife = 3;
 		playerLifepoints = 100;
@@ -43,6 +53,7 @@ public class Player extends GameObject implements Entity{
 		playerManapoints = 0;
 		playerManapointsMax = 100;
 		setBounds(playerRect.getBounds());
+		displayDirection = 0;
 	}
 
 	public void setWorld(World world){
@@ -237,6 +248,44 @@ public class Player extends GameObject implements Entity{
 	}
 	
 	public void draw(Graphics g){
+		if ((lastDirection==2) & (displayDirection==0)) {
+			playerImg = playerImgL1;
+			displayDirection=2;
+			imageCounter=0;
+		}
+		else if ((lastDirection==0) & (displayDirection==2)) {
+			playerImg = playerImgR1;
+			displayDirection=0;
+			imageCounter=0;
+		}
+		if ((xDirection!=0) | (yDirection!=0)) {imageCounter++;}
+		if (imageCounter>300) {
+			imageCounter=1;
+		}
+		if (imageCounter>200) {
+			if (displayDirection==0) {
+				playerImg = playerImgR3;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL3;
+			}
+		}
+		else if (imageCounter>100) {
+			if (displayDirection==0) {
+				playerImg = playerImgR2;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL2;
+			}
+		}
+		else {
+			if (displayDirection==0) {
+				playerImg = playerImgR1;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL1;
+			}
+		}
 		g.drawImage(playerImg, playerRect.x, playerRect.y, null);
 //		g.setColor(Color.white);
 //		g.fill3DRect(playerRect.x, playerRect.y-5, world.BLOCKSIZE-5, 4, true);
