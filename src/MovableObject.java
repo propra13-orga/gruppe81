@@ -1,4 +1,5 @@
 
+
 public abstract class MovableObject extends GameObject {
 
 	public MovableObject() {

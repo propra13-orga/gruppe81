@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 //import Object.EntityDestroyable;
 
 import Object.EntityDestroyable;
+import Object.EntityMapObject;
 import Object.EntityMovable;
 
 
@@ -46,19 +47,22 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	MyKeyListener k1;
 	NPC mob1;
 	Bullet b;
-	public Controller c;
+	private Controller c;
 	private MainWindow mainWindow;
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
+	public LinkedList<EntityMapObject> eMO;
 	// private static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(MainWindow mainWindow){
 		this.mainWindow = mainWindow;
 		c = new Controller(this);
+		
 		world = new World(currentLevel,  this);
 		p1 = new Player(world);
 		ed = c.getEntDestrList();
 		em = c.getEntMovList();
+		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
@@ -224,12 +228,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				shoot(250000000);
 			}
-			
+		c.update();	
 		p1.update(); //Updating Player
 		checkForCollision();
 //		if(mob1!=null)
 //		mob1.update();
-		c.update();	
+		
 		
 		
 //		if (!checkForCollision())
@@ -306,10 +310,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		for(int i=0;i<world.AWIDTH;i++){
 			for(int j=0;j<world.AHIGHT;j++){
 				if(world.isSolid[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
-					System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
+			//		System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
 					p1.playerRect.x-=p1.getXDirection();
 					p1.playerRect.y-=p1.getYDirection();
-					System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
+			//		System.out.println("Collision DETECTED at"+p1.playerRect.x +":"+p1.playerRect.y);
 					p1.setYDirection(0);
 					p1.setXDirection(0);
 					colide =true;
@@ -340,12 +344,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					p1.playerRect.x=0;
 				
 			}
-			if(p1.playerRect.intersects(c.tempEntDe.getBounds())  ){
-				p1.changePlayerLifepoints(-12,250000000);
-				System.out.println("Collision DETECTED PLAYER/MOB");
-				}
-					
 			
+			}
+		if(Physics.CollisionGameObjectList(p1, ed) ){
+			p1.changePlayerLifepoints(-12,250000000);
+			System.out.println("Collision DETECTED PLAYER/MOB");
+			}
+		if(Physics.CollisionGameObjectList(p1, eMO)){
+			log("MAP OBJECT PLAYER COLLLISION");
 			}
 		
 		return colide;	
@@ -382,6 +388,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	
 	public void addNPC(double x, double y){
 		c.addEntity(new NPC(x, y, this, p1));
+	}
+	public void addHealthPack(double x, double y){
+		c.addEntity(new HealthPack(x, y, this, p1));
 	}
 	@Override
 	public void addNotify(){

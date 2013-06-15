@@ -202,7 +202,16 @@ public void getLevel(String fileName) { //reading level from file
 							log("X="+x+" Y="+y);
 							game.addNPC(x, y);
 							break;
-        		default:{}
+        		case 'H':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							log("X="+x+" Y="+y);
+							game.addHealthPack(x, y);
+							break;
+        				default:{}
         		}
         		
         	

@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 
+
 import Object.EntityDestroyable;
+import Object.EntityMapObject;
 import Object.EntityMovable;
 
 
@@ -13,7 +15,7 @@ public class Physics {
 		
 		for(int i =0; i<ed.size();i++)
 		{
-			if(entM.getBounds().intersects(ed.get(i).getBounds())){
+			if(entM.getBounds().intersects(ed.get(i).getBounds()) && ed.get(i).isNPC()){
 				entM.hit();
 				return true;
 			}
@@ -35,6 +37,31 @@ public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<E
 		return false;
 	}
 	
+	public static  boolean CollisionGameObjectList(GameObject ob, LinkedList<EntityDestroyable> ed){ //For Player, or other game object
+	
+	for(int j =0; j<ed.size();j++){	
+		
+		if(ed.get(j).getBounds().intersects(ob.getBounds())){
+		return true;
+		}
+	}
+	
+	return false;
+	}
+	
+	public static  boolean CollisionGameObjectList(Entity ob, LinkedList<EntityMapObject> eWO){ //For Player, or other game object
+		
+		for(int i =0; i<eWO.size();i++){			
+		//	System.out.println("Physics: Rect["+i+"] in List eWO "+eWO.get(i).getBounds().toString());
+		//	eWO.get(i).getBounds().toString();
+			if(eWO.get(i).getBounds().intersects(ob.getBounds())){
+			return true;
+			}
+		}
+		
+		return false;
+		}
+
 	public static void removeElement(){
 		
 	}

@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 
+
 import Object.EntityDestroyable;
 
 
@@ -21,6 +22,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 	private int direction =0;
 	Player p;
 	Random r;
+	private boolean NPC = true;
 	DungeonCrawlerGame game;
 	NPC(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
@@ -30,6 +32,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 		this.game = game;
 		this.p =p;
 		setBounds((int)x, (int)y, 25, 25);
+		
 	}
 	
 	@Override
@@ -56,14 +59,14 @@ public class NPC extends GameObject implements EntityDestroyable {
 			
 			
 		setBounds((int)x, (int)y, 25, 25);
-				
-		if(Physics.CollisionWithMovable(this, game.em)){
-			log("Collision IN NPC DETECTED");
-			
-		//	kill(this);
-			//game.em.remove();
-			
-		}
+	//	System.out.println(this.toString());
+//		if(Physics.CollisionWithMovable(this, game.em)){
+//			log("Collision IN NPC DETECTED");
+//			
+//			kill(this);
+//		game.em.remove();
+//			
+//		}
 		
 
 	}
@@ -108,7 +111,28 @@ public class NPC extends GameObject implements EntityDestroyable {
 		this.y= y;
 		
 	}
+	public boolean isNPC(){
+		return NPC;
+	}
 	private void log(String s){
 		System.out.println(s);
+	}
+
+	@Override
+	public boolean isMapObject() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isHited() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void hit() {
+		// TODO Auto-generated method stub
+		
 	}
 }

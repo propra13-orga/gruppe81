@@ -4,6 +4,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 
+
 public class Wall extends GameObject implements Entity {
 	
 	private double x,y;

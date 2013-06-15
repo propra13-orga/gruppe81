@@ -3,6 +3,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+
 import Object.EntityMovable;
 
 
@@ -52,7 +53,7 @@ public class Bullet extends GameObject implements EntityMovable {
 				break;		
 		default:{}
 		}
-		if(Physics.CollisionWithDesroyable(this, game.ed)){
+		if(Physics.CollisionWithDesroyable(this, game.ed)){ //Placing "hit" tag to the bullet-object, which will be removed by the next loop in controller
 			hit();
 		}
 	//	log("Hited="+isHited());

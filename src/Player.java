@@ -7,7 +7,8 @@ import javax.swing.ImageIcon;
 
 
 
-public class Player extends GameObject {
+
+public class Player extends GameObject implements Entity{
 
 	private World world;
 	public Rectangle playerRect;
@@ -41,7 +42,7 @@ public class Player extends GameObject {
 		playerLifepointsMax = 100;
 		playerManapoints = 0;
 		playerManapointsMax = 100;
-		setBounds(playerRect);
+		setBounds(playerRect.getBounds());
 	}
 
 	public void setWorld(World world){
@@ -89,7 +90,7 @@ public class Player extends GameObject {
 			alive=false;
 		}
 		else {
-			playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
+			playerRect = new Rectangle(1,25,25,50);
 			playerLifepoints = 100;
 		}
 	}
@@ -125,7 +126,9 @@ public class Player extends GameObject {
 	}
 
 	public void update(){
-		move();		
+		move();	
+		setBounds(playerRect.getBounds());
+	//	if(Physics.CollisionGameObjectEntMO(this, eWO))
 	}
 	
 	public void setHitExit(boolean hitExit){
@@ -281,6 +284,18 @@ public class Player extends GameObject {
 
 	@Override
 	void explode(boolean explode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setX(double x) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setY(double y) {
 		// TODO Auto-generated method stub
 		
 	}
