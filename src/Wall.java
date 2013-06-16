@@ -24,7 +24,7 @@ public class Wall extends GameObject implements Entity {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-
+		setBounds((int)x, (int)y, 25, 25);
 	}
 
 	@Override

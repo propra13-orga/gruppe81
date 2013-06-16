@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 import javax.swing.ImageIcon;
@@ -32,7 +33,7 @@ public class World {
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
-	
+	public ArrayList<Wall> wallslist;
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
@@ -64,6 +65,7 @@ public class World {
 	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
+	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
 	
@@ -89,12 +91,17 @@ public void draw(Graphics g){
 		for(int j=0;j<AHIGHT; j++){
 			if(blockImage[i][j]!=null)
 			g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
-			if (walls[i][j]!=null) {
-				walls[i][j].draw(g);
+//			if (walls[i][j]!=null) {
+//				walls[i][j].draw(g);
+//			}
 			}
-		}
 	}
-	
+	for(Wall tempWall: wallslist){
+	//log(wallslist.get(k).toString());
+	//	wallslist.get(k).update();
+		
+		tempWall.draw(g);
+	}
 }
 
   /*
@@ -135,7 +142,8 @@ public void getLevel(String fileName) { //reading level from file
         		
         		
         		switch (line.charAt(j)){
-        		case '1': 	walls[i][j] = new Wall(x, y, sol);
+        		case '1': 	wallslist.add(new Wall(x, y, sol));
+        				//	walls[i][j] = new Wall(x, y, sol);
         				 //   blockImage[i][j]= SMALLWALL;
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
@@ -199,7 +207,7 @@ public void getLevel(String fileName) { //reading level from file
 							exits[i][j] = false;
 							trap[i][j] = false;
 							finish[i][j] = false;
-							log("X="+x+" Y="+y);
+						//	log("X="+x+" Y="+y);
 							game.addNPC(x, y);
 							break;
         		case 'H':	blockImage[i][j]=SMALLWHITE;
@@ -208,7 +216,7 @@ public void getLevel(String fileName) { //reading level from file
 							exits[i][j] = false;
 							trap[i][j] = false;
 							finish[i][j] = false;
-							log("X="+x+" Y="+y);
+					//		log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 20, 0, 0);
 							break;
         		case 'M':	blockImage[i][j]=SMALLWHITE;

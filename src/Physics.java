@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -61,7 +62,16 @@ public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<E
 		
 		return false;
 		}
-
+	public static boolean CollisionGameObjectArrayList(GameObject ob, ArrayList<Wall> walls){
+		
+		for(Wall tempWall:walls){
+		if(	tempWall.intersects(ob))
+			return true;
+			
+		}
+		
+		return false;
+	}
 	public static void removeElement(){
 		
 	}

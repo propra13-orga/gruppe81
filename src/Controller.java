@@ -36,8 +36,7 @@ public class Controller {
 		}
 		//Entity Movable
 //		System.out.println("Size of Bullets"+em.size());
-		for (int 
-				i=0;i<em.size();i++){
+		for (int i=0;i<em.size();i++){
 			tempEntMov = em.get(i);
 			if(((tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0))|| tempEntMov.isHited() ){
 				removeEntity(tempEntMov);

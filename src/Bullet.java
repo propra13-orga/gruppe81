@@ -53,7 +53,7 @@ public class Bullet extends GameObject implements EntityMovable {
 				break;		
 		default:{}
 		}
-		if(Physics.CollisionWithDesroyable(this, game.ed)){ //Placing "hit" tag to the bullet-object, which will be removed by the next loop in controller
+		if(Physics.CollisionWithDesroyable(this, game.ed)|| Physics.CollisionGameObjectArrayList(this, game.world.wallslist)){ //Placing "hit" tag to the bullet-object, which will be removed by the next loop in controller
 			hit();
 		}
 	//	log("Hited="+isHited());
