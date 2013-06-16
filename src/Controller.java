@@ -36,7 +36,8 @@ public class Controller {
 		}
 		//Entity Movable
 //		System.out.println("Size of Bullets"+em.size());
-		for (int i=0;i<em.size();i++){
+		for (int 
+				i=0;i<em.size();i++){
 			tempEntMov = em.get(i);
 			if(((tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0))|| tempEntMov.isHited() ){
 				removeEntity(tempEntMov);
@@ -51,7 +52,9 @@ public class Controller {
 	//		System.out.println("Current index for MapObject"+i);
 			
 			if((Physics.CollisionGameObjectList(game.p1, eWO))){
-				game.p1.changePlayerLifepoints(20, 0);
+				if (tempEntWO.getLeben()!=0) {game.p1.changePlayerLifepoints(tempEntWO.getLeben(), 0);}
+				if (tempEntWO.getMana()!=0) {game.p1.changePlayerManapoints(tempEntWO.getMana());}
+				if (tempEntWO.getGeld()!=0) {game.p1.changePlayerMoney(tempEntWO.getGeld());}
 				removeEntity(tempEntWO);
 			//	System.out.println("COLLISION "+i);
 				//removeEntity(tempEntWO);

@@ -22,10 +22,16 @@ public class HealthPack extends GameObject implements EntityMapObject{
 	Player p;
 	private double x,y;
 	private Image pic = new ImageIcon("Health Pack-32x32.png").getImage();
+	private Image picLeben = new ImageIcon("Health Pack-32x32.png").getImage();
+	private Image picMana = new ImageIcon("Mana Pack-32x32.png").getImage();
+	private Image picMoney = new ImageIcon("Money Pack-32x32.png").getImage();
 	private boolean mapObject = true;
 	private boolean hited;
+	private int leben=0;
+	private int mana=0;
+	private int geld=0;
 	LinkedList<EntityMapObject> eMO = new LinkedList<EntityMapObject>();
-	public HealthPack(double x, double y, DungeonCrawlerGame game, Player p ){
+	public HealthPack(double x, double y, DungeonCrawlerGame game, Player p, int leben, int mana, int geld){
 		
 		
 		this.x=x;
@@ -37,7 +43,40 @@ public class HealthPack extends GameObject implements EntityMapObject{
 		hited = false;
 		this.setBounds((int)x, (int)y, 25, 25);
 		log("HealthPack X ="+(int)x+" Y ="+(int)y);
+		this.leben = leben;
+		this.mana = mana;
+		this.geld = geld;
+		if (leben>0) {
+			pic = picLeben;
+		}
+		else if (mana>0) {
+			pic = picMana;
+		}
+		else if (geld>0) {
+			pic = picMoney;
+		}
 		
+	}
+
+	public void setLeben(int leben) {
+		this.leben = leben;		
+	}
+	public int getLeben() {
+		return leben;		
+	}
+	
+	public void setMana(int mana) {
+		this.mana = mana;		
+	}
+	public int getMana() {
+		return mana;		
+	}
+	
+	public void setGeld(int geld) {
+		this.geld = geld;		
+	}
+	public int getGeld() {
+		return geld;		
 	}
 	
 	

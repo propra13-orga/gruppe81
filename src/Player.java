@@ -77,6 +77,14 @@ public class Player extends GameObject implements Entity{
 		this.playerMoney = this.playerMoney+playerMoneyChange;
 	}
 
+	public int getPlayerManapoints(){
+		return playerManapoints;
+	}
+
+	public void changePlayerManapoints(int playerManaChange){
+		this.playerManapoints = this.playerManapoints+playerManaChange;
+	}
+
 	public int getPlayerLifepoints(){
 		return playerLifepoints;
 	}

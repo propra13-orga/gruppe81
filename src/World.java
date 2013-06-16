@@ -209,7 +209,25 @@ public void getLevel(String fileName) { //reading level from file
 							trap[i][j] = false;
 							finish[i][j] = false;
 							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y);
+							game.addHealthPack(x, y, 20, 0, 0);
+							break;
+        		case 'M':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							log("X="+x+" Y="+y);
+							game.addHealthPack(x, y, 0, 20, 0);
+							break;
+        		case '$':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							log("X="+x+" Y="+y);
+							game.addHealthPack(x, y, 0, 0, 100);
 							break;
         				default:{}
         		}

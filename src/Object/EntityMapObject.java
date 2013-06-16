@@ -17,5 +17,12 @@ public interface EntityMapObject {
 	public Rectangle getBounds();
 	public boolean isHited(); 
 	public void hit();
+
+	public void setLeben(int leben);
+	public int getLeben();
+	public void setMana(int mana);
+	public int getMana();
+	public void setGeld(int geld);
+	public int getGeld();
 	
 }
