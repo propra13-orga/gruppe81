@@ -68,6 +68,89 @@ private Graphics offGraphics;                              //   copy graphics fu
 
 
 
+	public void loadImage( String...args)  
+	{
+	//_____________________________________________________Image____aufLADEN
+
+	int numerator; 
+for (numerator=0; numerator < args.length; numerator++)
+{
+	//++++Was_bist_du
+
+	if ("background".equals(args [numerator]))    
+			{ numerator++;  imgBackground  =  MyFrame.getToolkit().getImage(args[numerator]);  }
+ 
+	///////////////////////////////////////////////////////////////////////////////////
+	if ("papyrus".equals(args [numerator]))       
+			{ numerator++;  imgPapyrus  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+	if ("mana".equals(args [numerator]))       
+			{ numerator++;  imgMana  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+	if ("life".equals(args [numerator]))       
+			{ numerator++;  imgLife  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+	if ("weapon".equals(args [numerator]))       
+			{ numerator++;  imgWeapon  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+	if ("munze".equals(args [numerator]))       
+			{ numerator++;  imgMunze = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
+
+	///////////////////////////////////////////////////////////////////////////////////
+
+			//if ("commodity".equals(args [numerator])) 
+			//{
+			//int i=(args.length-numerator)-1;imgCommodity=new Image[i];aktivCommodity=new boolean[i];
+			//for(int j=0;j<i;j++){imgCommodity[j]=Toolkit.getDefaultToolkit().getImage(args[j]);}
+			//} 
+
+
+	//++++Was_bist_du__ENDE
+}
+
+	//______________________________________________________Image____aufladen____Ende
+	}
+
+
+
+
+	public Image paint()
+	{
+	//______________________________________________________paint
+	keyControlling();
+	offImage = MyFrame.createImage(width, height);
+	offGraphics = offImage.getGraphics();
+	offGraphics.drawImage( imgBackground,0,0,1000,800,MyFrame);
+	offGraphics.drawImage( imgPapyrus,120,-20,700,650,MyFrame);
+
+	if  (positionStuff[0] == true) { offGraphics.drawImage( imgMana,290,200-50, 150+50,150+50 ,MyFrame);  }
+	else
+		{offGraphics.drawImage( imgMana,290,200, 150,150 ,MyFrame);}
+
+	if  (positionStuff[1] == true) { offGraphics.drawImage( imgLife,490,200-50, 150+50, 150+50, MyFrame);  }
+	else
+		{offGraphics.drawImage( imgLife,490,200, 150, 150, MyFrame);}
+
+	if  (positionStuff[2] == true) { offGraphics.drawImage (imgWeapon,290,350,300+100,150+50,MyFrame);   }
+	else
+		{offGraphics.drawImage( imgWeapon,290,350,300,150,MyFrame);}
+
+//____MU:NZE
+	int j = 0;
+	for ( int i=0; i < gold; i++, j+=30)  { offGraphics.drawImage (imgMunze,340+(j),540,MyFrame); }
+
+	return offImage;
+	//______________________________________________________paint___ENDE
+	}
+
 
 
 	public void keyControlling() 
