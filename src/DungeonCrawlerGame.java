@@ -350,9 +350,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			p1.changePlayerLifepoints(-12,250000000);
 			System.out.println("Collision DETECTED PLAYER/MOB");
 			}
-		if(Physics.CollisionGameObjectList(p1, eMO)){
-			log("MAP OBJECT PLAYER COLLLISION");
-			}
+	//	if(Physics.CollisionGameObjectList(p1, eMO)){
+	//		log("MAP OBJECT PLAYER COLLLISION");
+	//		}
 		
 		return colide;	
 	}
