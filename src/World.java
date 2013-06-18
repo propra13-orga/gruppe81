@@ -37,7 +37,7 @@ public class World {
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
-	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPH,TRAPL,SPIDER; 
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPUP,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1; 
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
 	Controller c;
@@ -52,9 +52,17 @@ public class World {
 	 SMALLWHITE = new ImageIcon("Boden2525.png").getImage();
 	 SMALLWALL = new ImageIcon("Wall2525.png").getImage();
 	 EXIT =new ImageIcon("Door2550.png").getImage();
-	 TRAPH =new ImageIcon("Falle_mit_Hintergrund_Oben2525.png").getImage();
-	 TRAPL =new ImageIcon("Falle_mit_Hintergrund_Unten2525.png").getImage();
+	 TRAPUP =new ImageIcon("Falle_O.png").getImage();
+	 TRAPDOWN =new ImageIcon("Falle_U.png").getImage();
+	 TRAPREGHT =new ImageIcon("Falle_R.png").getImage();
+	 TRAPLEFT =new ImageIcon("Falle_L.png").getImage();
+	 BOSS1 =new ImageIcon("Bossmummy.png").getImage();
+	 
 	 SPIDER =new ImageIcon("Spinne_mit_Hintergrund2525.png").getImage();
+	 WALLOB =new ImageIcon("Boden2525orangebrocken.png").getImage();
+	 WALLOB_2 =new ImageIcon("Boden2525orangebrocken2.png").getImage();
+	 WALLOB_3 =new ImageIcon("Wall2525braunhhieroglyphen.png").getImage();
+	 
 	 this.levelNumber = levelNumber;
 	// WALL = new ImageIcon("wall.jpg").getImage();
 	// LEER = new ImageIcon("whiteBlock.gif").getImage();
@@ -165,20 +173,42 @@ public void getLevel(String fileName) { //reading level from file
 							trap[i][j] = false;
 							finish[i][j] = false;
 							break;
-        		case '3': 	blockImage[i][j]=TRAPH;
+        		case '3': 	blockImage[i][j]=TRAPUP;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =false;
         					exits[i][j] = false;
         					trap[i][j] = true;
         					finish[i][j] = false;
         					break;
-        		case '4': 	blockImage[i][j]=TRAPL;
+        		case '4': 	blockImage[i][j]=TRAPDOWN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
 							exits[i][j] = false;
 							trap[i][j] = true;
 							finish[i][j] = false;
 							break;
+        		
+        		case 'r': 	blockImage[i][j]=TRAPREGHT;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = true;
+				finish[i][j] = false;
+				break;
+        		
+        		
+        		case 'l': 	blockImage[i][j]=TRAPLEFT;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = true;
+				finish[i][j] = false;
+				break;
+        		
+        		
+        		
+        		
+        		
         		case '5': 	blockImage[i][j]=SPIDER;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
@@ -210,6 +240,48 @@ public void getLevel(String fileName) { //reading level from file
 						//	log("X="+x+" Y="+y);
 							game.addNPC(x, y);
 							break;
+        		
+        	
+							
+        		case 'B':	blockImage[i][j]=SMALLWHITE;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+			//	log("X="+x+" Y="+y);
+				game.addBOSS1(x, y);
+				break;
+        		
+        		
+        		case 'q': 	blockImage[i][j]=WALLOB;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =true;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+        		
+        		case 'w': 	blockImage[i][j]=WALLOB_2;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =true;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+        		
+        		
+        		case 'e': 	blockImage[i][j]=WALLOB_3;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =true;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+				
+				
+				
+				
         		case 'H':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
