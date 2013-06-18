@@ -24,13 +24,13 @@ public class HealthPack extends GameObject implements EntityMapObject{
 	private Image pic = new ImageIcon("Health Pack-32x32.png").getImage();
 	private Image picLeben = new ImageIcon("Health Pack-32x32.png").getImage();
 	private Image picMana = new ImageIcon("Mana Pack-32x32.png").getImage();
-<<<<<<< HEAD
-	private Image picMoney = new ImageIcon("Money Pack-32x32.png").getImage();
+
+//	private Image picMoney = new ImageIcon("Money Pack-32x32.png").getImage();
 	//private boolean mapObject = true;
-=======
+
 	private Image picMoney = new ImageIcon("Coin.gif").getImage();
 	private boolean mapObject = true;
->>>>>>> e21056ef083373619e7802fa841aa86c89cb6050
+
 	private boolean hited;
 	private int leben=0;
 	private int mana=0;
