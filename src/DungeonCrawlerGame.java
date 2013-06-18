@@ -417,5 +417,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void log(String s){
 		System.out.println(s);
 	}
+
 	
+	public void addBOSS1(double x, double y){
+		c.addEntity(new BOSS1(x, y, this, p1));
+	}
+
 }

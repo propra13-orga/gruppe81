@@ -16,7 +16,7 @@ public class Wall extends GameObject implements Entity {
 	public Wall(double x, double y, boolean solid){
 		this.x=x;
 		this.y=y;
-		Bild = new ImageIcon("Wall2525.png").getImage();
+		Bild = new ImageIcon("Boden2525orangebrocken.png").getImage();
 		this.solid = solid;
 		setBounds((int)x, (int)y, 25, 25);
 	}

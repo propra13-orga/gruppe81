@@ -15,7 +15,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 	 */
 	private static final long serialVersionUID = -2450052102355866638L;
 	String picPath;
-	private Image pic = new ImageIcon("mario.png").getImage();
+	private Image pic = new ImageIcon("Gegner1.png").getImage();
 	 double x, y;
 	boolean solid = true;
 	double tempx;

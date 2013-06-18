@@ -17,7 +17,7 @@ public class Bullet extends GameObject implements EntityMovable {
 		DungeonCrawlerGame game;
 		int direction;
 		private boolean hited;
-		private Image pic = new ImageIcon("bullet.gif").getImage();
+		private Image pic = new ImageIcon("hadouken1sek5029.gif").getImage();
 		
 	public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )

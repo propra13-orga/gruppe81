@@ -13,7 +13,7 @@ public class Player extends GameObject implements Entity{
 	private World world;
 	public Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
-	private Image playerImgR1, playerImgR2, playerImgR3, playerImgL1, playerImgL2, playerImgL3;
+	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6;
 	double xDirection, yDirection;
 	protected int displayDirection;
 	protected int lastDirection;
@@ -40,12 +40,25 @@ public class Player extends GameObject implements Entity{
 	//	playerImgGO = new ImageIcon("player.gif").getImage();
 	//	playerImgStop = new ImageIcon("player_stop.gif").getImage();
 		playerImg = new ImageIcon("Boy_R1.png").getImage();
-		playerImgR1 = new ImageIcon("Boy_R1.png").getImage();
-		playerImgR2 = new ImageIcon("Boy_R2.png").getImage();
-		playerImgR3 = new ImageIcon("Boy_R3.png").getImage();
-		playerImgL1 = new ImageIcon("Boy_L1.png").getImage();
-		playerImgL2 = new ImageIcon("Boy_L2.png").getImage();
-		playerImgL3 = new ImageIcon("Boy_L3.png").getImage();
+		playerImgR1 = new ImageIcon("Boy_R_mit_Armschiene1.png").getImage();
+		playerImgR2 = new ImageIcon("Boy_R_mit_Armschiene2.png").getImage();
+		playerImgR3 = new ImageIcon("Boy_R_mit_Armschiene3.png").getImage();
+		playerImgR4 = new ImageIcon("Boy_R_mit_Armschiene4.png").getImage();
+		playerImgR5 = new ImageIcon("Boy_R_mit_Armschiene5.png").getImage();
+		playerImgR6 = new ImageIcon("Boy_R_mit_Armschiene6.png").getImage();
+		
+		
+		
+		
+		playerImgL1 = new ImageIcon("Boy_L_mit_Armschiene1.png").getImage();
+		playerImgL2 = new ImageIcon("Boy_L_mit_Armschiene2.png").getImage();
+		playerImgL3 = new ImageIcon("Boy_L_mit_Armschiene3.png").getImage();
+		playerImgL4 = new ImageIcon("Boy_L_mit_Armschiene4.png").getImage();
+		playerImgL5 = new ImageIcon("Boy_L_mit_Armschiene5.png").getImage();
+		playerImgL6 = new ImageIcon("Boy_L_mit_Armschiene6.png").getImage();
+		
+		
+		
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
 		playerLife = 3;
 		playerLifepoints = 100;
