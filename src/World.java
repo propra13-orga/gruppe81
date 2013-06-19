@@ -33,11 +33,13 @@ public class World {
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
+	
 	public ArrayList<Wall> wallslist;
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
-	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT, TRAPUP,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1; 
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1;
+; 
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
 	Controller c;
@@ -57,7 +59,32 @@ public class World {
 	 TRAPREGHT =new ImageIcon("Falle_R.png").getImage();
 	 TRAPLEFT =new ImageIcon("Falle_L.png").getImage();
 	 BOSS1 =new ImageIcon("Bossmummy.png").getImage();
+	 BOSS3 =new ImageIcon("Bossmummy.gif").getImage();
+	 BOSS2 =new ImageIcon("Boss1gifanimation.gif").getImage();
 	 
+	 WATER1 = new ImageIcon("water1.png").getImage();
+	 WATER2 = new ImageIcon("water2.png").getImage();
+	 WATER3 = new ImageIcon("water3.png").getImage();
+	 BLACK = new ImageIcon("black.png").getImage();
+	 SAND = new ImageIcon("sand.png").getImage();
+	 BLUEMEN = new ImageIcon("bluemen.png").getImage();
+	 GRASS = new ImageIcon("grass.png").getImage();	
+	 GRUND = new ImageIcon("grund.png").getImage();
+	 GRUND1 = new ImageIcon("grund1.png").getImage();
+     BLUEME1 = new ImageIcon("blueme1.png").getImage();
+
+	 
+	 
+	 
+	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
+	 ICEFIRE = new ImageIcon("icefire_eishintergrund.gif").getImage();
+	 EICEWALL = new ImageIcon("garmschuppe.png").getImage();
+	 SNOWGR = new ImageIcon("Snowground.png").getImage();
+	 SNOWGRASS = new ImageIcon("schneegrass.png").getImage();
+	 
+	 
+	 NPC3 =new ImageIcon("familiar.gif").getImage();
+	 NPC2 =new ImageIcon("cramp.gif").getImage();
 	 SPIDER =new ImageIcon("Spinne_mit_Hintergrund2525.png").getImage();
 	 WALLOB =new ImageIcon("Boden2525orangebrocken.png").getImage();
 	 WALLOB_2 =new ImageIcon("Boden2525orangebrocken2.png").getImage();
@@ -180,6 +207,26 @@ public void getLevel(String fileName) { //reading level from file
         					trap[i][j] = true;
         					finish[i][j] = false;
         					break;
+        					
+        					
+      case 'D': blockImage[i][j]=ICEFIRE;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = true;
+				finish[i][j] = false;
+				break;
+        			
+				
+        		case 'O': 	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = true;
+				finish[i][j] = false;
+				break;
+				
+        					
         		case '4': 	blockImage[i][j]=TRAPDOWN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
@@ -207,6 +254,16 @@ public void getLevel(String fileName) { //reading level from file
         		
         		
         		
+        		case 'E': 	wallslist.add(new Wall(x, y, sol));
+				//	walls[i][j] = new Wall(x, y, sol);
+				 //   blockImage[i][j]= SMALLWALL;
+        			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        			isSolid[i][j] =true;
+        			exits[i][j] = false;
+    				trap[i][j] = false;
+    				finish[i][j] = false;
+    				break;
+				
         		
         		
         		case '5': 	blockImage[i][j]=SPIDER;
@@ -241,7 +298,29 @@ public void getLevel(String fileName) { //reading level from file
 							game.addNPC(x, y);
 							break;
         		
+							
+        		case 'F':	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+			//	log("X="+x+" Y="+y);
+				game.addNPC3(x, y);
+				break;
+							
         	
+        		case 'C':	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+			//	log("X="+x+" Y="+y);
+				game.addNPC2(x, y);
+				break;		
+							
+							
 							
         		case 'B':	blockImage[i][j]=SMALLWHITE;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -254,6 +333,28 @@ public void getLevel(String fileName) { //reading level from file
 				break;
         		
         		
+				
+        		case 'J':	blockImage[i][j]=SAND;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+			//	log("X="+x+" Y="+y);
+				game.addBOSS2(x, y);
+				break;
+				
+        		case 'G':	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+			//	log("X="+x+" Y="+y);
+				game.addBOSS3(x, y);
+				break;
+				
+				
         		case 'q': 	blockImage[i][j]=WALLOB;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =true;
@@ -280,6 +381,33 @@ public void getLevel(String fileName) { //reading level from file
 				break;
 				
 				
+				case 's': 	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+				
+				
+				case 'A': 	blockImage[i][j]=SNOWGRASS;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =true;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+				
+				
+				case 'K':	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+		//		log("X="+x+" Y="+y);
+				game.addHealthPack(x, y, 20, 0, 0);
+				break;	
 				
 				
         		case 'H':	blockImage[i][j]=SMALLWHITE;
@@ -300,6 +428,106 @@ public void getLevel(String fileName) { //reading level from file
 							log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 0, 20, 0);
 							break;
+        		
+							
+							
+							
+        		case 'a': 	blockImage[i][j]= WATER1;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+	case 'b': 	blockImage[i][j]=BLACK;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+	case 'c': 	blockImage[i][j]=WATER2;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+	case 'd': 	blockImage[i][j]=WATER3;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+	case 'm': 	blockImage[i][j]=GRASS;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+	case 'f': 	blockImage[i][j]=BLUEMEN;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				break;
+				
+				
+	case 'k': 	blockImage[i][j]= GRUND1;
+	blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+	isSolid[i][j] =false;
+	exits[i][j] = false;
+	trap[i][j] = false;
+	finish[i][j] = false;
+	break;
+
+case 'n': 	blockImage[i][j]= BLUEME1;
+	blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+	isSolid[i][j] =false;
+	exits[i][j] = false;
+	trap[i][j] = false;
+	finish[i][j] = false;
+	break;
+
+				
+							
+	case 'h': 	blockImage[i][j]= GRUND;
+	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+	isSolid[i][j] =false;
+	exits[i][j] = false;
+	trap[i][j] = false;
+	finish[i][j] = false;
+	break;
+
+				
+	case 'g': 	blockImage[i][j]= SAND;
+	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+	isSolid[i][j] =false;
+	exits[i][j] = false;
+	trap[i][j] = false;
+	finish[i][j] = false;
+	break;			
+							
+							
+        		
+        		
+        		case '§':	blockImage[i][j]=SNOWGR;
+				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				isSolid[i][j] =false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				log("X="+x+" Y="+y);
+				game.addHealthPack(x, y, 0, 0, 100);
+				break;
+			
+        		
+        		
+        		
+        		
         		case '$':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
@@ -312,7 +540,8 @@ public void getLevel(String fileName) { //reading level from file
         				default:{}
         		}
         		
-        	
+        
+        		
         		
         		
                 x=x+BLOCKSIZE;

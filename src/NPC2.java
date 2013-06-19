@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Random;
@@ -10,13 +9,13 @@ import javax.swing.ImageIcon;
 import Object.EntityDestroyable;
 
 
-public class NPC extends GameObject implements EntityDestroyable {
+public class NPC2 extends GameObject implements EntityDestroyable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -2450052102355866638L;
+	
 	String picPath;
-	private Image pic = new ImageIcon("Gegner1.png").getImage();
+	private Image pic = new ImageIcon("cramp.gif").getImage();
 	
 	
 	double x, y;
@@ -27,7 +26,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 	Random r;
 	private boolean NPC = true;
 	DungeonCrawlerGame game;
-	NPC(double x,  double  y, DungeonCrawlerGame game, Player p){
+	NPC2(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
 		this.x=x;
@@ -43,7 +42,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 		// TODO Update NPC state
 		
 		if(direction==0){
-				if(x<tempx+50){
+				if(x<tempx+150){
 				x+=r.nextDouble();
 			//	log("(x++)X="+x);
 				}else{
@@ -139,3 +138,4 @@ public class NPC extends GameObject implements EntityDestroyable {
 		
 	}
 }
+
