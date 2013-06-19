@@ -21,7 +21,8 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 	
 	String picPath;
 	private Image pic = new ImageIcon("bossmummy.png").getImage();
-	 double x, y;
+	
+	double x, y;
 	boolean solid = true;
 	double tempx;
 	double tempy;

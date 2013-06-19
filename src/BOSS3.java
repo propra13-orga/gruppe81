@@ -1,49 +1,57 @@
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.Random;
+import java.util.Timer;
 
 import javax.swing.ImageIcon;
-
-
-
 import Object.EntityDestroyable;
 
 
-public class NPC extends GameObject implements EntityDestroyable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2450052102355866638L;
-	String picPath;
-	private Image pic = new ImageIcon("Gegner1.png").getImage();
+
+
+
+public class BOSS3 extends GameObject implements EntityDestroyable {
+	private boolean alive=true;	
+	private int BOSS3Life1;
+	private int BOSS3Life;
+	private long playerCoolOf;
+	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false;
+	Random rnd = new Random ();
 	
+	String picPath;
+	private Image pic = new ImageIcon("garm.gif").getImage();
 	
 	double x, y;
 	boolean solid = true;
 	double tempx;
+	double tempy;
 	private int direction =0;
 	Player p;
 	Random r;
-	private boolean NPC = true;
+	private boolean BOSS = true;
 	DungeonCrawlerGame game;
-	NPC(double x,  double  y, DungeonCrawlerGame game, Player p){
+	private int BOSS3Lifepoints;
+	private int BOSS3LifepointsMax;
+	BOSS3(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
+		tempy =y;
 		this.x=x;
 		this.y=y;
 		this.game = game;
 		this.p =p;
-		setBounds((int)x, (int)y, 25, 25);
-		
+		setBounds((int)x, (int)y, 100, 100);
+
 	}
-	
+
 	@Override
 	public void update() {
 		// TODO Update NPC state
 		
-		if(direction==0){
-				if(x<tempx+50){
+		if(direction==1){
+				if(x<tempx+200){
 				x+=r.nextDouble();
 			//	log("(x++)X="+x);
 				}else{
@@ -61,7 +69,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 		}
 			
 			
-		setBounds((int)x, (int)y, 25, 25);
+		setBounds((int)x, (int)y, 100, 100);
 	//	System.out.println(this.toString());
 //		if(Physics.CollisionWithMovable(this, game.em)){
 //			log("Collision IN NPC DETECTED");
@@ -74,6 +82,8 @@ public class NPC extends GameObject implements EntityDestroyable {
 
 	}
 
+		
+		
 	@Override
 	public void draw(Graphics g) {
 		// TODO Draw the NPC on the screen
@@ -114,8 +124,8 @@ public class NPC extends GameObject implements EntityDestroyable {
 		this.y= y;
 		
 	}
-	public boolean isNPC(){
-		return NPC;
+	public boolean isBOSS3(){
+		return BOSS;
 	}
 	private void log(String s){
 		System.out.println(s);
@@ -138,4 +148,15 @@ public class NPC extends GameObject implements EntityDestroyable {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+	@Override
+	public boolean isNPC() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
+		
+		
+		

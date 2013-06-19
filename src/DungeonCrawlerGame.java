@@ -184,7 +184,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		if (p1.isHitExit()) {
 			currentLevel++;
-			if(currentLevel>3)
+			if(currentLevel>9)
 				currentLevel =1;
             newWorld(currentLevel);
             p1.changestate();
@@ -421,6 +421,22 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	
 	public void addBOSS1(double x, double y){
 		c.addEntity(new BOSS1(x, y, this, p1));
+	}
+
+	public void addBOSS3(double x, double y){
+		c.addEntity(new BOSS3(x, y, this, p1));
+	}
+
+	public void addNPC2(double x, double y){
+		c.addEntity(new NPC2(x, y, this, p1));
+	}
+
+	public void addNPC3(double x, double y){
+		c.addEntity(new NPC3(x, y, this, p1));
+	}
+
+	public void addBOSS2(double x, double y){
+		c.addEntity(new BOSS2(x, y, this, p1));
 	}
 
 }
