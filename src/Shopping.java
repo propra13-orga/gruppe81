@@ -4,6 +4,8 @@ import java.awt.event.*;
 import java.awt.Image.*;
 import java.awt.Toolkit;
 
+import javax.swing.JFrame;
+
 
 class Shopping
 {
@@ -17,7 +19,7 @@ private boolean [] aktivCommodity;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
  
 //++++Index
-private static GFrame MyFrame;
+private static JFrame MyFrame;
 private static MyKeyListener MyKeyL; 
 private int width = 1000, height = 600;   // !!! Nur kurze Zeit so, es wird geandert, vielleicht bei Anruf von Konstrukteur!!!! 
 //++++Index__ENDE
@@ -61,7 +63,7 @@ private Graphics offGraphics;                              //   copy graphics fu
 	//_____________________________________________________name_schpricht_fur_sich_selbst
 	public MyKeyListener getMyKeyListener() { return MyKeyL;  }
 
-	public void setFrame (GFrame MyFrame)  {  this.MyFrame = MyFrame ; }
+	public void setFrame (JFrame MyFrame)  {  this.MyFrame = MyFrame ; }
 
 	public boolean pay(int gold) { if( this.gold >= gold ) {this.gold-= gold; return true;} else {return false;} }
 	//_____________________________________________________
