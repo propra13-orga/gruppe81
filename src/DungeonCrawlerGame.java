@@ -340,6 +340,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					
 
 				}
+				if(world.checkpoints[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+					
+					
+					p1.setCheckpoint(currentRoom,i*25,j*25);					
+
+				}
 				
 //				if(world.checkpoint[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
 //					p1.setCheckpoint(currentLevel,i,j);

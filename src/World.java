@@ -25,6 +25,7 @@ public class World {
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
+	public boolean [][] checkpoints;
 	public boolean[][] isSolid;
 	public boolean [][] exits;
 	public boolean [][] trap;
@@ -100,6 +101,7 @@ public class World {
 	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
+	 checkpoints = new boolean[AWIDTH][AHIGHT];
 	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -162,6 +164,7 @@ public void getLevel(String fileName) { //reading level from file
                 System.out.print("i="+i+" j="+j+" Gelesen:   ");
                System.out.println(line.charAt(j));
                
+               checkpoints[i][j]=false;
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -507,6 +510,15 @@ case 'n': 	blockImage[i][j]= BLUEME1;
 	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 	isSolid[i][j] =false;
 	exits[i][j] = false;
+	trap[i][j] = false;
+	finish[i][j] = false;
+	break;			
+							
+	case 'z': 	blockImage[i][j]= GRUND;
+	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+	isSolid[i][j] =false;
+	exits[i][j] = false;
+	checkpoints[i][j] = true;
 	trap[i][j] = false;
 	finish[i][j] = false;
 	break;			
