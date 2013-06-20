@@ -53,6 +53,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
 	public LinkedList<EntityMapObject> eMO;
+	
 	// private static boolean hitExit;
 	//Constructor
 	public DungeonCrawlerGame(MainWindow mainWindow){
@@ -185,6 +186,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		if (p1.isHitExit()) {
 			currentRoom++;
+			
 		if(currentRoom >3){
 			
 			currentLevel=currentLevel+currentRoom-1;
@@ -337,6 +339,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 									
 					p1.setHitExit(true);
 					c.ed.clear();
+					c.em.clear();
 					
 
 				}
@@ -433,6 +436,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			running = false;
 		}
 	}
+
+
 	private void log(String s){
 		System.out.println(s);
 	}

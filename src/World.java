@@ -34,7 +34,7 @@ public class World {
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
-	
+	public Image worldPics[];
 	public ArrayList<Wall> wallslist;
 	public Wall walls[][];
 	boolean sol = true;
@@ -49,8 +49,8 @@ public class World {
  public World(int levelNumber, DungeonCrawlerGame game){
 
 	 this.game = game;
-
-	 
+	 worldPics = new Image[31];
+//	 for(int i=0;i<)
 //	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
 	 SMALLWHITE = new ImageIcon("Boden2525.png").getImage();
 	 SMALLWALL = new ImageIcon("Wall2525.png").getImage();
