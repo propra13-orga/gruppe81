@@ -23,16 +23,17 @@ public class Player extends GameObject implements Entity{
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
 	private boolean alive=true;	
-	private int playerMoney;	
-	private int playerLife;	
+	public boolean playerChangeRoom=false;
+	private int playerMoney; // Das Geld des Spielers	
+	private int playerLife;	// Das Leben des Spielers(der Spieler hat 3 Leben)
 	private long playerCoolOf;	
 	private int playerLifepoints;	
 	private int playerLifepointsMax;	
 	private int playerManapoints;	
 	private int playerManapointsMax;	
-	private int checkpointRaum;
-	private int checkpointX;
-	private int checkpointY;
+	public int checkpointRoom=1;
+	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spilfeld, für den Spieler
+	private int checkpointY=100;// Koordinate Y -//-
 	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false;
 	
 	public Player(World world){
@@ -122,13 +123,14 @@ public class Player extends GameObject implements Entity{
 			alive=false;
 		}
 		else {
-			playerRect = new Rectangle(1,25,25,50);
+			playerRect = new Rectangle(checkpointX,checkpointY,25,50);
 			playerLifepoints = 100;
+			playerChangeRoom =true;
 		}
 	}
 
-	public void setCheckpoint(int checkpointRaum,int checkpointX,int checkpointY){
-		this.checkpointRaum = checkpointRaum;
+	public void setCheckpoint(int checkpointRoom,int checkpointX,int checkpointY){
+		this.checkpointRoom = checkpointRoom;
 		this.checkpointX = checkpointX;
 		this.checkpointY = checkpointY;
 	}

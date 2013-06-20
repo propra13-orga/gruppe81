@@ -38,7 +38,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	// Game Variales
 	private Thread game;
 	private volatile boolean running = false;
-	private int currentLevel = 1;
+	private int currentLevel = 0;
+	private int currentRoom = 1;
 	double delta = 0; //Time var
 	private long bulletCoolOf =0;
 	//Game Objects
@@ -58,7 +59,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		this.mainWindow = mainWindow;
 		c = new Controller(this);
 		
-		world = new World(currentLevel,  this);
+		world = new World(currentLevel + currentRoom,  this);
 		p1 = new Player(world);
 		ed = c.getEntDestrList();
 		em = c.getEntMovList();
@@ -183,13 +184,25 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		
 		if (p1.isHitExit()) {
-			currentLevel++;
-			if(currentLevel>9)
-				currentLevel =1;
-            newWorld(currentLevel);
+			currentRoom++;
+		if(currentRoom >3){
+			
+			currentLevel=currentLevel+currentRoom-1;
+			currentRoom = 1;
+		}
+			if(currentLevel>8)
+				currentLevel = 0;
+            newWorld(currentLevel+currentRoom);
             p1.changestate();
 			}
-		
+	if(p1.playerChangeRoom){
+		if(p1.checkpointRoom < currentRoom){
+			currentRoom=p1.checkpointRoom;
+			p1.playerChangeRoom=false;
+			newWorld(currentLevel+currentRoom);
+            p1.changestate();
+		}
+	}
 	}
 	
 	private void shoot(long coolOf){
