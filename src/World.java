@@ -191,7 +191,7 @@ public void getLevel(String fileName) { //reading level from file
         		switch (line.charAt(j)){
         		case '1': 	wallslist.add(new Wall(x, y, sol));
         				//	walls[i][j] = new Wall(x, y, sol);
-        				 //   blockImage[i][j]= SMALLWALL;
+        				    blockImage[i][j]= SMALLWALL;
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
             				break;
@@ -416,7 +416,7 @@ case 'n': 	blockImage[i][j]= BLUEME1;
         		case '§':	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 0, 0, 100);
+							game.addHealthPack(x, y, 0, 0, 1);
 							break;
 			
         		
@@ -426,7 +426,7 @@ case 'n': 	blockImage[i][j]= BLUEME1;
         		case '$':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 0, 0, 100);
+							game.addHealthPack(x, y, 0, 0, 1);
 							break;
         				default:{}
         		}

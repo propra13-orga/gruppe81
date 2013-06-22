@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -15,14 +16,14 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 	private boolean alive=true;	
 	private int BOSS1Life1;
 	private int BOSS1Life;
-	private long playerCoolOf;
+	private long coolOf;
 	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false;
 	Random rnd = new Random ();
 	
 	String picPath;
 	private Image pic = new ImageIcon("bossmummy.png").getImage();
 	
-	double x, y;
+	double x, y,width=100,height=100;
 	boolean solid = true;
 	double tempx;
 	double tempy;
@@ -31,8 +32,6 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 	Random r;
 	private boolean BOSS = true;
 	DungeonCrawlerGame game;
-	private int BOSS1Lifepoints;
-	private int BOSS1LifepointsMax;
 	BOSS1(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
@@ -41,8 +40,9 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
+		this.lifepointsMax=100;
+		this.lifepoints=this.lifepointsMax;
 		setBounds((int)x, (int)y, 100, 100);
-
 	}
 
 	@Override
@@ -88,6 +88,10 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 		// TODO Draw the NPC on the screen
 		if(this !=null)
 		g.drawImage(pic ,(int) x,(int) y, null);
+		g.setColor(Color.white);
+		g.fill3DRect((int)x, (int)(y-5),(int) (this.width-5), 4, true);
+		g.setColor(Color.green);
+		g.fill3DRect((int)x, (int)(y-5),(int) ((this.width-5)*(float)lifepoints/(float)lifepointsMax), 4, true);
 	}
 
 	@Override
