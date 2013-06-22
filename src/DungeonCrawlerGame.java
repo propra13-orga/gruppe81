@@ -48,6 +48,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	MyKeyListener k1;
 	NPC mob1;
 	Bullet b;
+	Shopping shop;
 	private Controller c;
 	private MainWindow mainWindow;
 	public LinkedList<EntityDestroyable> ed;
@@ -166,8 +167,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				if (!p1.isAlive()) {
 					mainWindow.showDCMenue();
 				}
-				gameRender();
-				paintScreen();
+			}
+			gameRender();
+			paintScreen();
+			if (!world.isPaused()) {
 				frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
 				if(System.currentTimeMillis() - timer > 1000){
@@ -185,27 +188,32 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void changestate(){
 		
 		
+		if (p1.isHitShop()) {
+			shop = new Shopping();
+			shop.setFrame(mainWindow);
+			shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Coin.gif");
+		}
 		if (p1.isHitExit()) {
 			currentRoom++;
 			
-		if(currentRoom >3){
+			if(currentRoom >3){
 			
-			currentLevel=currentLevel+currentRoom-1;
-			currentRoom = 1;
-		}
+				currentLevel=currentLevel+currentRoom-1;
+				currentRoom = 1;
+			}
 			if(currentLevel>8)
 				currentLevel = 0;
             newWorld(currentLevel+currentRoom);
             p1.changestate();
-			}
-	if(p1.playerChangeRoom){
-		if(p1.checkpointRoom < currentRoom){
-			currentRoom=p1.checkpointRoom;
-			p1.playerChangeRoom=false;
-			newWorld(currentLevel+currentRoom);
-            p1.changestate();
 		}
-	}
+		if(p1.playerChangeRoom){
+			if(p1.checkpointRoom < currentRoom){
+				currentRoom=p1.checkpointRoom;
+				p1.playerChangeRoom=false;
+				newWorld(currentLevel+currentRoom);
+				p1.changestate();
+			}
+		}
 	}
 	
 	private void shoot(long coolOf){
@@ -312,12 +320,18 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	/*Draw all Game content in this method */
 	
 	public void draw (Graphics g){
-		world.draw(g);
-		p1.draw(g); //Drawing Player
-		c.draw(g);
+		if (!world.isPaused()) {
+			world.draw(g);
+			p1.draw(g); //Drawing Player
+			c.draw(g);
+		}
 //		if(mob1!=null)
 //		mob1.draw(g);
-		
+		if (world.isPaused()) {
+//			System.out.println("Zeige Shop");
+			g.drawImage(shop.paint(),0,0,mainWindow.getWidth(),mainWindow.getHeight(),mainWindow);
+			
+		}
 		
 	}
 

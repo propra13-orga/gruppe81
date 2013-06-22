@@ -80,7 +80,7 @@ for (numerator=0; numerator < args.length; numerator++)
 	//++++Was_bist_du
 
 	if ("background".equals(args [numerator]))    
-			{ numerator++;  imgBackground  =  MyFrame.getToolkit().getImage(args[numerator]);  }
+			{ numerator++;  imgBackground  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  }
  
 	///////////////////////////////////////////////////////////////////////////////////
 	if ("papyrus".equals(args [numerator]))       
