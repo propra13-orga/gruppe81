@@ -112,6 +112,12 @@ public class World {
  }
  
  // Spiel pausieren wenn der Spieler im Shop oder Menu ist etc.
+ public boolean isPaused(){
+	if (pause) return true;
+	else return false;
+ }
+  
+ // Spiel pausieren wenn der Spieler im Shop oder Menu ist etc.
  public void pauseGame(){
 	 pause=true;
  }
