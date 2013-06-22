@@ -160,6 +160,18 @@ public class HealthPack extends GameObject implements EntityMapObject{
 		System.out.println(s);
 	}
 
+	@Override
+	public void setShop(boolean shop) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isShop() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 //	@Override
 //	public boolean isNPC() {

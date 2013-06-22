@@ -42,6 +42,7 @@ public class World {
 	//Block images
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 ; 
+	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
 	Controller c;
@@ -592,4 +593,19 @@ case 'n': 	blockImage[i][j]= BLUEME1;
 private void log(String s){
 	System.out.println(s);
 }
+
+
+
+public void pause() {
+	pause=true;
+}
+
+public void resume() {
+	pause=false;
+}
+
+public boolean isPaused() {
+	return pause;
+}
+
 }
