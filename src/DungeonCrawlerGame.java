@@ -147,37 +147,38 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		while(running){ //We can do everything here : Main LOOP
 			long now = System.nanoTime();
 			
-			delta+= (now-lastTime)/ns;
-			lastTime = now;
-			if (delta >=1){
-				gameUpdate();
-				updates ++;
-				delta--;
-			}
-	/*		if (hitExit) {
-              newWorld(2);
-              hitExit=false;
-			}
+			if (!world.isPaused()) delta+= (now-lastTime)/ns;
+			lastTime = now;			
+			if (!world.isPaused()) {
+				if (delta >=1){
+					gameUpdate();
+					updates ++;
+					delta--;
+				}
+	/*			if (hitExit) {
+              		newWorld(2);
+              		hitExit=false;
+				}
 	*/
-			if (p1.isHitFinish()) {
-				mainWindow.showFinish();
-			}
-			if (!p1.isAlive()) {
-				mainWindow.showDCMenue();
-			}
-			gameRender();
-			paintScreen();
-			frames++;
-		//	System.out.println(System.currentTimeMillis() - timer );
-			if(System.currentTimeMillis() - timer > 1000){
-				timer +=1000;
+				if (p1.isHitFinish()) {
+					mainWindow.showFinish();
+				}
+				if (!p1.isAlive()) {
+					mainWindow.showDCMenue();
+				}
+				gameRender();
+				paintScreen();
+				frames++;
+		//		System.out.println(System.currentTimeMillis() - timer );
+				if(System.currentTimeMillis() - timer > 1000){
+					timer +=1000;
 			
-				System.out.println(updates + " ups, "+ frames + " fps");
+					System.out.println(updates + " ups, "+ frames + " fps");
 				
-				updates=0;
-				frames=0;
+					updates=0;
+					frames=0;
+				}
 			}
-				
 		}
 	}
 	
