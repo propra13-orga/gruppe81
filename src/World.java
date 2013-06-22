@@ -40,7 +40,7 @@ public class World {
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
-	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP,KISTE;
 ; 
 	private boolean pause=false;
 	private int x=0, y=0;
@@ -77,7 +77,8 @@ public class World {
      BLUEME1 = new ImageIcon("blueme1.png").getImage();
 
 	 SHOP= new ImageIcon("laden1.png").getImage();
-	 
+	 KISTE= new ImageIcon("Kiste.png").getImage();
+	 LEER= new ImageIcon("leer.png").getImage();
 	 
 	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
 	 ICEFIRE = new ImageIcon("icefire_eishintergrund.gif").getImage();
@@ -169,6 +170,10 @@ public void getLevel(String fileName) { //reading level from file
                
                checkpoints[i][j]=false;
                shop[i][j]=false;
+               exits[i][j] = false;
+               trap[i][j] = false;
+               finish[i][j] = false;
+               isSolid[i][j] =false;
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -189,74 +194,44 @@ public void getLevel(String fileName) { //reading level from file
         				 //   blockImage[i][j]= SMALLWALL;
                 			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
                 			isSolid[i][j] =true;
-                			exits[i][j] = false;
-            				trap[i][j] = false;
-            				finish[i][j] = false;
             				break;
         		case '0': 	blockImage[i][j]=SMALLWHITE;
             				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-            				isSolid[i][j] =false;
-            				exits[i][j] = false;
-            				trap[i][j] = false;
-            				finish[i][j] = false;
             				break;
         		case '2': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
 							exits[i][j] = true;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							break;
         		case '3': 	blockImage[i][j]=TRAPUP;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-        					isSolid[i][j] =false;
-        					exits[i][j] = false;
         					trap[i][j] = true;
-        					finish[i][j] = false;
         					break;
         					
         					
         		case 'D': blockImage[i][j]=ICEFIRE;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = true;
-				finish[i][j] = false;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
 				break;
-        			
-				
         		case 'O': 	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = true;
-				finish[i][j] = false;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
 				break;
 				
         					
         		case '4': 	blockImage[i][j]=TRAPDOWN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
 							trap[i][j] = true;
-							finish[i][j] = false;
 							break;
         		
         		case 'r': 	blockImage[i][j]=TRAPREGHT;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
 				trap[i][j] = true;
-				finish[i][j] = false;
 				break;
         		
         		
         		case 'l': 	blockImage[i][j]=TRAPLEFT;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
 				trap[i][j] = true;
-				finish[i][j] = false;
 				break;
         		
         		
@@ -266,41 +241,24 @@ public void getLevel(String fileName) { //reading level from file
 				 //   blockImage[i][j]= SMALLWALL;
         			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         			isSolid[i][j] =true;
-        			exits[i][j] = false;
-    				trap[i][j] = false;
-    				finish[i][j] = false;
     				break;
 				
         		
         		
         		case '5': 	blockImage[i][j]=SPIDER;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
 							trap[i][j] = true;
-							finish[i][j] = false;
 							break;
         		case '8': 	blockImage[i][j]= SMALLWALL;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-        					isSolid[i][j] =false;
-        					exits[i][j] = false;
-        					trap[i][j] = false;
-        					finish[i][j] = false;
         					break;
         		case '9': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
 							finish[i][j] = true;
 							break;
 				
         		case '7':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
-							finish[i][j] = false;
 						//	log("X="+x+" Y="+y);
 							game.addNPC(x, y);
 							break;
@@ -308,10 +266,6 @@ public void getLevel(String fileName) { //reading level from file
 							
         		case 'F':	blockImage[i][j]=SNOWGR;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 			//	log("X="+x+" Y="+y);
 				game.addNPC3(x, y);
 				break;
@@ -319,10 +273,6 @@ public void getLevel(String fileName) { //reading level from file
         	
         		case 'C':	blockImage[i][j]=SNOWGR;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 			//	log("X="+x+" Y="+y);
 				game.addNPC2(x, y);
 				break;		
@@ -331,10 +281,6 @@ public void getLevel(String fileName) { //reading level from file
 							
         		case 'B':	blockImage[i][j]=SMALLWHITE;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 			//	log("X="+x+" Y="+y);
 				game.addBOSS1(x, y);
 				break;
@@ -343,75 +289,47 @@ public void getLevel(String fileName) { //reading level from file
 				
         		case 'J':	blockImage[i][j]=SAND;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 			//	log("X="+x+" Y="+y);
 				game.addBOSS2(x, y);
 				break;
 				
         		case 'G':	blockImage[i][j]=SNOWGR;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 			//	log("X="+x+" Y="+y);
 				game.addBOSS3(x, y);
 				break;
 				
 				
-        		case 'q': 	blockImage[i][j]=WALLOB;
+        		case 'Q': 	blockImage[i][j]=WALLOB;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =true;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
         		
         		case 'w': 	blockImage[i][j]=WALLOB_2;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =true;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
         		
         		
         		case 'e': 	blockImage[i][j]=WALLOB_3;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =true;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 				
 				
 				case 's': 	blockImage[i][j]=SNOWGR;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 				
 				
 				case 'A': 	blockImage[i][j]=SNOWGRASS;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =true;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 				
 				
 				case 'K':	blockImage[i][j]=SNOWGR;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 		//		log("X="+x+" Y="+y);
 				game.addHealthPack(x, y, 20, 0, 0);
 				break;	
@@ -419,19 +337,11 @@ public void getLevel(String fileName) { //reading level from file
 				
         		case 'H':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
-							finish[i][j] = false;
 					//		log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 20, 0, 0);
 							break;
         		case 'M':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 0, 20, 0);
 							break;
@@ -441,111 +351,70 @@ public void getLevel(String fileName) { //reading level from file
 							
         		case 'a': 	blockImage[i][j]= WATER1;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 	case 'b': 	blockImage[i][j]=BLACK;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 	case 'c': 	blockImage[i][j]=WATER2;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 	case 'd': 	blockImage[i][j]=WATER3;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 	case 'm': 	blockImage[i][j]=GRASS;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 	case 'f': 	blockImage[i][j]=BLUEMEN;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
 				break;
 				
 				
 	case 'k': 	blockImage[i][j]= GRUND1;
 	blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
-	isSolid[i][j] =false;
-	exits[i][j] = false;
-	trap[i][j] = false;
-	finish[i][j] = false;
 	break;
 
 case 'n': 	blockImage[i][j]= BLUEME1;
 	blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
-	isSolid[i][j] =false;
-	exits[i][j] = false;
-	trap[i][j] = false;
-	finish[i][j] = false;
 	break;
 
 				
 							
 	case 'h': 	blockImage[i][j]= GRUND;
 	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-	isSolid[i][j] =false;
-	exits[i][j] = false;
-	trap[i][j] = false;
-	finish[i][j] = false;
 	break;
 
 				
 	case 'g': 	blockImage[i][j]= SAND;
 	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-	isSolid[i][j] =false;
-	exits[i][j] = false;
-	trap[i][j] = false;
-	finish[i][j] = false;
 	break;			
 							
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
 							checkpoints[i][j] = true;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							break;			
 							
 				case 'S': 	blockImage[i][j]= SHOP;
 							game.addElement(x, y, SHOP, 128, 185);
 							//
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
 							shop[i][j] = true;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							break;	
+				case 'T': 	blockImage[i][j]= KISTE;
+					game.addElement(x, y, KISTE, 128, 185);
+				//
+					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+					isSolid[i][j] =true;
+				break;	
+				case 'q': 	
+					blockImage[i][j]= LEER;
+					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+					isSolid[i][j] =true;
+				break;	
 							
         		
         		
         		case '§':	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 0, 0, 100);
 							break;
@@ -556,10 +425,6 @@ case 'n': 	blockImage[i][j]= BLUEME1;
         		
         		case '$':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
-							exits[i][j] = false;
-							trap[i][j] = false;
-							finish[i][j] = false;
 							log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 0, 0, 100);
 							break;
