@@ -196,14 +196,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		if (p1.isHitExit()) {
 			currentRoom++;
 			
-			if(currentRoom >3){
+			if(currentRoom >4){
 			
 				currentLevel=currentLevel+currentRoom-1;
 				currentRoom = 1;
 			}
 			if(currentLevel>8)
 				currentLevel = 0;
-            newWorld(currentLevel+currentRoom);
+			if(currentRoom==4){
+	            newWorld(0);
+			}
+			else {
+	            newWorld(currentLevel+currentRoom);
+			}
             p1.changestate();
 		}
 		if(p1.playerChangeRoom){
