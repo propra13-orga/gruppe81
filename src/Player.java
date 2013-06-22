@@ -34,7 +34,7 @@ public class Player extends GameObject implements Entity{
 	public int checkpointRoom=1;
 	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spilfeld, für den Spieler
 	private int checkpointY=100;// Koordinate Y -//-
-	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false;
+	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false, hitShop = false;
 	
 	public Player(World world){
 		this.world = world;
@@ -165,30 +165,38 @@ public class Player extends GameObject implements Entity{
 	//	if(Physics.CollisionGameObjectEntMO(this, eWO))
 	}
 	
-	public void setHitExit(boolean hitExit){
-		this.hitExit = hitExit;
-	}
-	
-	public void setHitTrap(boolean hitTrap){
-		this.hitTrap = hitTrap;
-	}
-	
 	public void setHitFinish(boolean hitFinish){
 		this.hitFinish = hitFinish;
 	}
 
-	public boolean isHitExit(){
-		return hitExit;
+	public boolean isHitFinish(){
+		return hitFinish;
+	}
+
+	public void setHitTrap(boolean hitTrap){
+		this.hitTrap = hitTrap;
 	}
 	
 	public boolean isHitTrap(){
 		return hitTrap;
 	}
-	
-	public boolean isHitFinish(){
-		return hitFinish;
-	}
 
+	public void setHitExit(boolean hitExit){
+		this.hitExit = hitExit;
+	}
+	
+	public boolean isHitExit(){
+		return hitExit;
+	}
+	
+	public void setHitShop(boolean hitShop){
+		this.hitShop = hitShop;
+	}
+		
+	public boolean isHitShop(){
+		return hitShop;
+	}
+	
 	public void changestate(){
 		if(hitExit){
 			hitExit = false;

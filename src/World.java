@@ -31,6 +31,7 @@ public class World {
 	public boolean [][] trap;
 	public boolean [][] finish;
 	public boolean [][] npc;
+	public boolean pause=false;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
@@ -109,9 +110,17 @@ public class World {
 	 
 	 
  }
+ 
+ // Spiel pausieren wenn der Spieler im Shop oder Menu ist etc.
+ public void pauseGame(){
+	 pause=true;
+ }
   
- 
- 
+ // Spiel fortsetzen wenn der Spieler im Shop oder Menu war etc.
+ public void resumeGame(){
+	 pause=false;
+ }
+
  private void loadArrays(){
 
 		
