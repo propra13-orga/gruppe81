@@ -36,19 +36,24 @@ private int gold = 2;
 //++++GRAPHICS______!!!!___img__bedeutet_IMAGE___!!!!________off__bedeutet_Element__von__doppelteBuffer___!!!!___
 private Image imgBackground, imgPapyrus, imgMana, imgLife, imgWeapon, imgMunze;
 private Image [] imgCommodity;
+private World world;
+private Player player;
 private Image offImage;                                    //   copy Image fur buffer, unsehenbares Bild
 private Graphics offGraphics;                              //   copy graphics fur buffer, wird nicht zum Monitor ubergegeben
 //++++GRAPHICS__ENDE
 //_________________Variable__ende_____________________
 
 
-	public Shopping()
+	public Shopping(World world,Player player)
 	{
 	//===========================___Konstrukteur___=================================
 	
 		MyKeyL = new MyKeyListener();
 		positionStuff = new boolean[3];
 		this.MyKeyL = MyKeyL;
+		this.world = world;
+		this.player = player;
+		gold = player.getPlayerMoney();
 		positionStuff[0] =true;
 		positionStuff[1] =false;
 		positionStuff[2] =false;
@@ -194,9 +199,8 @@ public void keyPressed(KeyEvent event)
 
 	if (event.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{ 
-		MyFrame.setVisible(false);  
-		MyFrame	.dispose();   
-		System.exit(0); 
+			player.changePlayerMoney(gold-player.getPlayerMoney());
+			world.resume();
 		}
 
 	if (event.getKeyCode() == KeyEvent.VK_ENTER)    { enter = true;  up = false; down = false; left= false; right = false; }

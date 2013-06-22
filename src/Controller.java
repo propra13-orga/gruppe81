@@ -54,8 +54,7 @@ public class Controller {
 				if (tempEntWO.getLeben()!=0) {game.p1.changePlayerLifepoints(tempEntWO.getLeben(), 0);}
 				if (tempEntWO.getMana()!=0) {game.p1.changePlayerManapoints(tempEntWO.getMana());}
 				if (tempEntWO.getGeld()!=0) {game.p1.changePlayerMoney(tempEntWO.getGeld());}
-				if( tempEntWO.isShop()){
-					game.world.pause();
+				if( tempEntWO.isShop()){					
 					game.p1.setHitShop(true); 
 				}
 				if (!tempEntWO.isShop()) removeEntity(tempEntWO);

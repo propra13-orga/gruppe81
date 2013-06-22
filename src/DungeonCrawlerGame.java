@@ -148,39 +148,37 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		while(running){ //We can do everything here : Main LOOP
 			long now = System.nanoTime();
 			
-			if (!world.isPaused()) delta+= (now-lastTime)/ns;
+			delta+= (now-lastTime)/ns;
 			lastTime = now;			
-			if (!world.isPaused()) {
-				if (delta >=1){
+			if (delta >=1){
+				if (!world.isPaused()) {
 					gameUpdate();
 					updates ++;
 					delta--;
-				}
-	/*			if (hitExit) {
-              		newWorld(2);
-              		hitExit=false;
-				}
+	/*				if (hitExit) {
+              			newWorld(2);
+              			hitExit=false;
+					}
 	*/
-				if (p1.isHitFinish()) {
-					mainWindow.showFinish();
+					if (p1.isHitFinish()) {
+						mainWindow.showFinish();
+					}
+					if (!p1.isAlive()) {
+						mainWindow.showDCMenue();
+					}
 				}
-				if (!p1.isAlive()) {
-					mainWindow.showDCMenue();
-				}
+				gameRender();
+				paintScreen();
 			}
-			gameRender();
-			paintScreen();
-			if (!world.isPaused()) {
-				frames++;
+			frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
-				if(System.currentTimeMillis() - timer > 1000){
-					timer +=1000;
+			if(System.currentTimeMillis() - timer > 1000){
+				timer +=1000;
+		
+				System.out.println(updates + " ups, "+ frames + " fps");
 			
-					System.out.println(updates + " ups, "+ frames + " fps");
-				
-					updates=0;
-					frames=0;
-				}
+				updates=0;
+				frames=0;
 			}
 		}
 	}
@@ -188,10 +186,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void changestate(){
 		
 		
-		if (p1.isHitShop()) {
-			shop = new Shopping();
+		if ((p1.isHitShop()) & (k1.isKeyPressed(KeyEvent.VK_S))) {
+			world.pause();
+			shop = new Shopping(world,p1);
 			shop.setFrame(mainWindow);
-			shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Coin.gif");
+			addKeyListener(shop.getMyKeyListener());
+			shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
 		}
 		if (p1.isHitExit()) {
 			currentRoom++;
@@ -322,14 +322,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void draw (Graphics g){
 		if (!world.isPaused()) {
 			world.draw(g);
-			p1.draw(g); //Drawing Player
 			c.draw(g);
+			p1.draw(g); //Drawing Player
 		}
 //		if(mob1!=null)
 //		mob1.draw(g);
 		if (world.isPaused()) {
-//			System.out.println("Zeige Shop");
-			g.drawImage(shop.paint(),0,0,mainWindow.getWidth(),mainWindow.getHeight(),mainWindow);
+			System.out.println("Zeige Shop");
+			g.drawImage(shop.paint(),0,0,mainWindow.getWidth(),mainWindow.getHeight(),null);
 			
 		}
 		
