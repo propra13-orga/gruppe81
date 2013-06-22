@@ -414,6 +414,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void addHealthPack(double x, double y, int leben, int mana, int geld){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld));
 	}
+	public void addElement(double x, double y,Image image, double width, double height){
+		c.addEntity(new Element(x, y, this, image, width, height));
+	}
 	@Override
 	public void addNotify(){
 		super.addNotify();

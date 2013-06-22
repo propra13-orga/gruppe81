@@ -23,6 +23,7 @@ public interface EntityMapObject {
 	public void setMana(int mana);
 	public int getMana();
 	public void setGeld(int geld);
-	public int getGeld();
-	
+	public int getGeld();	
+	public void setShop(boolean shop);
+	public boolean isShop();
 }

@@ -31,7 +31,7 @@ public class World {
 	public boolean [][] trap;
 	public boolean [][] finish;
 	public boolean [][] npc;
-	public boolean pause=false;
+	public boolean [][] shop;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
@@ -40,7 +40,7 @@ public class World {
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
-	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1;
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 ; 
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -75,7 +75,7 @@ public class World {
 	 GRUND1 = new ImageIcon("grund1.png").getImage();
      BLUEME1 = new ImageIcon("blueme1.png").getImage();
 
-	 
+	 SHOP= new ImageIcon("laden1.png").getImage();
 	 
 	 
 	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
@@ -103,6 +103,7 @@ public class World {
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
 	 checkpoints = new boolean[AWIDTH][AHIGHT];
+	 shop= new boolean[AWIDTH][AHIGHT];
 	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -110,23 +111,9 @@ public class World {
 	 
 	 
  }
+  
  
- // Spiel pausieren wenn der Spieler im Shop oder Menu ist etc.
- public boolean isPaused(){
-	if (pause) return true;
-	else return false;
- }
-  
- // Spiel pausieren wenn der Spieler im Shop oder Menu ist etc.
- public void pauseGame(){
-	 pause=true;
- }
-  
- // Spiel fortsetzen wenn der Spieler im Shop oder Menu war etc.
- public void resumeGame(){
-	 pause=false;
- }
-
+ 
  private void loadArrays(){
 
 		
@@ -180,6 +167,7 @@ public void getLevel(String fileName) { //reading level from file
                System.out.println(line.charAt(j));
                
                checkpoints[i][j]=false;
+               shop[i][j]=false;
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -227,7 +215,7 @@ public void getLevel(String fileName) { //reading level from file
         					break;
         					
         					
-      case 'D': blockImage[i][j]=ICEFIRE;
+        		case 'D': blockImage[i][j]=ICEFIRE;
 				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				isSolid[i][j] =false;
 				exits[i][j] = false;
@@ -529,27 +517,37 @@ case 'n': 	blockImage[i][j]= BLUEME1;
 	finish[i][j] = false;
 	break;			
 							
-	case 'z': 	blockImage[i][j]= GRUND;
-	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-	isSolid[i][j] =false;
-	exits[i][j] = false;
-	checkpoints[i][j] = true;
-	trap[i][j] = false;
-	finish[i][j] = false;
-	break;			
+				case 'z': 	blockImage[i][j]= GRUND;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							checkpoints[i][j] = true;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							break;			
 							
+				case 'S': 	blockImage[i][j]= SHOP;
+							game.addElement(x, y, SHOP, 128, 185);
+							//
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							shop[i][j] = true;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							break;	
 							
         		
         		
         		case '§':	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =false;
-				exits[i][j] = false;
-				trap[i][j] = false;
-				finish[i][j] = false;
-				log("X="+x+" Y="+y);
-				game.addHealthPack(x, y, 0, 0, 100);
-				break;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							exits[i][j] = false;
+							trap[i][j] = false;
+							finish[i][j] = false;
+							log("X="+x+" Y="+y);
+							game.addHealthPack(x, y, 0, 0, 100);
+							break;
 			
         		
         		
