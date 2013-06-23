@@ -360,6 +360,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					p1.setHitExit(true);
 					c.ed.clear();
 					c.em.clear();
+					c.eWO.clear(); //loescht die Objekte aus den früheren Levels
 					
 
 				}
