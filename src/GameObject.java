@@ -1,6 +1,4 @@
 
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.*;
 
 
@@ -8,10 +6,13 @@ abstract class GameObject extends Rectangle
 	{
 //=====================================_____Class____Start
     private boolean alive = true,  explode = false;
+	private long coolOf;	
     private double x,y;
     private boolean solid;
     private Image Bild;
-    
+	public int lifepoints=1;
+	public int lifepointsMax=1;
+   
     private int live;
     private static Image imageBuffer;
     private static Graphics graphicsBuffer;
@@ -30,6 +31,18 @@ abstract class GameObject extends Rectangle
     
     }  
 
+	public void changeLifepoints(int lifepointsChange, long coolOf){
+		if (this.coolOf<System.nanoTime()) {
+			this.lifepoints = this.lifepoints+lifepointsChange;
+			System.out.println("Lifepoints "+this.lifepoints);
+			this.coolOf = System.nanoTime()+coolOf;
+			if (this.lifepoints<=0) {
+				alive=false;
+			}
+		}
+	}
+
+	
 //    
 //    
 //+++++++++Graphics
@@ -79,6 +92,10 @@ abstract class GameObject extends Rectangle
 //
 //
 //
+	public boolean isAlive() {
+		return alive;
+	}
+
     boolean alive ()
     {
 	return alive;

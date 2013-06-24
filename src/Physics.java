@@ -31,8 +31,10 @@ public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<E
 		for(int j =0; j<em.size();j++)
 		{	
 			
-			if(entD.getBounds().intersects(em.get(j).getBounds()))
-			return true;
+			if(entD.getBounds().intersects(em.get(j).getBounds())) {
+System.out.println("collision!!!!!");
+				return true;
+			}
 		}
 		
 		return false;

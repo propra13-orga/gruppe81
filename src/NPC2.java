@@ -137,5 +137,6 @@ public class NPC2 extends GameObject implements EntityDestroyable {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
 

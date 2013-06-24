@@ -8,6 +8,8 @@ public interface EntityDestroyable {
 	
 	public void update();
 	public void draw(Graphics g);
+	public void changeLifepoints(int lifepointsChange, long coolOf);
+	public boolean isAlive();
 	
 	public double getX();
 	public double getY();

@@ -23,6 +23,7 @@ public class Player extends GameObject implements Entity{
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
 	private boolean alive=true;	
+	private int weapon=0;	
 	public boolean playerChangeRoom=false;
 	private int playerMoney; // Das Geld des Spielers	
 	private int playerLife;	// Das Leben des Spielers(der Spieler hat 3 Leben)
@@ -81,6 +82,14 @@ public class Player extends GameObject implements Entity{
 
 	public void setAlive(boolean alive){
 		this.alive=alive;
+	}
+
+	public int getWeapon(){
+		return weapon;
+	}
+
+	public void setWeapon(int weapon){
+		this.weapon=weapon;
 	}
 
 	public int getPlayerMoney(){

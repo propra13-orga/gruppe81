@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -22,7 +23,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	String picPath;
 	private Image pic = new ImageIcon("Boss1gifanimation.gif").getImage();
 	
-	double x, y;
+	double x, y, width=50;
 	boolean solid = true;
 	double tempx;
 	double tempy;
@@ -31,8 +32,6 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	Random r;
 	private boolean BOSS = true;
 	DungeonCrawlerGame game;
-	private int BOSS2Lifepoints;
-	private int BOSS2LifepointsMax;
 	BOSS2(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
@@ -41,6 +40,8 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
+		this.lifepointsMax=25;
+		this.lifepoints=this.lifepointsMax;
 		setBounds((int)x, (int)y, 100, 100);
 
 	}
@@ -88,6 +89,10 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		// TODO Draw the NPC on the screen
 		if(this !=null)
 		g.drawImage(pic ,(int) x,(int) y, null);
+		g.setColor(Color.white);
+		g.fill3DRect((int)x, (int)(y-5),(int) (this.width-5), 4, true);
+		g.setColor(Color.green);
+		g.fill3DRect((int)x, (int)(y-5),(int) ((this.width-5)*(float)lifepoints/(float)lifepointsMax), 4, true);
 	}
 
 	@Override
@@ -155,6 +160,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
 		
 		
