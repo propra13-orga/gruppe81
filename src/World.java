@@ -41,7 +41,7 @@ public class World {
 	boolean sol = true;
 	//Block images
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP,BAUM,STEIN,BUSH,HAUS;
-	public Image BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3;
+	public Image BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN,FELD,HOLZ1,HOLZ2,AXT;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -94,6 +94,12 @@ public class World {
 	 GRASSFELD= new ImageIcon("grass_feld.png").getImage();
 	 TANNENBAUM= new ImageIcon("tannenbaum.png").getImage();
 	 HOLZ3= new ImageIcon("holz3.png").getImage();
+	 WALD= new ImageIcon("wald1.png").getImage();
+	 BALKEN = new ImageIcon("balken.png").getImage();
+	 FELD= new ImageIcon("feld1.png").getImage();
+	 HOLZ1= new ImageIcon("holz1.png").getImage();
+	 HOLZ2=new ImageIcon("holz2.png").getImage();
+	 AXT=new ImageIcon("axt.png").getImage();
 	
 	 
 	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
@@ -365,19 +371,42 @@ public void getLevel(String fileName) { //reading level from file
 							
 							
 							
-        		case 'a': 	blockImage[i][j]= WATER1;
+        		case 'a': 	blockImage[i][j]= HOLZ1;
+        					game.addElement(x, y, HOLZ1, 33, 31);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
 							break;
-        		case 'b': 	blockImage[i][j]=BLACK;
+        		case 'b': 	blockImage[i][j]=BALKEN;
+        					game.addElement(x, y, BALKEN, 63, 29);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
 							break;
         		case 'c': 	blockImage[i][j]=HOLZ3;
         					game.addElement(x, y, HOLZ3, 38, 29);
         					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
-        		case 'd': 	blockImage[i][j]=WATER3;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							break;
+        					break;
+        		case 'd': 	blockImage[i][j]=FELD;
+        					game.addElement(x, y, FELD, 350, 259);
+        					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
+        					
+        					
+        		case 'h': 	blockImage[i][j]= HOLZ2;
+        					game.addElement(x, y, HOLZ2, 40, 36);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
+
+        					
+        		case 'g': 	blockImage[i][j]= AXT;
+        		game.addElement(x, y, AXT, 38, 33);
+        		blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        		isSolid[i][j] =true;
+        		break;			
+        				
+        					
         		case 'q': 	blockImage[i][j]=BUSH;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true; 
@@ -450,6 +479,11 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;
+        		case '&': 	blockImage[i][j]= WALD;
+							game.addElement(x, y, WALD, 62, 66);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
         		case 'T': 	blockImage[i][j]= KISTE;
 							game.addElement(x, y, KISTE, 64, 97);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -467,15 +501,7 @@ public void getLevel(String fileName) { //reading level from file
 
 				
 							
-	case 'h': 	blockImage[i][j]= GRUND;
-	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-	break;
-
-				
-	case 'g': 	blockImage[i][j]= SAND;
-	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-	break;			
-							
+					
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							checkpoints[i][j] = true;
