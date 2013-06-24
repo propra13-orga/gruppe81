@@ -41,7 +41,7 @@ public class World {
 	boolean sol = true;
 	//Block images
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP,BAUM,STEIN,BUSH,HAUS;
-	public Image BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN,FELD,HOLZ1,HOLZ2,AXT;
+	public Image BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN,FELD,FELD2,HOLZ1,HOLZ2,AXT;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -100,6 +100,7 @@ public class World {
 	 HOLZ1= new ImageIcon("holz1.png").getImage();
 	 HOLZ2=new ImageIcon("holz2.png").getImage();
 	 AXT=new ImageIcon("axt.png").getImage();
+	 FELD2=new ImageIcon("feldstuck.png").getImage();
 	
 	 
 	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
@@ -251,10 +252,7 @@ public void getLevel(String fileName) { //reading level from file
 				break;
         		
         		
-        		case 'l': 	blockImage[i][j]=TRAPLEFT;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				trap[i][j] = true;
-				break;
+        		
         		
         		
         		
@@ -333,10 +331,7 @@ public void getLevel(String fileName) { //reading level from file
 				break;
         		
         		
-        		case 'e': 	blockImage[i][j]=WALLOB_3;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =true;
-				break;
+        	
 				
 				
 				case 's': 	blockImage[i][j]=SNOWGR;
@@ -391,25 +386,37 @@ public void getLevel(String fileName) { //reading level from file
         					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
-        					
-        					
+        		case 'e': 	blockImage[i][j]=WALLOB_3;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
+        		case 'f': 	blockImage[i][j]=BLUEMEN;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+        		case 'g': 	blockImage[i][j]= AXT;
+        					game.addElement(x, y, AXT, 38, 33);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
         		case 'h': 	blockImage[i][j]= HOLZ2;
         					game.addElement(x, y, HOLZ2, 40, 36);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
-        					break;
-
-        					
-        		case 'g': 	blockImage[i][j]= AXT;
-        		game.addElement(x, y, AXT, 38, 33);
-        		blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-        		isSolid[i][j] =true;
-        		break;			
-        				
-        					
+        					break;		
+        		case 'i': 	blockImage[i][j]= FELD2;
+							game.addElement(x, y, FELD2, 25, 25);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
+							break;	
+        	
+        		//j
+        							
         		case 'q': 	blockImage[i][j]=BUSH;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true; 
+							break;
+        		case 'l': 	blockImage[i][j]=TRAPLEFT;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
 							break;
         		case 'm': 	blockImage[i][j]=GRASS;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -423,9 +430,6 @@ public void getLevel(String fileName) { //reading level from file
         					game.addElement(x, y, BAUM, 65, 69);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;  //setze den Baum als Mauer
-							break;
-        		case 'f': 	blockImage[i][j]=BLUEMEN;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
         		case 'p':	blockImage[i][j]=STEIN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
