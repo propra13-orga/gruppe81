@@ -361,8 +361,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					c.ed.clear();
 					c.em.clear();
 <<<<<<< HEAD
+<<<<<<< HEAD
 					c.eWO.clear(); //loescht die Objekte aus den früheren Levels
 					
+=======
+					c.eWO.clear();
+>>>>>>> 35f66493161a3d7eab76c31064db2887cdc73675
 =======
 					c.eWO.clear();
 >>>>>>> 35f66493161a3d7eab76c31064db2887cdc73675
