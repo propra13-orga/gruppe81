@@ -40,8 +40,10 @@ public class World {
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
-	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2,WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP,BAUM,STEIN,BUSH,HAUS;
-	public Image BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN,FELD,FELD2,HOLZ1,HOLZ2,AXT;
+	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2;
+	public Image WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
+	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
+	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -96,12 +98,19 @@ public class World {
 	 HOLZ3= new ImageIcon("holz3.png").getImage();
 	 WALD= new ImageIcon("wald1.png").getImage();
 	 BALKEN = new ImageIcon("balken.png").getImage();
-	 FELD= new ImageIcon("feld1.png").getImage();
+	 FELD1= new ImageIcon("feld1.png").getImage();
 	 HOLZ1= new ImageIcon("holz1.png").getImage();
 	 HOLZ2=new ImageIcon("holz2.png").getImage();
 	 AXT=new ImageIcon("axt.png").getImage();
-	 FELD2=new ImageIcon("feldstuck.png").getImage();
+	 FELD2=new ImageIcon("feld.png").getImage();
 	
+	 BAUMFELD=new ImageIcon("Baumfeld.png").getImage();
+	 BAUMBANK =new ImageIcon("Baumbank.png").getImage();
+	 HEU1=new ImageIcon("Heu1.png").getImage();
+	 HEU2=new ImageIcon("Heu2.png").getImage();
+	 HEU3=new ImageIcon("Heu3.png").getImage();
+	 KISTE4=new ImageIcon("Kiste.png").getImage();
+	 WASSERFELD=new ImageIcon("Brunnen.png").getImage();
 	 
 	 FIRE = new ImageIcon("redfire_eishintergrund.gif").getImage();
 	 ICEFIRE = new ImageIcon("icefire_eishintergrund.gif").getImage();
@@ -212,15 +221,16 @@ public void getLevel(String fileName) { //reading level from file
         		
         		
         		switch (line.charAt(j)){
-        		case '1': 	wallslist.add(new Wall(x, y, sol));
-        				//	walls[i][j] = new Wall(x, y, sol);
-        				    blockImage[i][j]= SMALLWALL;
-                			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-                			isSolid[i][j] =true;
-            				break;
+        	
         		case '0': 	blockImage[i][j]=SMALLWHITE;
             				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
             				break;
+        		case '1': 	wallslist.add(new Wall(x, y, sol));
+						//	walls[i][j] = new Wall(x, y, sol);
+        					blockImage[i][j]= SMALLWALL;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
         		case '2': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							exits[i][j] = true;
@@ -229,45 +239,26 @@ public void getLevel(String fileName) { //reading level from file
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					trap[i][j] = true;
         					break;
-        					
-        					
-        		case 'D': blockImage[i][j]=ICEFIRE;
-        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							trap[i][j] = true;
-				break;
-        		case 'O': 	blockImage[i][j]=SNOWGR;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							trap[i][j] = true;
-				break;
-				
-        					
+        		
         		case '4': 	blockImage[i][j]=TRAPDOWN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
 							break;
-        		
-        		case 'r': 	blockImage[i][j]=TRAPREGHT;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				trap[i][j] = true;
-				break;
-        		
-        		
-        		
-        		
-        		
-        		
-        		case 'E': 	wallslist.add(new Wall(x, y, sol));
-				//	walls[i][j] = new Wall(x, y, sol);
-				 //   blockImage[i][j]= SMALLWALL;
-        			blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-        			isSolid[i][j] =true;
-    				break;
-				
-        		
-        		
         		case '5': 	blockImage[i][j]=SPIDER;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
+							break;
+        		case '6': 	blockImage[i][j]= BAUMBANK;
+        					game.addElement(x, y, BAUMBANK, 103, 109);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
+							
+
+        		case '7':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//	log("X="+x+" Y="+y);
+							game.addNPC(x, y);
 							break;
         		case '8': 	blockImage[i][j]= SMALLWALL;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -277,163 +268,226 @@ public void getLevel(String fileName) { //reading level from file
 							finish[i][j] = true;
 							break;
 				
-        		case '7':	blockImage[i][j]=SMALLWHITE;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-						//	log("X="+x+" Y="+y);
-							game.addNPC(x, y);
-							break;
         		
-							
-        		case 'F':	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-			//	log("X="+x+" Y="+y);
-				game.addNPC3(x, y);
-				break;
-							
-        	
-        		case 'C':	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-			//	log("X="+x+" Y="+y);
-				game.addNPC2(x, y);
-				break;		
+        		
+				
 							
 							
-							
-        		case 'B':	blockImage[i][j]=SMALLWHITE;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-			//	log("X="+x+" Y="+y);
-				game.addBOSS1(x, y);
-				break;
-        		
-        		
-				
-        		case 'J':	blockImage[i][j]=SAND;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-			//	log("X="+x+" Y="+y);
-				game.addBOSS2(x, y);
-				break;
-				
-        		case 'G':	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-			//	log("X="+x+" Y="+y);
-				game.addBOSS3(x, y);
-				break;
-				
-				
-        		case 'Q': 	blockImage[i][j]=WALLOB;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =true;
-				break;
-        		
-        		case 'w': 	blockImage[i][j]=WALLOB_2;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =true;
-				break;
-        		
-        		
-        	
-				
-				
-				case 's': 	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				break;
-				
-				
 				case 'A': 	blockImage[i][j]=SNOWGRASS;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-				isSolid[i][j] =true;
-				break;
-				
-				
-				case 'K':	blockImage[i][j]=SNOWGR;
-				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-		//		log("X="+x+" Y="+y);
-				game.addHealthPack(x, y, 20, 0, 0);
-				break;	
-				
-				
-        		case 'H':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-					//		log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 20, 0, 0);
+							isSolid[i][j] =true;
 							break;
-        		case 'M':	blockImage[i][j]=SMALLWHITE;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 0, 20, 0);
-							break;
-        		
-							
-							
-							
         		case 'a': 	blockImage[i][j]= HOLZ1;
         					game.addElement(x, y, HOLZ1, 33, 31);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
+							break;
+        		case 'B':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//	log("X="+x+" Y="+y);
+							game.addBOSS1(x, y);
 							break;
         		case 'b': 	blockImage[i][j]=BALKEN;
         					game.addElement(x, y, BALKEN, 63, 29);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;
+        		case 'C':	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//	log("X="+x+" Y="+y);
+							game.addNPC2(x, y);
+							break;	
         		case 'c': 	blockImage[i][j]=HOLZ3;
         					game.addElement(x, y, HOLZ3, 38, 29);
         					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
-        		case 'd': 	blockImage[i][j]=FELD;
-        					game.addElement(x, y, FELD, 350, 259);
-        					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+        		case 'D': blockImage[i][j]=ICEFIRE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
+							break;
+        	//	case 'd': 	blockImage[i][j]=FELD;
+        		//			game.addElement(x, y, FELD, 350, 259);
+        		//			blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+        	//				isSolid[i][j] =true;
+        		//			break;
+        		case 'E': 	wallslist.add(new Wall(x, y, sol));
+							//	walls[i][j] = new Wall(x, y, sol);
+        					//   blockImage[i][j]= SMALLWALL;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
         		case 'e': 	blockImage[i][j]=WALLOB_3;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;
+        		case 'F':	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//	log("X="+x+" Y="+y);
+							game.addNPC3(x, y);
+							break;
         		case 'f': 	blockImage[i][j]=BLUEMEN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+        		case 'G':	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//	log("X="+x+" Y="+y);
+							game.addBOSS3(x, y);
 							break;
         		case 'g': 	blockImage[i][j]= AXT;
         					game.addElement(x, y, AXT, 38, 33);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
+        					break;
+        		case 'H':	blockImage[i][j]=SMALLWHITE;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							//		log("X="+x+" Y="+y);
+							game.addHealthPack(x, y, 20, 0, 0);
+							break;
         		case 'h': 	blockImage[i][j]= HOLZ2;
         					game.addElement(x, y, HOLZ2, 40, 36);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;		
+        		case 'I': 	blockImage[i][j]= BAUMFELD;
+        					game.addElement(x, y, BAUMFELD, 87, 77);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;	
         		case 'i': 	blockImage[i][j]= FELD2;
-							game.addElement(x, y, FELD2, 25, 25);
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =false;
+        					blockImage[i][j]=FELD2;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+			
 							break;	
-        	
-        		//j
-        							
-        		case 'q': 	blockImage[i][j]=BUSH;
+        		case 'J':	blockImage[i][j]=SAND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =true; 
+							//	log("X="+x+" Y="+y);
+							game.addBOSS2(x, y);
 							break;
+        		// case 'j': 	blockImage[i][j]= ZAUN1;     frei
+					//		game.addElement(x, y, ZAUN1, 8, 32);
+						//	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+						//	isSolid[i][j] =true;
+							//break;	
+				case 'K':	blockImage[i][j]=SNOWGR;
+				        	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+				        	//		log("X="+x+" Y="+y);
+				        	game.addHealthPack(x, y, 20, 0, 0);
+				        	break;	
+            	case 'k': 	blockImage[i][j]= FELD1;
+        					game.addElement(x, y, FELD1, 25, 25);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
+            	case 'L': 	blockImage[i][j]= HEU1;
+        					game.addElement(x, y, HEU1, 60, 53);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
         		case 'l': 	blockImage[i][j]=TRAPLEFT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
 							break;
+         		case 'M':	blockImage[i][j]=SMALLWHITE;
+         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+         					log("X="+x+" Y="+y);
+         					game.addHealthPack(x, y, 0, 20, 0);
+         					break;
         		case 'm': 	blockImage[i][j]=GRASS;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
+        		case 'N': 	blockImage[i][j]= HEU2;
+        					game.addElement(x, y, HEU2, 71, 73);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =true;
+        					break;
         		case 'n': 	blockImage[i][j]= BLUEME1;
         					game.addElement(x, y, BLUEME1, 25, 25);
         					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
+        		case 'O': 	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
+							break;
         		case 'o': 	blockImage[i][j]=BAUM;
         					game.addElement(x, y, BAUM, 65, 69);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;  //setze den Baum als Mauer
 							break;
+        		case 'P': 	blockImage[i][j]= HEU3;
+							game.addElement(x, y, HEU3, 49, 51);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
         		case 'p':	blockImage[i][j]=STEIN;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
+        		case 'Q': 	blockImage[i][j]=WALLOB;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
+        		case 'q': 	blockImage[i][j]=BUSH;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true; 
+							break;
+        		case 'R': 	blockImage[i][j]= KISTE4;
+							game.addElement(x, y, KISTE4, 133, 103);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;		
+        		case 'r': 	blockImage[i][j]=TRAPREGHT;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							trap[i][j] = true;
+							break;
+        		case 'S': 	blockImage[i][j]= SHOP;
+							game.addElement(x, y, SHOP, 128, 185);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							shop[i][j] = true;
+							break;	
+        		case 's': 	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+
+        		case 'T': 	blockImage[i][j]= KISTE;
+							game.addElement(x, y, KISTE, 64, 97);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;	
+        		case 't': 	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+			// U
+        		case 'u': 	blockImage[i][j]=SNOWGR;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+			//V
+							
+							
+			//v
+				
+			// W
+				case 'w': 	blockImage[i][j]=WALLOB_2;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
+			// X
+			
+			// x
+							
+			// Y
+			
+			// y
+							
+			// Z
+				case 'z': 	blockImage[i][j]= GRUND;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							checkpoints[i][j] = true;
+							break;		
+				
+        		
+							
+							
            		case '*': 	blockImage[i][j]=HAUS;
 							game.addElement(x, y, HAUS, 135, 217);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -469,10 +523,25 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;	
-        		case '@': 	blockImage[i][j]= SAECKE1;
+        		case '<': 	blockImage[i][j]= WASSERFELD;
+							game.addElement(x, y, WASSERFELD, 28, 22);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =true;
+							break;
+							
+				//case '>':
+							
+        		case '(': 	blockImage[i][j]= SAECKE1;
 							game.addElement(x, y, SAECKE1, 77, 101);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
+							break;
+							
+				//case ')':
+				
+				//case '?':
+							
+							
         		case '#': 	blockImage[i][j]= GRASSFELD;
 							game.addElement(x, y, GRASSFELD, 580, 419);         // !!!!!!!
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -488,50 +557,11 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;
-        		case 'T': 	blockImage[i][j]= KISTE;
-							game.addElement(x, y, KISTE, 64, 97);
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =true;
-							break;	
-							
-        		
-							
-							
-	case 'k': 	blockImage[i][j]= GRUND1;
-	blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
-	break;
-
-
-
-				
-							
-					
-				case 'z': 	blockImage[i][j]= GRUND;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							checkpoints[i][j] = true;
-							break;			
-							
-				case 'S': 	blockImage[i][j]= SHOP;
-							game.addElement(x, y, SHOP, 128, 185);
-							//
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							shop[i][j] = true;
-							break;	
-				
-				
-							
-        		
-        		
         		case '§':	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
 							game.addHealthPack(x, y, 0, 0, 1);
 							break;
-			
-        		
-        		
-        		
-        		
         		case '$':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
