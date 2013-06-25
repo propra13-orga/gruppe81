@@ -12,7 +12,7 @@ public class Player extends GameObject implements Entity{
 
 	private World world;
 	public Rectangle playerRect;
-	private Image playerImgGO, playerImgStop, playerImg;
+	private Image playerImgGO, playerImgStop, playerImg, blaseImg;
 	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6;
 	double xDirection, yDirection;
 	protected int displayDirection;
@@ -23,7 +23,6 @@ public class Player extends GameObject implements Entity{
 	// lastDirection : 0 = right, 1 = down, 2= left, 3 = up
 	
 	private boolean alive=true;	
-	private int weapon=0;	
 	public boolean playerChangeRoom=false;
 	private int playerMoney; // Das Geld des Spielers	
 	private int playerLife;	// Das Leben des Spielers(der Spieler hat 3 Leben)
@@ -48,7 +47,7 @@ public class Player extends GameObject implements Entity{
 		playerImgR4 = new ImageIcon("Boy_R_mit_Armschiene4.png").getImage();
 		playerImgR5 = new ImageIcon("Boy_R_mit_Armschiene5.png").getImage();
 		playerImgR6 = new ImageIcon("Boy_R_mit_Armschiene6.png").getImage();
-		
+		blaseImg = new ImageIcon("Sprechblase.png").getImage();
 		
 		
 		
@@ -82,14 +81,6 @@ public class Player extends GameObject implements Entity{
 
 	public void setAlive(boolean alive){
 		this.alive=alive;
-	}
-
-	public int getWeapon(){
-		return weapon;
-	}
-
-	public void setWeapon(int weapon){
-		this.weapon=weapon;
 	}
 
 	public int getPlayerMoney(){
@@ -337,6 +328,19 @@ public class Player extends GameObject implements Entity{
 		g.fill3DRect(6, 6, (int)(200*((float)playerLifepoints/(float)playerLifepointsMax)), 10, true);
 		g.setColor(Color.black);
 		g.drawString(playerLifepoints+"/"+playerLifepointsMax, 10, 15);
+		
+		g.drawImage(blaseImg, 100, 200, null);   		// Sprechblase
+		
+		g.setColor(Color.yellow);
+		g.drawString("Es gab einmal einen jungen Schatzsucher.",100,195);
+		g.drawString("Eines Tages fand er eine magische Armschiene,",100,215);
+		g.drawString("mit einem wunderschönem rotem Rubin.",100,235); 
+		g.drawString("Als er sie anprobierte,",100,255);
+		g.drawString("hörte er eine Stimme, die ihn darum bietete, sich auf die Suche zu machen",100,265);
+		g.drawString("und das Gegenstück zu finden. ",100,295);
+		g.drawString("Begleite den Ali während des Abenteuers und helfe ihm",100,325);
+		g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
+		
 		g.setColor(Color.white);
 		g.fill3DRect(209, 5, 202, 12, true);
 		g.setColor(Color.blue);
