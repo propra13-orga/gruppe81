@@ -52,6 +52,16 @@ System.out.println("collision!!!!!");
 	return false;
 	}
 	
+	public static  boolean CollisionGameObjectList(GameObject ob, EntityMapObject eWO){ //For Player, or other game object
+		
+		
+		if(eWO.getBounds().intersects(ob.getBounds())){
+			return true;
+		}
+	
+		return false;
+	}
+	
 	public static  boolean CollisionGameObjectList(Entity ob, LinkedList<EntityMapObject> eWO){ //For Player, or other game object
 		
 		for(int i =0; i<eWO.size();i++){			

@@ -31,7 +31,6 @@ public class World {
 	public boolean [][] trap;
 	public boolean [][] finish;
 	public boolean [][] npc;
-	public boolean [][] shop;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
@@ -43,7 +42,7 @@ public class World {
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2;
 	public Image WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
-	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD;
+	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,ARMSCHIENE,RUESTUNG;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -117,7 +116,9 @@ public class World {
 	 EICEWALL = new ImageIcon("garmschuppe.png").getImage();
 	 SNOWGR = new ImageIcon("Snowground.png").getImage();
 	 SNOWGRASS = new ImageIcon("schneegrass.png").getImage();
-	 
+	 STORYTELLER = new ImageIcon("NPC.png").getImage();
+	 ARMSCHIENE = new ImageIcon("Armschiene.png").getImage();
+	 RUESTUNG = new ImageIcon("Ruestung.png").getImage();
 	 
 	 NPC3 =new ImageIcon("familiar.gif").getImage();
 	 NPC2 =new ImageIcon("cramp.gif").getImage();
@@ -137,7 +138,6 @@ public class World {
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
 	 checkpoints = new boolean[AWIDTH][AHIGHT];
-	 shop= new boolean[AWIDTH][AHIGHT];
 	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -201,7 +201,6 @@ public void getLevel(String fileName) { //reading level from file
                System.out.println(line.charAt(j));
                
                checkpoints[i][j]=false;
-               shop[i][j]=false;
                exits[i][j] = false;
                trap[i][j] = false;
                finish[i][j] = false;
@@ -342,7 +341,7 @@ public void getLevel(String fileName) { //reading level from file
         		case 'H':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							//		log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 20, 0, 0);
+							game.addHealthPack(x, y, 20, 0, 0,"collectable",true);
 							break;
         		case 'h': 	blockImage[i][j]= HOLZ2;
         					game.addElement(x, y, HOLZ2, 40, 36);
@@ -372,7 +371,7 @@ public void getLevel(String fileName) { //reading level from file
 				case 'K':	blockImage[i][j]=SNOWGR;
 				        	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				        	//		log("X="+x+" Y="+y);
-				        	game.addHealthPack(x, y, 20, 0, 0);
+				        	game.addHealthPack(x, y, 20, 0, 0,"collectable",true);
 				        	break;	
             	case 'k': 	blockImage[i][j]= FELD1;
         					game.addElement(x, y, FELD1, 25, 25);
@@ -391,7 +390,7 @@ public void getLevel(String fileName) { //reading level from file
          		case 'M':	blockImage[i][j]=SMALLWHITE;
          					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
          					log("X="+x+" Y="+y);
-         					game.addHealthPack(x, y, 0, 20, 0);
+         					game.addHealthPack(x, y, 0, 20, 0,"collectable",true);
          					break;
         		case 'm': 	blockImage[i][j]=GRASS;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -441,9 +440,8 @@ public void getLevel(String fileName) { //reading level from file
 							trap[i][j] = true;
 							break;
         		case 'S': 	blockImage[i][j]= SHOP;
-							game.addElement(x, y, SHOP, 128, 185);
+							game.addElement(x, y, SHOP, 128, 185,"shop",true);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							shop[i][j] = true;
 							break;	
         		case 's': 	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
@@ -457,16 +455,26 @@ public void getLevel(String fileName) { //reading level from file
         		case 't': 	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
-			// U
+        		case 'U': 	blockImage[i][j]=GRASS;
+        					game.addElement(x, y, STORYTELLER, 25, 50,"story",true);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
         		case 'u': 	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
-			//V
-							
-							
-			//v
-				
-			// W
+        		case 'V': 	blockImage[i][j]=GRASS;
+        					game.addElement(x, y, ARMSCHIENE, 25, 50,"collectable",true);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							finish[i][j] = true;
+        					break;
+        		case 'v': 	blockImage[i][j]=GRASS;
+        					game.addElement(x, y, ARMSCHIENE, 25, 25,"weapon",true);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					break;
+        		case 'W': 	blockImage[i][j]=FELD2;
+        					game.addElement(x, y, RUESTUNG, 25, 25,"armor",true);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        					break;
 				case 'w': 	blockImage[i][j]=WALLOB_2;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
@@ -560,12 +568,12 @@ public void getLevel(String fileName) { //reading level from file
         		case '§':	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 0, 0, 1);
+							game.addHealthPack(x, y, 0, 0, 1,"collectable",true);
 							break;
         		case '$':	blockImage[i][j]=SMALLWHITE;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							log("X="+x+" Y="+y);
-							game.addHealthPack(x, y, 0, 0, 1);
+							game.addHealthPack(x, y, 0, 0, 1,"collectable",true);
 							break;
         				default:{}
         		}

@@ -30,6 +30,7 @@ public class HealthPack extends GameObject implements EntityMapObject{
 
 	private Image picMoney = new ImageIcon("Coin.gif").getImage();
 	private boolean mapObject = true;
+	private boolean collectable=false;
 
 	private boolean hited;
 	private int leben=0;
@@ -168,6 +169,49 @@ public class HealthPack extends GameObject implements EntityMapObject{
 
 	@Override
 	public boolean isShop() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setStory(boolean shop) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isStory() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setCollectable(boolean collectable) {
+		this.collectable=collectable;
+		}
+	public boolean isCollectable() {
+		return collectable;
+	}
+
+	@Override
+	public void setArmor(boolean shop) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isArmor() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setWeapon(boolean shop) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isWeapon() {
 		// TODO Auto-generated method stub
 		return false;
 	}

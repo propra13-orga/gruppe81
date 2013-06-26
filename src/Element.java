@@ -26,7 +26,11 @@ public class Element extends GameObject implements EntityMapObject{
 
 	private boolean hited;
 	private Image pic;
-	private boolean shop=true;
+	private boolean shop=false;
+	private boolean story=false;
+	private boolean armor=false;
+	private boolean weapon=false;
+	private boolean collectable=false;
 	private double width, height; //Variablen
 	LinkedList<EntityMapObject> eMO = new LinkedList<EntityMapObject>();
 	public Element(double x, double y, DungeonCrawlerGame game, Image image,double width,double height){
@@ -50,6 +54,34 @@ public class Element extends GameObject implements EntityMapObject{
 		}
 	public boolean isShop() {
 		return shop;
+	}
+	
+	public void setStory(boolean story) {
+		this.story=story;
+		}
+	public boolean isStory() {
+		return story;
+	}
+	
+	public void setWeapon(boolean weapon) {
+		this.weapon=weapon;
+		}
+	public boolean isWeapon() {
+		return weapon;
+	}
+	
+	public void setArmor(boolean armor) {
+		this.armor=armor;
+		}
+	public boolean isArmor() {
+		return armor;
+	}
+	
+	public void setCollectable(boolean collectable) {
+		this.collectable=collectable;
+		}
+	public boolean isCollectable() {
+		return collectable;
 	}
 	
 	

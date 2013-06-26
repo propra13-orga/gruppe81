@@ -12,8 +12,8 @@ public class Player extends GameObject implements Entity{
 
 	private World world;
 	public Rectangle playerRect;
-	private Image playerImgGO, playerImgStop, playerImg, blaseImg;
-	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6;
+	private Image playerImgGO, playerImgStop, playerImg;
+	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6,armorImg,weaponImg;
 	double xDirection, yDirection;
 	protected int displayDirection;
 	protected int lastDirection;
@@ -34,7 +34,7 @@ public class Player extends GameObject implements Entity{
 	public int checkpointRoom=1;
 	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spilfeld, für den Spieler
 	private int checkpointY=100;// Koordinate Y -//-
-	private boolean colide, hitExit = false, hitTrap = false, hitFinish = false, hitShop = false;
+	private boolean colide, hitExit = false, hitStory = false, hitTrap = false, hitFinish = false, hitShop = false, weapon = false, armor = false;
 	
 	public Player(World world){
 		this.world = world;
@@ -47,7 +47,6 @@ public class Player extends GameObject implements Entity{
 		playerImgR4 = new ImageIcon("Boy_R_mit_Armschiene4.png").getImage();
 		playerImgR5 = new ImageIcon("Boy_R_mit_Armschiene5.png").getImage();
 		playerImgR6 = new ImageIcon("Boy_R_mit_Armschiene6.png").getImage();
-		blaseImg = new ImageIcon("Sprechblase.png").getImage();
 		
 		
 		
@@ -57,7 +56,8 @@ public class Player extends GameObject implements Entity{
 		playerImgL4 = new ImageIcon("Boy_L_mit_Armschiene4.png").getImage();
 		playerImgL5 = new ImageIcon("Boy_L_mit_Armschiene5.png").getImage();
 		playerImgL6 = new ImageIcon("Boy_L_mit_Armschiene6.png").getImage();
-		
+		armorImg  = new ImageIcon("Ruestung.png").getImage();
+		weaponImg = new ImageIcon("Armschiene.png").getImage();
 		
 		
 		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
@@ -109,6 +109,9 @@ public class Player extends GameObject implements Entity{
 
 	public void changePlayerLifepoints(int playerLifepointsChange, long coolOf){
 		if (playerCoolOf<System.nanoTime()) {
+			if ((armor) && (playerLifepointsChange<0)) {
+				playerLifepointsChange = (playerLifepointsChange/2);
+			}
 			this.playerLifepoints = this.playerLifepoints+playerLifepointsChange;
 			playerCoolOf = System.nanoTime()+coolOf;
 			if (this.playerLifepoints<=0) {
@@ -135,6 +138,27 @@ public class Player extends GameObject implements Entity{
 		this.checkpointY = checkpointY;
 	}
 	
+	public void useCheckpoint(int room){
+		if (checkpointRoom==room) {
+			playerRect = new Rectangle(checkpointX,checkpointY,world.BLOCKSIZE,50);
+		}
+	}
+
+	public  void setWeapon(boolean weapon){
+		this.weapon = weapon;
+	}
+	
+	public boolean hasWeapon(){
+		return weapon;
+	}
+	
+	public  void setArmor(boolean armor){
+		this.armor = armor;
+	}
+	
+	public boolean hasArmor(){
+		return armor;
+	}
 	
 	public  void setXDirection(double d){
 //		if(!checkForCollision()){
@@ -195,6 +219,14 @@ public class Player extends GameObject implements Entity{
 		
 	public boolean isHitShop(){
 		return hitShop;
+	}
+	
+	public void setHitStory(boolean hitStory){
+		this.hitStory = hitStory;
+	}
+		
+	public boolean isHitStory(){
+		return hitStory;
 	}
 	
 	public void changestate(){
@@ -328,19 +360,7 @@ public class Player extends GameObject implements Entity{
 		g.fill3DRect(6, 6, (int)(200*((float)playerLifepoints/(float)playerLifepointsMax)), 10, true);
 		g.setColor(Color.black);
 		g.drawString(playerLifepoints+"/"+playerLifepointsMax, 10, 15);
-		
-		g.drawImage(blaseImg, 100, 200, null);   		// Sprechblase
-		
-		g.setColor(Color.yellow);
-		g.drawString("Es gab einmal einen jungen Schatzsucher.",100,195);
-		g.drawString("Eines Tages fand er eine magische Armschiene,",100,215);
-		g.drawString("mit einem wunderschˆnem rotem Rubin.",100,235); 
-		g.drawString("Als er sie anprobierte,",100,255);
-		g.drawString("hˆrte er eine Stimme, die ihn darum bietete, sich auf die Suche zu machen",100,265);
-		g.drawString("und das Gegenst¸ck zu finden. ",100,295);
-		g.drawString("Begleite den Ali w‰hrend des Abenteuers und helfe ihm",100,325);
-		g.drawString("das Gegenst¸ck der Armschiene zu finden.",100,365);		
-		
+				
 		g.setColor(Color.white);
 		g.fill3DRect(209, 5, 202, 12, true);
 		g.setColor(Color.blue);
@@ -367,6 +387,17 @@ public class Player extends GameObject implements Entity{
 		g.fill3DRect(454, 5, 50, 12, true);
 		g.setColor(Color.black);
 		g.drawString("•"+playerMoney, 460, 15);
+
+		if (weapon) {
+			g.drawImage(weaponImg, 520, 5, null);   	
+			if (armor) {
+				g.drawImage(armorImg, 550, 5, null);   		
+			}
+		} else if (armor) {
+			g.drawImage(armorImg, 520, 5, null);   		
+		}
+		
+		
 		/*
 		if((xDirection!=0) || (yDirection!=0)){
 			g.drawImage(playerImgGO, playerRect.x, playerRect.y, null);

@@ -26,4 +26,12 @@ public interface EntityMapObject {
 	public int getGeld();	
 	public void setShop(boolean shop);
 	public boolean isShop();
+	public void setStory(boolean shop);
+	public boolean isStory();
+	public void setArmor(boolean shop);
+	public boolean isArmor();
+	public void setWeapon(boolean shop);
+	public boolean isWeapon();
+	public void setCollectable(boolean shop);
+	public boolean isCollectable();
 }

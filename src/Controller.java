@@ -52,18 +52,29 @@ System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 		}
 		//EntityMapObject
 	//	System.out.println("Size of eWO "+eWO.size());
+		game.p1.setHitShop(false); 
+		game.p1.setHitStory(false); 
 		for (int i=0;i<eWO.size();i++){
 			tempEntWO = eWO.get(i);
 	//		System.out.println("Current index for MapObject"+i);
 			
-			if((Physics.CollisionGameObjectList(game.p1, eWO))){
+			if((Physics.CollisionGameObjectList(game.p1, tempEntWO))){
 				if (tempEntWO.getLeben()!=0) {game.p1.changePlayerLifepoints(tempEntWO.getLeben(), 0);}
 				if (tempEntWO.getMana()!=0) {game.p1.changePlayerManapoints(tempEntWO.getMana());}
 				if (tempEntWO.getGeld()!=0) {game.p1.changePlayerMoney(tempEntWO.getGeld());}
+				if( tempEntWO.isWeapon()){					
+					game.p1.setWeapon(true); 
+				}
+				if( tempEntWO.isArmor()){					
+					game.p1.setArmor(true); 
+				}
 				if( tempEntWO.isShop()){					
 					game.p1.setHitShop(true); 
 				}
-				if (!tempEntWO.isShop()) removeEntity(tempEntWO);
+				if( tempEntWO.isStory()){					
+					game.p1.setHitStory(true); 
+				}
+				if (tempEntWO.isCollectable()) removeEntity(tempEntWO);
 			//	System.out.println("COLLISION "+i);
 				//removeEntity(tempEntWO);
 			}
@@ -119,6 +130,28 @@ System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 		eWO.add(ent);
 		
 	
+	}
+
+	public void addEntity(EntityMapObject ent,String special,boolean wert) {
+		if (special == "shop") {
+			ent.setShop(wert);
+		}
+		if (special == "story") {
+			ent.setStory(wert);
+		}
+		if (special == "weapon") {
+			ent.setWeapon(wert);
+			ent.setCollectable(wert);
+		}
+		if (special == "armor") {
+			ent.setArmor(wert);
+			ent.setCollectable(wert);
+		}
+		if (special == "collectable") {
+			ent.setCollectable(wert);
+		}
+	
+		eWO.add(ent);
 	}
 
 	public void removeEntity(EntityMapObject ent){

@@ -165,9 +165,9 @@ for (numerator=0; numerator < args.length; numerator++)
 	//____________________________________________________was_passiert,_wenn_man_Taste_dru:ckt
 	if (enter == true) 
 		{ enter = false;   
-		if (positionStuff[0] == true) { if ( pay(1) ) imgMana = null; }
-		if (positionStuff[1] == true) { if ( pay(1) ) imgLife = null; }
-		if (positionStuff[2] == true) { if ( pay(3) ) imgWeapon = null; }
+		if (positionStuff[0] == true) { if ( pay(1) ) {imgMana = null; player.changePlayerManapoints(30);} }
+		if (positionStuff[1] == true) { if ( pay(1) ) {imgLife = null; player.changePlayerLifepoints(30,0);} }
+		if (positionStuff[2] == true) { if ( pay(3) ) {imgWeapon = null; player.setWeapon(true);} }
 		}
 
 

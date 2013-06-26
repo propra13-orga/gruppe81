@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 //import java.awt.event.KeyListener;
 
+import javax.swing.ImageIcon;
 //import javax.swing.JLabel;
 import javax.swing.JPanel;
 //import Object.EntityDestroyable;
@@ -38,10 +39,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	// Game Variales
 	private Thread game;
 	private volatile boolean running = false;
+	private boolean showStory = false;
 	private int currentLevel = 0;
 	private int currentRoom = 1;
 	double delta = 0; //Time var
 	private long bulletCoolOf =0;
+	private long spellCoolOf =0;
 	//Game Objects
 	World world;
 	Player p1;
@@ -54,6 +57,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
 	public LinkedList<EntityMapObject> eMO;
+	private Image blaseImg;
 	
 	// private static boolean hitExit;
 	//Constructor
@@ -71,6 +75,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		addKeyListener(k1);
 		
+		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
 		
 		
 		setPreferredSize(gameDim);
@@ -129,9 +134,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	}
 	
 	public void newWorld(int levelNumber){
+		c.ed.clear();
+		c.em.clear();
+		c.eWO.clear(); //loescht die Objekte aus den früheren Levels
 		world = null;
 		world = new World(levelNumber, this);
 		p1.setWorld(world);
+		p1.useCheckpoint(currentRoom);
 //		p1 = null;
 //		p1 = new Player(world);
 	}
@@ -186,14 +195,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void changestate(){
 		
 		
-		if ((p1.isHitShop()) & (k1.isKeyPressed(KeyEvent.VK_S))) {
-			world.pause();
-			shop = new Shopping(world,p1);
-			shop.setFrame(mainWindow);
-			addKeyListener(shop.getMyKeyListener());
-			shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
-		}
 		if (p1.isHitExit()) {
+			showStory=false;
 			currentRoom++;
 			
 			if(currentRoom >4){
@@ -232,6 +235,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 	}
 	
+	private void castSpell(long coolOf){
+		if (spellCoolOf<System.nanoTime()) {
+			
+			spellCoolOf = System.nanoTime()+coolOf;
+			if(c.em.size()< 500){
+				c.addEntity(new Spell(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+				spellCoolOf = System.nanoTime()+coolOf;
+			}
+		}
+	}
+
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
@@ -253,9 +267,32 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 						p1.lastDirection =0;
 				}
 			}
-			if (k1.isKeyPressed(KeyEvent.VK_SPACE)){
+			if ((p1.isHitShop()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
+				world.pause();
+				k1.keys[KeyEvent.VK_SPACE]=false;
+				shop = new Shopping(world,p1);
+				shop.setFrame(mainWindow);
+				addKeyListener(shop.getMyKeyListener());
+				shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
+			}
+			if ((p1.isHitStory()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
+				k1.keys[KeyEvent.VK_SPACE]=false;
+				showStory=true;
+			}
+			if ((showStory) && (k1.isKeyPressed(KeyEvent.VK_ESCAPE))) {
+				p1.setHitStory(false);
+				showStory=false;
+			}
+			if ((p1.hasWeapon()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
-				shoot(250000000);
+				shoot(1000000000);
+			}
+			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_Z))){
+				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+				if (spellCoolOf<System.nanoTime()) {
+					p1.changePlayerManapoints(-10);
+					castSpell(250000000);
+				}
 			}
 		c.update();	
 		p1.update(); //Updating Player
@@ -328,6 +365,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		if (!world.isPaused()) {
 			world.draw(g);
 			c.draw(g);
+			if (showStory) {
+				g.drawImage(blaseImg, 100, 200, null);   		// Sprechblase
+				
+//				g.setColor(Color.yellow);
+//				g.drawString("Es gab einmal einen jungen Schatzsucher.",100,195);
+//				g.drawString("Eines Tages fand er eine magische Armschiene,",100,215);
+//				g.drawString("mit einem wunderschönem rotem Rubin.",100,235); 
+//				g.drawString("Als er sie anprobierte,",100,255);
+//				g.drawString("hörte er eine Stimme, die ihn darum bietete, sich auf die Suche zu machen",100,265);
+//				g.drawString("und das Gegenstück zu finden. ",100,295);
+//				g.drawString("Begleite den Ali während des Abenteuers und helfe ihm",100,325);
+//				g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
+			}
 			p1.draw(g); //Drawing Player
 		}
 //		if(mob1!=null)
@@ -358,14 +408,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	
 									
 					p1.setHitExit(true);
-					c.ed.clear();
-					c.em.clear();
-					c.eWO.clear(); //loescht die Objekte aus den früheren Levels
 				}
 				if(world.checkpoints[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
 					
 					
-					p1.setCheckpoint(currentRoom,i*25,j*25);					
+					p1.setCheckpoint(currentRoom,j*25,i*25);					
 
 				}
 				
@@ -433,8 +480,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public void addHealthPack(double x, double y, int leben, int mana, int geld){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld));
 	}
+	public void addHealthPack(double x, double y, int leben, int mana, int geld, String special, boolean wert){
+		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld),special,wert);
+	}
 	public void addElement(double x, double y,Image image, double width, double height){
 		c.addEntity(new Element(x, y, this, image, width, height));
+	}
+	public void addElement(double x, double y,Image image, double width, double height, String special, boolean wert){
+		c.addEntity(new Element(x, y, this, image, width, height),special,wert);
 	}
 	@Override
 	public void addNotify(){
