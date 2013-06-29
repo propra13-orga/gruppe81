@@ -322,10 +322,35 @@ public class Player extends GameObject implements Entity{
 			imageCounter=0;
 		}
 		if ((xDirection!=0) | (yDirection!=0)) {imageCounter++;}
-		if (imageCounter>300) {
+		int steps=15;
+		if (imageCounter>6*steps) {
 			imageCounter=1;
 		}
-		if (imageCounter>200) {
+		if (imageCounter>5*steps) {
+			if (displayDirection==0) {
+				playerImg = playerImgR6;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL6;
+			}
+		}
+		else if (imageCounter>4*steps) {
+			if (displayDirection==0) {
+				playerImg = playerImgR5;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL5;
+			}
+		}
+		else if (imageCounter>3*steps) {
+			if (displayDirection==0) {
+				playerImg = playerImgR4;
+			}
+			if (displayDirection==2) {
+				playerImg = playerImgL4;
+			}
+		}
+		else if (imageCounter>2*steps) {
 			if (displayDirection==0) {
 				playerImg = playerImgR3;
 			}
@@ -333,7 +358,7 @@ public class Player extends GameObject implements Entity{
 				playerImg = playerImgL3;
 			}
 		}
-		else if (imageCounter>100) {
+		else if (imageCounter>1*steps) {
 			if (displayDirection==0) {
 				playerImg = playerImgR2;
 			}

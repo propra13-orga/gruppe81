@@ -202,8 +202,8 @@ public void getLevel(String fileName) { //reading level from file
             x=0;
         	for (int  j= 0; j < line.length(); j++) {
        
-                System.out.print("i="+i+" j="+j+" Gelesen:   ");
-               System.out.println(line.charAt(j));
+//                System.out.print("i="+i+" j="+j+" Gelesen:   ");
+//               System.out.println(line.charAt(j));
                
                checkpoints[i][j]=false;
                exits[i][j] = false;
@@ -372,7 +372,7 @@ public void getLevel(String fileName) { //reading level from file
 							game.addElement(x, y, GRASS, 50, 50);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =false;
-							//break;	
+							break;	
 				case 'K':	blockImage[i][j]=SNOWGR;
 				        	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 				        	//		log("X="+x+" Y="+y);
@@ -496,6 +496,7 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							startX=j*25;
 							startY=i*25;
+							System.out.println("x: "+startX+" y: "+startY);
 				break;		
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
