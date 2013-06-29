@@ -60,7 +60,7 @@ public class Player extends GameObject implements Entity{
 		weaponImg = new ImageIcon("Armschiene.png").getImage();
 		
 		
-		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
+		playerRect = new Rectangle(world.startX,world.startY,world.BLOCKSIZE,50);
 		playerLife = 3;
 		playerLifepoints = 100;
 		playerLifepointsMax = 100;
@@ -72,7 +72,7 @@ public class Player extends GameObject implements Entity{
 
 	public void setWorld(World world){
 		this.world = world;
-		playerRect = new Rectangle(1,25,world.BLOCKSIZE,50);
+		playerRect = new Rectangle(world.startX,world.startY,world.BLOCKSIZE,50);
 	}
 
 	public boolean isAlive(){
