@@ -14,6 +14,7 @@ public class Player extends GameObject implements Entity{
 	public Rectangle playerRect;
 	private Image playerImgGO, playerImgStop, playerImg;
 	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6,armorImg,weaponImg;
+	private Image playerImgU1,playerImgU2,playerImgU3,playerImgU4,playerImgU5,playerImgU6;
 	double xDirection, yDirection;
 	protected int displayDirection;
 	protected int lastDirection;
@@ -48,6 +49,14 @@ public class Player extends GameObject implements Entity{
 		playerImgR5 = new ImageIcon("Boy_R_mit_Armschiene5.png").getImage();
 		playerImgR6 = new ImageIcon("Boy_R_mit_Armschiene6.png").getImage();
 		
+		
+		
+		playerImgU1 = new ImageIcon("Boy_U_1.png").getImage();
+		playerImgU2 = new ImageIcon("Boy_U_2.png").getImage();
+		playerImgU3 = new ImageIcon("Boy_U_3.png").getImage();
+		playerImgU4 = new ImageIcon("Boy_U_4.png").getImage();
+		playerImgU5 = new ImageIcon("Boy_U_5.png").getImage();
+		playerImgU6 = new ImageIcon("Boy_U_6.png").getImage();
 		
 		
 		playerImgL1 = new ImageIcon("Boy_L_mit_Armschiene1.png").getImage();
@@ -311,66 +320,95 @@ public class Player extends GameObject implements Entity{
 	}
 	
 	public void draw(Graphics g){
-		if ((lastDirection==2) & (displayDirection==0)) {
-			playerImg = playerImgL1;
-			displayDirection=2;
-			imageCounter=0;
-		}
-		else if ((lastDirection==0) & (displayDirection==2)) {
-			playerImg = playerImgR1;
-			displayDirection=0;
-			imageCounter=0;
-		}
+//		if ((lastDirection==2) & (displayDirection==0)) {
+//			playerImg = playerImgL1;
+//			displayDirection=2;
+//			imageCounter=0;
+//		}
+//		else if ((lastDirection==0) & (displayDirection==2)) {
+//			playerImg = playerImgR1;
+//			displayDirection=0;
+//			imageCounter=0;
+//		}
 		if ((xDirection!=0) | (yDirection!=0)) {imageCounter++;}
 		int steps=15;
 		if (imageCounter>6*steps) {
 			imageCounter=1;
 		}
 		if (imageCounter>5*steps) {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR6;
 			}
-			if (displayDirection==2) {
+			if (lastDirection==1) {
+				playerImg = playerImgU6;
+			}
+			
+			if (lastDirection==2) {
 				playerImg = playerImgL6;
 			}
 		}
 		else if (imageCounter>4*steps) {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR5;
 			}
-			if (displayDirection==2) {
+			
+			if (lastDirection==1) {
+				playerImg = playerImgU5;
+			
+			}
+			if (lastDirection==2) {
 				playerImg = playerImgL5;
 			}
 		}
 		else if (imageCounter>3*steps) {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR4;
 			}
-			if (displayDirection==2) {
+			
+			if (lastDirection==1) {
+				playerImg = playerImgU4;
+			}
+			
+			if (lastDirection==2) {
 				playerImg = playerImgL4;
 			}
 		}
 		else if (imageCounter>2*steps) {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR3;
+			
 			}
-			if (displayDirection==2) {
+				if (lastDirection==1) {
+					playerImg = playerImgU3;
+				
+			}
+			if (lastDirection==2) {
 				playerImg = playerImgL3;
 			}
 		}
 		else if (imageCounter>1*steps) {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR2;
 			}
-			if (displayDirection==2) {
+				if (lastDirection==1) {
+					playerImg = playerImgU2;
+				
+			}
+			if (lastDirection==2) {
 				playerImg = playerImgL2;
 			}
+		
 		}
 		else {
-			if (displayDirection==0) {
+			if (lastDirection==0) {
 				playerImg = playerImgR1;
 			}
-			if (displayDirection==2) {
+			
+			if (lastDirection==1) {
+				playerImg = playerImgU1;
+			}
+			
+			if (lastDirection==2) {
 				playerImg = playerImgL1;
 			}
 		}
