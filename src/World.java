@@ -45,7 +45,7 @@ public class World {
 	public Image WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
 	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,ARMSCHIENE,RUESTUNG;
-	public Image PYRAMIDE2;
+	public Image PYRAMIDE2,GRASS2;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -105,6 +105,7 @@ public class World {
 	 HOLZ2=new ImageIcon("holz2.png").getImage();
 	 AXT=new ImageIcon("axt.png").getImage();
 	 FELD2=new ImageIcon("feld.png").getImage();
+	 GRASS2=new ImageIcon("grass2.png").getImage();
 	
 	 BAUMFELD=new ImageIcon("Baumfeld.png").getImage();
 	 BAUMBANK =new ImageIcon("Baumbank.png").getImage();
@@ -367,10 +368,10 @@ public void getLevel(String fileName) { //reading level from file
 							//	log("X="+x+" Y="+y);
 							game.addBOSS2(x, y);
 							break;
-        		// case 'j': 	blockImage[i][j]= ZAUN1;     frei
-					//		game.addElement(x, y, ZAUN1, 8, 32);
-						//	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-						//	isSolid[i][j] =true;
+        		 case 'j': 	blockImage[i][j]= GRASS2;  
+							game.addElement(x, y, GRASS, 50, 50);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							isSolid[i][j] =false;
 							//break;	
 				case 'K':	blockImage[i][j]=SNOWGR;
 				        	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
