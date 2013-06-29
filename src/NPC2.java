@@ -20,7 +20,7 @@ public class NPC2 extends GameObject implements EntityDestroyable {
 	
 	double x, y;
 	boolean solid = true;
-	double tempx;
+	double tempx,tempy;
 	private int direction =0;
 	Player p;
 	Random r;
@@ -29,6 +29,7 @@ public class NPC2 extends GameObject implements EntityDestroyable {
 	NPC2(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
+		tempy =y;
 		this.x=x;
 		this.y=y;
 		this.game = game;
@@ -49,9 +50,24 @@ public class NPC2 extends GameObject implements EntityDestroyable {
 				//	log("X="+x);
 					direction =1;
 				}
-		}else{ 
+		}
+		if(direction==1){
+			if(y<tempy+150){
+			y+=r.nextDouble();
+			}else{
+				direction =2;
+			}
+		}
+		if(direction==2){
 			if(x>tempx){
 				x-=r.nextDouble();
+			}else{
+				direction =3;
+			}
+		}
+		if (direction==3) { 
+			if(y>tempy){
+				y-=r.nextDouble();
 			}else{
 				direction =0;
 			}
