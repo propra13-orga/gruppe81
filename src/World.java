@@ -493,8 +493,8 @@ public void getLevel(String fileName) { //reading level from file
 							
 				case 'Z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							startX=i*25;
-							startY=j*25;
+							startX=j*25;
+							startY=i*25;
 				break;		
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
