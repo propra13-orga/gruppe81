@@ -31,6 +31,8 @@ public class World {
 	public boolean [][] trap;
 	public boolean [][] finish;
 	public boolean [][] npc;
+	public int startX=1;
+	public int startY=25;
 	public final int AWIDTH = 24, AHIGHT=40; //Array Dimension
 	public final int BLOCKSIZE=25;
 	NPC mob;
@@ -43,6 +45,7 @@ public class World {
 	public Image WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
 	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,ARMSCHIENE,RUESTUNG;
+	public Image PYRAMIDE2;
 	private boolean pause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
@@ -126,6 +129,7 @@ public class World {
 	 WALLOB =new ImageIcon("Boden2525orangebrocken.png").getImage();
 	 WALLOB_2 =new ImageIcon("Boden2525orangebrocken2.png").getImage();
 	 WALLOB_3 =new ImageIcon("Wall2525braunhhieroglyphen.png").getImage();
+	 PYRAMIDE2=new ImageIcon("Pyramide2.png").getImage();
 	 
 	 this.levelNumber = levelNumber;
 	// WALL = new ImageIcon("wall.jpg").getImage();
@@ -305,11 +309,11 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
 							break;
-        	//	case 'd': 	blockImage[i][j]=FELD;
-        		//			game.addElement(x, y, FELD, 350, 259);
-        		//			blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
-        	//				isSolid[i][j] =true;
-        		//			break;
+        		case 'd': 	blockImage[i][j]=PYRAMIDE2;
+        					game.addElement(x, y, PYRAMIDE2, 1000, 600);
+        					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
+        					isSolid[i][j] =false;
+        					break;
         		case 'E': 	wallslist.add(new Wall(x, y, sol));
 							//	walls[i][j] = new Wall(x, y, sol);
         					//   blockImage[i][j]= SMALLWALL;
@@ -487,7 +491,11 @@ public void getLevel(String fileName) { //reading level from file
 			
 			// y
 							
-			// Z
+				case 'Z': 	blockImage[i][j]= GRUND;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							startX=i*25;
+							startY=j*25;
+				break;		
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							checkpoints[i][j] = true;
