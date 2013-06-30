@@ -52,7 +52,7 @@ public class NPC2 extends GameObject implements EntityDestroyable {
 				}
 		}
 		if(direction==1){
-			if(y<tempy+150){
+			if(y<tempy+50){
 			y+=r.nextDouble();
 			}else{
 				direction =2;

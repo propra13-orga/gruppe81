@@ -15,6 +15,7 @@ public class Player extends GameObject implements Entity{
 	private Image playerImgGO, playerImgStop, playerImg;
 	private Image playerImgR1, playerImgR2, playerImgR3, playerImgR4, playerImgR5,playerImgR6, playerImgL1, playerImgL2, playerImgL3,playerImgL4,playerImgL5,playerImgL6,armorImg,weaponImg;
 	private Image playerImgU1,playerImgU2,playerImgU3,playerImgU4,playerImgU5,playerImgU6;
+	private Image playerImgO1,playerImgO2,playerImgO3,playerImgO4,playerImgO5,playerImgO6;
 	double xDirection, yDirection;
 	protected int displayDirection;
 	protected int lastDirection;
@@ -58,6 +59,13 @@ public class Player extends GameObject implements Entity{
 		playerImgU5 = new ImageIcon("Boy_U_5.png").getImage();
 		playerImgU6 = new ImageIcon("Boy_U_6.png").getImage();
 		
+		
+		playerImgO1 = new ImageIcon("Boy_O_1.png").getImage();
+		playerImgO2 = new ImageIcon("Boy_O_2.png").getImage();
+		playerImgO3 = new ImageIcon("Boy_O_3.png").getImage();
+		playerImgO4 = new ImageIcon("Boy_O_4.png").getImage();
+		playerImgO5 = new ImageIcon("Boy_O_5.png").getImage();
+		playerImgO6 = new ImageIcon("Boy_O_6.png").getImage();
 		
 		playerImgL1 = new ImageIcon("Boy_L_mit_Armschiene1.png").getImage();
 		playerImgL2 = new ImageIcon("Boy_L_mit_Armschiene2.png").getImage();
@@ -346,6 +354,11 @@ public class Player extends GameObject implements Entity{
 			if (lastDirection==2) {
 				playerImg = playerImgL6;
 			}
+			
+			if (lastDirection==3) {
+				playerImg = playerImgO6;
+			}
+			
 		}
 		else if (imageCounter>4*steps) {
 			if (lastDirection==0) {
@@ -359,6 +372,11 @@ public class Player extends GameObject implements Entity{
 			if (lastDirection==2) {
 				playerImg = playerImgL5;
 			}
+			
+			if (lastDirection==3) {
+				playerImg = playerImgO5;
+			}
+			
 		}
 		else if (imageCounter>3*steps) {
 			if (lastDirection==0) {
@@ -372,6 +390,11 @@ public class Player extends GameObject implements Entity{
 			if (lastDirection==2) {
 				playerImg = playerImgL4;
 			}
+			
+			if (lastDirection==3) {
+				playerImg = playerImgO4;
+			}
+			
 		}
 		else if (imageCounter>2*steps) {
 			if (lastDirection==0) {
@@ -385,6 +408,11 @@ public class Player extends GameObject implements Entity{
 			if (lastDirection==2) {
 				playerImg = playerImgL3;
 			}
+			
+			if (lastDirection==3) {
+				playerImg = playerImgO3;
+			}
+			
 		}
 		else if (imageCounter>1*steps) {
 			if (lastDirection==0) {
@@ -398,6 +426,10 @@ public class Player extends GameObject implements Entity{
 				playerImg = playerImgL2;
 			}
 		
+			if (lastDirection==3) {
+				playerImg = playerImgO2;
+			}
+			
 		}
 		else {
 			if (lastDirection==0) {
@@ -411,6 +443,11 @@ public class Player extends GameObject implements Entity{
 			if (lastDirection==2) {
 				playerImg = playerImgL1;
 			}
+		
+			if (lastDirection==3) {
+				playerImg = playerImgO1;
+			}
+		
 		}
 		g.drawImage(playerImg, playerRect.x, playerRect.y, null);
 //		g.setColor(Color.white);
