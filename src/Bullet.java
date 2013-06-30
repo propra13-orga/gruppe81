@@ -17,10 +17,14 @@ public class Bullet extends GameObject implements EntityMovable {
 		DungeonCrawlerGame game;
 		int direction;
 		private boolean hited;
-		private Image pic = new ImageIcon("hadouken1sek5029.gif").getImage();
-		
-	public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
+		private Image picR = new ImageIcon("hadouken1sek5029.gif").getImage();
+		private Image picL = new ImageIcon("hadouken1sek5029L.gif").getImage();
+		private Image picO = new ImageIcon("hadouken1sek5029O.gif").getImage();
+		private Image picU = new ImageIcon("hadouken1sek5029U.gif").getImage();
+		public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )
+		
+			
 		this.x = x;
 		this.y = y;
 		this.p =p;
@@ -39,15 +43,19 @@ public class Bullet extends GameObject implements EntityMovable {
 	public void update() {
 		// TODO Bullets are flying  ;)
 		switch(direction){
+		
 		case 0:	x+=1.2;
 				setBounds((int)x,(int) y-10 ,16,16	);
 				break;
+		
 		case 1:	y+=1.2;
 				setBounds((int)x,(int) y-10 ,16,16	);
 				break;
+		
 		case 2:	x-=1.2;
 				setBounds((int)x,(int) y-10 ,16,16	);
 				break;
+		
 		case 3:	y-=1.2;
 				setBounds((int)x,(int) y-10 ,16,16	);
 				break;		
@@ -70,15 +78,33 @@ public class Bullet extends GameObject implements EntityMovable {
 		}
 
 */
-
+	//public int getLastDirection(){
+		//return lastDirection;
+//	}
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
-		g.drawImage(pic, (int)x, (int)y-10, null);
+		if (this.direction==0) {
+		g.drawImage(picR, (int)x, (int)y-10, null);
+		
 	}
-
+		if (this.direction==1) {
+			g.drawImage(picU, (int)x, (int)y-10, null);
+			
+		}
+		if (this.direction==2) {
+			g.drawImage(picL, (int)x, (int)y-10, null);
+			
+		}
+		if (this.direction==3) {
+			g.drawImage(picO, (int)x, (int)y-10, null);
+			
+		}
+		
+	}
+		
 	@Override
 	public double getX() {
 		// TODO Auto-generated method stub
