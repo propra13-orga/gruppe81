@@ -50,22 +50,40 @@ public class BOSS1 extends GameObject implements EntityDestroyable {
 		// TODO Update NPC state
 		
 		if(direction==0){
-				if(x<tempx+200){
+				if(x<tempx+150){
 				x+=r.nextDouble();
 			//	log("(x++)X="+x);
 				}else{
 				//	log("X="+x);
 					direction =1;
 				}
-		}else{ 
+		}
+		if(direction==1){
+			if(y<tempy+50){
+			y+=r.nextDouble();
+			}else{
+				direction =2;
+			}
+		}
+		if(direction==2){
 			if(x>tempx){
 				x-=r.nextDouble();
+			}else{
+				direction =3;
+			}
+		}
+		if (direction==3) { 
+			if(y>tempy){
+				y-=r.nextDouble();
 			}else{
 				direction =0;
 			}
 			
 				
 		}
+			
+			
+		setBounds((int)x, (int)y, 25, 25);
 			
 			
 		setBounds((int)x, (int)y, 100, 100);

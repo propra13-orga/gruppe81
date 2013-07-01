@@ -21,7 +21,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	Random rnd = new Random ();
 	
 	String picPath;
-	private Image pic = new ImageIcon("Boss1gifanimation.gif").getImage();
+	private Image pic = new ImageIcon("BossSpinne.gif").getImage();
 	
 	double x, y, width=50;
 	boolean solid = true;
@@ -40,7 +40,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
-		this.lifepointsMax=25;
+		this.lifepointsMax=50;
 		this.lifepoints=this.lifepointsMax;
 		setBounds((int)x, (int)y, 100, 100);
 
@@ -50,8 +50,8 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	public void update() {
 		// TODO Update NPC state
 		
-		if(direction==1){
-				if(x<tempx+200){
+		if(direction==0){
+				if(x<tempx+100){
 				x+=r.nextDouble();
 			//	log("(x++)X="+x);
 				}else{
@@ -67,6 +67,9 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 			
 				
 		}
+			
+			
+		setBounds((int)x, (int)y, 25, 25);
 			
 			
 		setBounds((int)x, (int)y, 100, 100);
