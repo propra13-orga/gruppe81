@@ -85,6 +85,12 @@ System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 	}//======================END OF Update
 	
 	public void draw(Graphics g){
+		//Ent. MO
+		for (int i=0;i<eWO.size();i++){
+			tempEntWO = eWO.get(i);
+			if(tempEntWO!=null)
+			tempEntWO.draw(g);
+		}
 		//Entity Destroyable
 		for (int i=0;i<ed.size();i++){
 			tempEntDe = ed.get(i);
@@ -95,12 +101,6 @@ System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 			tempEntMov = em.get(i);
 			tempEntMov.draw(g);
 			}
-	//Ent. MO
-		for (int i=0;i<eWO.size();i++){
-			tempEntWO = eWO.get(i);
-			if(tempEntWO!=null)
-			tempEntWO.draw(g);
-		}
 	}
 	
 

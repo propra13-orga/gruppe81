@@ -236,6 +236,11 @@ public void getLevel(String fileName) { //reading level from file
         					isSolid[i][j] =true;
         					break;
         		case '2': 	blockImage[i][j]=EXIT;
+        					game.addElement(x, y, EXIT, 25, 50);
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							exits[i][j] = true;
+							break;
+        		case '"': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							exits[i][j] = true;
 							break;
@@ -268,6 +273,11 @@ public void getLevel(String fileName) { //reading level from file
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					break;
         		case '9': 	blockImage[i][j]=EXIT;
+							game.addElement(x, y, EXIT, 25, 50);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							finish[i][j] = true;
+							break;
+        		case ')': 	blockImage[i][j]=EXIT;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							finish[i][j] = true;
 							break;
@@ -613,7 +623,7 @@ public void getLevel(String fileName) { //reading level from file
     
 }
 private void log(String s){
-	System.out.println(s);
+//	System.out.println(s);
 }
 
 

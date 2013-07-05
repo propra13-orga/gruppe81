@@ -89,6 +89,8 @@ public class Player extends GameObject implements Entity{
 
 	public void setWorld(World world){
 		this.world = world;
+		System.out.println("Setze Startpunkt x:" + world.startX + " y:" + world.startY);
+
 		playerRect = new Rectangle(world.startX,world.startY,world.BLOCKSIZE,50);
 	}
 
@@ -156,7 +158,7 @@ public class Player extends GameObject implements Entity{
 	}
 	
 	public void useCheckpoint(int room){
-		if (checkpointRoom==room) {
+		if ((checkpointRoom==room) && (playerChangeRoom)) {
 			playerRect = new Rectangle(checkpointX,checkpointY,world.BLOCKSIZE,50);
 		}
 	}

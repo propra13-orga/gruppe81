@@ -23,7 +23,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	String picPath;
 	private Image pic = new ImageIcon("BossSpinne.gif").getImage();
 	
-	double x, y, width=50;
+	double x, y, width=50, height=50;
 	boolean solid = true;
 	double tempx;
 	double tempy;
@@ -42,7 +42,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		this.p =p;
 		this.lifepointsMax=50;
 		this.lifepoints=this.lifepointsMax;
-		setBounds((int)x, (int)y, 100, 100);
+		setBounds((int)x, (int)y, (int)width, (int)height);
 
 	}
 
@@ -69,10 +69,11 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		}
 			
 			
-		setBounds((int)x, (int)y, 25, 25);
-			
-			
-		setBounds((int)x, (int)y, 100, 100);
+//		setBounds((int)x, (int)y, 25, 25);
+//			
+//			
+//		setBounds((int)x, (int)y, 100, 100);
+		setBounds((int)x, (int)y, (int)width, (int)height);
 	//	System.out.println(this.toString());
 //		if(Physics.CollisionWithMovable(this, game.em)){
 //			log("Collision IN NPC DETECTED");

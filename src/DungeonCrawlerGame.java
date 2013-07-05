@@ -178,13 +178,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				}
 				gameRender();
 				paintScreen();
+				System.out.println("P1 x:"+p1.playerRect.x+" y:"+p1.playerRect.y+" Level:"+currentLevel+" Raum:"+currentRoom);
 			}
 			frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
 			if(System.currentTimeMillis() - timer > 1000){
 				timer +=1000;
 		
-				System.out.println(updates + " ups, "+ frames + " fps");
+//				System.out.println(updates + " ups, "+ frames + " fps");
 			
 				updates=0;
 				frames=0;
@@ -217,10 +218,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		if(p1.playerChangeRoom){
 			if(p1.checkpointRoom < currentRoom){
 				currentRoom=p1.checkpointRoom;
-				p1.playerChangeRoom=false;
 				newWorld(currentLevel+currentRoom);
 				p1.changestate();
 			}
+			p1.playerChangeRoom=false;
 		}
 	}
 	
@@ -514,7 +515,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 
 	private void log(String s){
-		System.out.println(s);
+//		System.out.println(s);
 	}
 
 	
