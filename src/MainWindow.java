@@ -8,9 +8,11 @@ import javax.swing.JLabel;
 
 public class MainWindow extends JFrame{
 
-	private JButton startButton, sButton;
+	private JButton startButton, sButton, nButton, ncButton, ndButton;
 	private JLabel label;
 	private DungeonCrawlerGame gw;
+	private GameServer gameServer;
+	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
 	/**
 	 * @param args
@@ -47,7 +49,6 @@ public class MainWindow extends JFrame{
         startButton = new JButton("Start");// The JButton name.
         add(startButton);
         // getContentPane().add(startButton);
-        startButton.setLabel("Start");
         startButton.setSize(400, 70);
         startButton.setLocation(300, 150);
         startButton.setVisible(true);
@@ -56,15 +57,60 @@ public class MainWindow extends JFrame{
             showDCGame();
 		}});
 
-        sButton = new JButton("Beenden");// The JButton name.
+		ndButton = new JButton("Netzwerk Spiel starten");//The JButton name.
+		//getContentPane().add(sButton);
+		add(ndButton);
+		ndButton.setSize(400,70);
+		ndButton.setLocation(400,150);
+		ndButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			gameServer = new GameServer();
+		}}
+				);
+		ndButton.setVisible(false);
+
+		ncButton = new JButton("Netzwerk Spiel beitreten");//The JButton name.
+		//getContentPane().add(sButton);
+		add(ncButton);
+		ncButton.setSize(400,70);
+		ncButton.setLocation(400,150);
+		ncButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			gameClient = new GameClient();
+		}}
+				);
+		ncButton.setVisible(false);
+
+		nButton = new JButton("Netzwerk");//The JButton name.
+		//getContentPane().add(sButton);
+		add(nButton);
+		nButton.setSize(400,70);
+		nButton.setLocation(400,150);
+		nButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			nButton.setVisible(false);
+			ndButton.setVisible(true);
+			ncButton.setVisible(true);
+		}}
+				);
+		nButton.setVisible(true);
+
+		
+		
+		sButton = new JButton("Beenden");// The JButton name.
         // getContentPane().add(sButton);
         add(sButton);
-        sButton.setLabel("Beenden");
         sButton.setSize(400, 70);
         sButton.setLocation(300, 250);
         sButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                dispose();
+            	if (gameClient != null) {
+            		gameClient.finish();            		
+            	}
+            	if (gameServer != null) {
+            		gameServer.finish();            		
+            	}
+            	dispose();
             }
         });
         sButton.setVisible(true);
@@ -80,6 +126,9 @@ public class MainWindow extends JFrame{
         remove(gw);
         add(startButton);
         add(sButton);
+        add(nButton);
+        add(ncButton);
+        add(ndButton);
         add(label);
         repaint();
     }	
@@ -89,6 +138,9 @@ public class MainWindow extends JFrame{
         remove(gw);
         add(startButton);
         add(sButton);
+        add(nButton);
+        add(ncButton);
+        add(ndButton);
         label.setVisible(true);
         add(label);
         repaint();
@@ -97,6 +149,9 @@ public class MainWindow extends JFrame{
     public void showDCGame() {
         label.setVisible(false);
         remove(sButton);
+        remove(nButton);
+        remove(ncButton);
+        remove(ndButton);
         remove(startButton);
         remove(label);
         gw = new DungeonCrawlerGame(this);

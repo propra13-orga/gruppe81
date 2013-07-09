@@ -48,7 +48,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	//Game Objects
 	World world;
 	Player p1;
+	Player p2;
 	MyKeyListener k1;
+	MyKeyListener k2;
 	NPC mob1;
 	Bullet b;
 	Shopping shop;
@@ -66,14 +68,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		c = new Controller(this);
 		
 		world = new World(currentLevel + currentRoom,  this);
+		System.out.println(world);
 		p1 = new Player(world);
+		p2 = new Player(world);
+		p2.setStart(p1.getX()+25, p1.getY()+25);
 		ed = c.getEntDestrList();
 		em = c.getEntMovList();
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
+		this.k2 = new MyKeyListener(); 
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		addKeyListener(k1);
+		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
 		
@@ -141,6 +148,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(levelNumber, this);
 		p1.setWorld(world);
 		p1.useCheckpoint(currentRoom);
+		p2.setWorld(world);
+		p2.useCheckpoint(currentRoom);
 //		p1 = null;
 //		p1 = new Player(world);
 	}
@@ -178,7 +187,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				}
 				gameRender();
 				paintScreen();
-				System.out.println("P1 x:"+p1.playerRect.x+" y:"+p1.playerRect.y+" Level:"+currentLevel+" Raum:"+currentRoom);
+//				System.out.println("P1 x:"+p1.playerRect.x+" y:"+p1.playerRect.y+" Level:"+currentLevel+" Raum:"+currentRoom);
 			}
 			frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
@@ -295,9 +304,55 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					castSpell(250000000);
 				}
 			}
-		c.update();	
+			p2.setYDirection(0);
+			p2.setXDirection(0);
+			if(k2.isKeyPressed(KeyEvent.VK_W)){
+				p2.setYDirection(-1);
+				p2.lastDirection =3;
+			}
+			else if(k2.isKeyPressed(KeyEvent.VK_S)){
+				p2.setYDirection(+1);
+				p2.lastDirection =1;
+			}else{			
+				if(k2.isKeyPressed(KeyEvent.VK_A)){
+						p2.setXDirection(-1);
+						p2.lastDirection =2;
+				}else if(k2.isKeyPressed(KeyEvent.VK_D)){
+						p2.setXDirection(+1);       
+						p2.lastDirection =0;
+				}
+			}
+			if ((p2.isHitShop()) && (k2.isKeyPressed(KeyEvent.VK_Y))) {
+				world.pause();
+				k2.keys[KeyEvent.VK_Y]=false;
+				shop = new Shopping(world,p2);
+				shop.setFrame(mainWindow);
+				addKeyListener(shop.getMyKeyListener());
+				shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
+			}
+			if ((p2.isHitStory()) && (k2.isKeyPressed(KeyEvent.VK_Y))) {
+				k2.keys[KeyEvent.VK_Y]=false;
+				showStory=true;
+			}
+			if ((showStory) && (k2.isKeyPressed(KeyEvent.VK_ESCAPE))) {
+				p2.setHitStory(false);
+				showStory=false;
+			}
+			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_Y))){
+				shoot(1000000000);
+			}
+			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_X))){
+				if (spellCoolOf<System.nanoTime()) {
+					p2.changePlayerManapoints(-10);
+					castSpell(250000000);
+				}
+			}
+		c.update(p1);	
+		c.update(p2);	
 		p1.update(); //Updating Player
-		checkForCollision();
+		p2.update(); //Updating Player
+		checkForCollision(p1);
+		checkForCollision(p2);
 //		if(mob1!=null)
 //		mob1.update();
 		
@@ -380,6 +435,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //				g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
 			}
 			p1.draw(g); //Drawing Player
+			p2.draw(g); //Drawing Player
 		}
 //		if(mob1!=null)
 //		mob1.draw(g);
@@ -391,7 +447,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 	}
 
-	public boolean checkForCollision(){ //Checking for collision
+	public boolean checkForCollision(Player p1){ //Checking for collision
 		boolean colide = false;
 		for(int i=0;i<world.AWIDTH;i++){
 			for(int j=0;j<world.AHIGHT;j++){

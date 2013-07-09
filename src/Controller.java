@@ -23,7 +23,7 @@ public class Controller {
 		
 	}
 	
-	public void update(){
+	public void update(Player thisplayer){
 		//Entity Destroyable
 		for (int i=0;i<ed.size();i++){
 			tempEntDe = ed.get(i);
@@ -52,27 +52,27 @@ System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 		}
 		//EntityMapObject
 	//	System.out.println("Size of eWO "+eWO.size());
-		game.p1.setHitShop(false); 
-		game.p1.setHitStory(false); 
+		thisplayer.setHitShop(false); 
+		thisplayer.setHitStory(false); 
 		for (int i=0;i<eWO.size();i++){
 			tempEntWO = eWO.get(i);
 	//		System.out.println("Current index for MapObject"+i);
 			
-			if((Physics.CollisionGameObjectList(game.p1, tempEntWO))){
-				if (tempEntWO.getLeben()!=0) {game.p1.changePlayerLifepoints(tempEntWO.getLeben(), 0);}
-				if (tempEntWO.getMana()!=0) {game.p1.changePlayerManapoints(tempEntWO.getMana());}
-				if (tempEntWO.getGeld()!=0) {game.p1.changePlayerMoney(tempEntWO.getGeld());}
+			if((Physics.CollisionGameObjectList(thisplayer, tempEntWO))){
+				if (tempEntWO.getLeben()!=0) {thisplayer.changePlayerLifepoints(tempEntWO.getLeben(), 0);}
+				if (tempEntWO.getMana()!=0) {thisplayer.changePlayerManapoints(tempEntWO.getMana());}
+				if (tempEntWO.getGeld()!=0) {thisplayer.changePlayerMoney(tempEntWO.getGeld());}
 				if( tempEntWO.isWeapon()){					
-					game.p1.setWeapon(true); 
+					thisplayer.setWeapon(true); 
 				}
 				if( tempEntWO.isArmor()){					
-					game.p1.setArmor(true); 
+					thisplayer.setArmor(true); 
 				}
 				if( tempEntWO.isShop()){					
-					game.p1.setHitShop(true); 
+					thisplayer.setHitShop(true); 
 				}
 				if( tempEntWO.isStory()){					
-					game.p1.setHitStory(true); 
+					thisplayer.setHitStory(true); 
 				}
 				if (tempEntWO.isCollectable()) removeEntity(tempEntWO);
 			//	System.out.println("COLLISION "+i);
