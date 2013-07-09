@@ -14,6 +14,7 @@ public class MainWindow extends JFrame{
 	private GameServer gameServer;
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
+	private MyKeyListenerNetworkClient kNC;
 	/**
 	 * @param args
 	 * 
@@ -46,7 +47,10 @@ public class MainWindow extends JFrame{
          * JButton.
          */
 
-        startButton = new JButton("Start");// The JButton name.
+		kNC = new MyKeyListenerNetworkClient(); 
+		addKeyListener(kNC);
+
+		startButton = new JButton("Start");// The JButton name.
         add(startButton);
         // getContentPane().add(startButton);
         startButton.setSize(400, 70);
@@ -77,6 +81,9 @@ public class MainWindow extends JFrame{
 		ncButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
 			gameClient = new GameClient();
+			kNC.setGameClient(gameClient);
+//			kNC = new MyKeyListenerNetworkClient(gameClient); 
+//			addKeyListener(kNC);
 		}}
 				);
 		ncButton.setVisible(false);

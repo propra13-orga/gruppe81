@@ -6,8 +6,8 @@ public class GameClient {
 	private Socket echoSocket;
 	private PrintWriter serverOut;
 	private BufferedReader serverIn;
-	private PrintWriter clientOut;
-	private BufferedReader clientIn;
+	public PrintWriter clientOut;
+	public BufferedReader clientIn;
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
 
