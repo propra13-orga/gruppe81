@@ -14,7 +14,8 @@ public class GameClient {
 	public GameClient () {
 				
 		try {
-			echoSocket = new Socket("localhost", 1337);
+//			echoSocket = new Socket("localhost", 1337);
+			echoSocket = new Socket("134.99.16.30", 1337);
 			clientOut = new PrintWriter(echoSocket.getOutputStream(), true);
 			clientIn = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 		    System.out.println( "KeepAlive: " + echoSocket.getKeepAlive() );           
