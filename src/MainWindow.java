@@ -16,20 +16,10 @@ public class MainWindow extends JFrame{
 	public GameServer gameServer;
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
-<<<<<<< HEAD
-	
-	
-=======
 	private MyKeyListenerNetworkClient kNC;
-	/**
-	 * @param args
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	//Constructor
->>>>>>> ced1862c90b87b39405e4c7c60110fc8093a6c63
+	
+	
+
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
 	
@@ -174,7 +164,7 @@ public class MainWindow extends JFrame{
     }	
 
    /** 
-   * Startet das Spiel
+   * Starte das Spiel
    */
     public void showDCGame() {
         label.setVisible(false);
