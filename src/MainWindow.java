@@ -16,10 +16,8 @@ public class MainWindow extends JFrame{
 	public GameServer gameServer;
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
-<<<<<<< HEAD
 	
 	
-=======
 	private MyKeyListenerNetworkClient kNC;
 	/**
 	 * @param args
@@ -29,7 +27,6 @@ public class MainWindow extends JFrame{
 	 * 
 	 */
 	//Constructor
->>>>>>> ced1862c90b87b39405e4c7c60110fc8093a6c63
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
 	
