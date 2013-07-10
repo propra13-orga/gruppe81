@@ -5,7 +5,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
+/**
+ *  Classe MainWindow erstellt den Frame mit der Hauptmenue und MenueButtons  
+ */
 public class MainWindow extends JFrame{
 
 	private JButton startButton, sButton, nButton, ncButton, ndButton;
@@ -14,6 +16,10 @@ public class MainWindow extends JFrame{
 	public GameServer gameServer;
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
+<<<<<<< HEAD
+	
+	
+=======
 	private MyKeyListenerNetworkClient kNC;
 	/**
 	 * @param args
@@ -23,19 +29,25 @@ public class MainWindow extends JFrame{
 	 * 
 	 */
 	//Constructor
+>>>>>>> ced1862c90b87b39405e4c7c60110fc8093a6c63
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
-	public MainWindow(){
+	
+	/** 
+	 * Constructor MainWindow erstellst das MenueFenster, mit dem Namen des Speils, 
+	 * Groesse des Spielfelds, die nicht geaendert werden kann 
+	 */
+	
+	public MainWindow(){        	 
 	//	super("Test Window Titel"); // Rufe Vater Methode auf mit der String
-		setLayout(myLayout);
-		setTitle("Dungeon Crawler pre Alpha ");
-		setSize(1000, 600);
-		setResizable(false);
+		setLayout(myLayout);    	 
+		setTitle("Dungeon Crawler pre Alpha "); 
+		setSize(1000, 600);     	 
+		setResizable(false);		
 		setFocusable(true);
 		setVisible(true);
-		setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
-		//gw.requestFocus(true);
+		setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE); 
+		setLocationRelativeTo(null);  // 
 //		add(gw);
 		
 //		gw.requestFocus(true);
@@ -44,7 +56,7 @@ public class MainWindow extends JFrame{
 //        gw.setVisible(false);
 
         /*
-         * JButton.
+         * Erstelle zwei Buttons: "Start" und "Beenden"
          */
 
 		kNC = new MyKeyListenerNetworkClient(); 
@@ -128,6 +140,10 @@ public class MainWindow extends JFrame{
 //        label.setVisible(false);
 	}
 
+	
+	/**
+	 * Beende das Spiel und zeige das Menue an
+	 */
     public void showDCMenue() {
         label.setVisible(false);
         gw.stopGame();
@@ -141,6 +157,9 @@ public class MainWindow extends JFrame{
         repaint();
     }	
 
+  /**
+   * Beende das Spiel und zeige wer gewonnen hat
+   */
     public void showFinish() {
         gw.stopGame();
         remove(gw);
@@ -154,6 +173,9 @@ public class MainWindow extends JFrame{
         repaint();
     }	
 
+   /** 
+   * Startet das Spiel
+   */
     public void showDCGame() {
         label.setVisible(false);
         remove(sButton);
@@ -168,11 +190,15 @@ public class MainWindow extends JFrame{
         add(gw);
 //System.out.println("211111");
 //        gw.newWorld(1);
-        gw.startGame();
-        gw.requestFocus();
+        gw.startGame();    // Startet das Spiel
+        gw.requestFocus(); // Tastatureingabe
         pack();
     }
     
+    
+    /**
+     * Startmethode
+     */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		new DCMenue(); 
