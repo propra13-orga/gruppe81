@@ -1,6 +1,4 @@
-
 import java.awt.*;
-
 
 abstract class GameObject extends Rectangle
 	{
@@ -22,6 +20,8 @@ abstract class GameObject extends Rectangle
 //
 //
 //    
+
+  //Erzeugt Object vom Typ GameObjekt  
     public GameObject (){	// Construktor  !!!!!!!
     this.alive = true; 
     this.x =x;
@@ -30,7 +30,7 @@ abstract class GameObject extends Rectangle
     this.solid = solid;
     
     }  
-
+//ver�ndert die Lebenspunkt um lifepointsChange, coolOf gibt an wie Lange das Objekt vor weiteren Veraenderungen geschuetzt ist
 	public void changeLifepoints(int lifepointsChange, long coolOf){
 		if (this.coolOf<System.nanoTime()) {
 			this.lifepoints = this.lifepoints+lifepointsChange;
@@ -61,30 +61,39 @@ abstract class GameObject extends Rectangle
 //---------Graphics---Ende
 //
 //+++++++++Сoordinates
-    public void setX (int x)    { this.x=x;  }
+// setze X Koordinate der oberen linken Ecke des Objekts
+	public void setX (int x)    { this.x=x;  }
+// setze Y Koordinate der oberen linken Ecke des Objekts
     public void setY (int y)    { this.y=y;  }
 
+ // gebe X Koordinate der oberen linken Ecke des Objekts aus
     public double getX ()          { return x;  }
+// gebe Y Koordinate der oberen linken Ecke des Objekts aus
     public double getY ()          { return y;  }
 //---------Сoordinates--Ende
 //
 //
 //
 //+++++++++Lebenspunkte
+// setze Anzahl Leben
     public void setLive (int live)         { this.live=live;     } 
+// lese Anzahl Leben
     public int  getLive ()                 { return live;        }
+// veraendere die Anzahl der Leben des Objekts
     public void changeLive (int change)    { this.live += change;}
     abstract void explode (boolean explode);                                              // ABSTRACT   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //---------Lebenspunkte---Ende
 //
 //
 //
+	// setze alive auf falsch und gebe alive zurueck
     public boolean kill(GameObject ob){
     	ob.alive = false;
     	return alive;
     }
     
 //
+	// setze Explosion auf wahr
     void explode ()
     {
 	explode = true;
@@ -92,10 +101,12 @@ abstract class GameObject extends Rectangle
 //
 //
 //
+	// gebe aus ob das Objekt lebt
 	public boolean isAlive() {
 		return alive;
 	}
 
+	// gebe aus ob das Objekt lebt
     boolean alive ()
     {
 	return alive;

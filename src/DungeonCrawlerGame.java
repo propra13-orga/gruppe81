@@ -94,7 +94,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
 		if (mainWindow.gameServer!=null) {
 			if (mainWindow.gameServer.serverOut!=null) {
-//				world.object
+//				mainWindow.gameServer.serverOut.writeObject(world);
 //				mainWindow.gameServer.serverOut.
 //
 //xxxxxxxxxxxxx
