@@ -17,16 +17,9 @@ public class MainWindow extends JFrame{
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
 	
-	
 	private MyKeyListenerNetworkClient kNC;
-	/**
-	 * @param args
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
-	//Constructor
+	
+
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
 	
@@ -171,7 +164,7 @@ public class MainWindow extends JFrame{
     }	
 
    /** 
-   * Startet das Spiel
+   * Starte das Spiel
    */
     public void showDCGame() {
         label.setVisible(false);
@@ -195,6 +188,7 @@ public class MainWindow extends JFrame{
     
     /**
      * Startmethode
+     * @params	
      */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

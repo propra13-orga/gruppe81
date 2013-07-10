@@ -25,7 +25,7 @@ import Object.EntityMovable;
 public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 	/**
-	 * @author Dmytro Shlyakhov
+	Spiel Klasse
 	 */
 	private static final long serialVersionUID = 1L;
 	//Double buffering
@@ -62,7 +62,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private Image blaseImg;
 	
 	// private static boolean hitExit;
-	//Constructor
+	/**Constructor
+	 * Erzeugt eine Instanz des Spiels
+	 * @param mainWindow ist das Fenster in dem das Spiel laeuft
+	 */
 	public DungeonCrawlerGame(MainWindow mainWindow){
 		this.mainWindow = mainWindow;
 		c = new Controller(this);
@@ -92,7 +95,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
-		
+		if (mainWindow.gameServer!=null) {
+			if (mainWindow.gameServer.serverOut!=null) {
+//				world.object
+//				mainWindow.gameServer.serverOut.
+//
+//xxxxxxxxxxxxx
+
+			} else {
+			}
+		} else {
+		}
 		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -148,7 +161,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		
 	}
-	
+	/**
+	 *  die Klasse erzeugt einen neuen Raum
+	 * @param levelNumber die Nummer der Leveldatei, die geladen werden soll
+	 
+	 */
 	public void newWorld(int levelNumber){
 		c.ed.clear();
 		c.em.clear();
@@ -162,7 +179,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //		p1 = null;
 //		p1 = new Player(world);
 	}
-	
+	/**
+	 * die Spielerschleife
+	 */
 	public void run(){
 		
 		long lastTime = System.nanoTime();
@@ -210,7 +229,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
-	
+	/**
+	 * sorgt für den Levelwechsel wenn der Spieler in den Ausgang laeuft
+	 */
 	private void changestate(){
 		
 		
@@ -242,7 +263,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			p1.playerChangeRoom=false;
 		}
 	}
-	
+	/**
+	 * erzeugt Feuer 
+	 * @param coolOf ist die Zeit in der der Getroffene nicht mehr verletzt wird nach dem Schuss
+	 * @param p1 der Spieler, der den Schuss ausgeloest hat
+	 */
 	private void shoot(long coolOf,Player p1){
 		if (bulletCoolOf<System.nanoTime()) {
 			
@@ -253,7 +278,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
-	
+	/**
+	 * erzeugt Zauber
+	 * @param coolOf ist die Zeit in der der Getroffene nicht mehr verletzt wird nach dem Schuss
+	 * @param p1 der Spieler, der den Schuss ausgeloest hat
+	 */
 	private void castSpell(long coolOf,Player p1){
 		if (spellCoolOf<System.nanoTime()) {
 			
@@ -264,7 +293,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
-
+/**
+ * verarbeitet  Spielereingabe und bewegt Spieler, Gegner, Feuer und Mana.
+ * 
+ */
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
@@ -404,7 +436,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			changestate();
 		}
 	}
-	
+	/**
+	 * bereite das Buffering vor und loesche den alten Inhalt
+	 */
 	private void gameRender(){
 		if(dbImage == null){ //Create the Buffer -Image
 			dbImage = createImage(GWIDTH, GHEIGHT);
@@ -424,8 +458,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	}
 	
 	
-	/*Draw all Game content in this method */
 	
+	/**
+	 * Malt die Welt aller Elemente in doubleBuffer
+	 * @param g
+	 */
 	public void draw (Graphics g){
 		if (!world.isPaused()) {
 			world.draw(g);
@@ -455,7 +492,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 		
 	}
-
+/**
+ * Ueberprueft und stellt fest ob der Spieler den Objeck trifft 
+ * boolean true - trifft
+ * boolean false - nicht
+ * @param Player,ist der, der ueberprueft wird
+ * @return
+ */
 	public boolean checkForCollision(Player p1){ //Checking for collision
 		boolean colide = false;
 		for(int i=0;i<world.AWIDTH;i++){
@@ -524,7 +567,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 	
 	
-	
+	/**
+	 * laedt Spelegraphik aus dem doubleBuffer und zeigt sie auf
+	 */
 	private void paintScreen(){
 		Graphics g;
 		try{
@@ -539,16 +584,46 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		
 	}
-	
+	/**
+	 * Fuegt den Gegner hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 */
 	public void addNPC(double x, double y){
 		c.addEntity(new NPC(x, y, this, p1));
 	}
+	/**
+	 * Fuegt Leben, Mana und Geld hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param leben zeigt wiviel Leben es giebt, wenn der Spieler HealthPack sammelt
+	 * @param mana zeigt wiviel Mana es giebt, wenn der Spieler HealthPack sammelt
+	 * @param geld zeigt wiviel Geld es giebt, wenn der Spieler Geld sammelt
+	 */
 	public void addHealthPack(double x, double y, int leben, int mana, int geld){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld));
 	}
+	/**
+	 * Fuegt Leben, Mana und Geld hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param leben zeigt wiviel Leben es giebt, wenn der Spieler HealthPack sammelt
+	 * @param mana zeigt wiviel Mana es giebt, wenn der Spieler HealthPack sammelt
+	 * @param geld zeigt wiviel Geld es giebt, wenn der Spieler Geld sammelt
+	 * @param special gibt eine zusaetzliche Eigenschaft, wie zB. Collectiable und Shop  
+	 * @param wert gibt an ob die Eigenschaft, die in special steht wahr oder falsch ist
+	 */
 	public void addHealthPack(double x, double y, int leben, int mana, int geld, String special, boolean wert){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld),special,wert);
 	}
+	/**
+	 * wird ein beliebiges Element hinzugefuegt
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param image das Bild, das angezeigt wird
+	 * @param width
+	 * @param height
+	 */
 	public void addElement(double x, double y,Image image, double width, double height){
 		c.addEntity(new Element(x, y, this, image, width, height));
 	}
