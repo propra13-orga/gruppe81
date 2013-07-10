@@ -11,7 +11,7 @@ public class MainWindow extends JFrame{
 	private JButton startButton, sButton, nButton, ncButton, ndButton;
 	private JLabel label;
 	private DungeonCrawlerGame gw;
-	private GameServer gameServer;
+	public GameServer gameServer;
 	private GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
 	private MyKeyListenerNetworkClient kNC;
@@ -84,6 +84,7 @@ public class MainWindow extends JFrame{
 			kNC.setGameClient(gameClient);
 //			kNC = new MyKeyListenerNetworkClient(gameClient); 
 //			addKeyListener(kNC);
+			requestFocus(true);
 		}}
 				);
 		ncButton.setVisible(false);

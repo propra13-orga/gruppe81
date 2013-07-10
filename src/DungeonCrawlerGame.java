@@ -76,11 +76,16 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		em = c.getEntMovList();
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
-		this.k2 = new MyKeyListener(); 
+		if (mainWindow.gameServer!=null) {
+			System.out.println("getKeyListener");
+			this.k2 = mainWindow.gameServer.getKeyListener(); 
+		} else {
+			this.k2 = new MyKeyListener(); 
+		}
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		addKeyListener(k1);
-		addKeyListener(k2);
+//		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
 		
@@ -234,7 +239,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 	}
 	
-	private void shoot(long coolOf){
+	private void shoot(long coolOf,Player p1){
 		if (bulletCoolOf<System.nanoTime()) {
 			
 			bulletCoolOf = System.nanoTime()+coolOf;
@@ -245,7 +250,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 	}
 	
-	private void castSpell(long coolOf){
+	private void castSpell(long coolOf,Player p1){
 		if (spellCoolOf<System.nanoTime()) {
 			
 			spellCoolOf = System.nanoTime()+coolOf;
@@ -295,56 +300,56 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 			if ((p1.hasWeapon()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
-				shoot(1000000000);
+				shoot(1000000000,p1);
 			}
 			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_Z))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				if (spellCoolOf<System.nanoTime()) {
 					p1.changePlayerManapoints(-10);
-					castSpell(250000000);
+					castSpell(250000000,p1);
 				}
 			}
 			p2.setYDirection(0);
 			p2.setXDirection(0);
-			if(k2.isKeyPressed(KeyEvent.VK_W)){
+			if(k2.isKeyPressed(KeyEvent.VK_UP)){
 				p2.setYDirection(-1);
 				p2.lastDirection =3;
 			}
-			else if(k2.isKeyPressed(KeyEvent.VK_S)){
+			else if(k2.isKeyPressed(KeyEvent.VK_DOWN)){
 				p2.setYDirection(+1);
 				p2.lastDirection =1;
 			}else{			
-				if(k2.isKeyPressed(KeyEvent.VK_A)){
+				if(k2.isKeyPressed(KeyEvent.VK_LEFT)){
 						p2.setXDirection(-1);
 						p2.lastDirection =2;
-				}else if(k2.isKeyPressed(KeyEvent.VK_D)){
+				}else if(k2.isKeyPressed(KeyEvent.VK_RIGHT)){
 						p2.setXDirection(+1);       
 						p2.lastDirection =0;
 				}
 			}
-			if ((p2.isHitShop()) && (k2.isKeyPressed(KeyEvent.VK_Y))) {
+			if ((p2.isHitShop()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
 				world.pause();
-				k2.keys[KeyEvent.VK_Y]=false;
+				k2.keys[KeyEvent.VK_SPACE]=false;
 				shop = new Shopping(world,p2);
 				shop.setFrame(mainWindow);
 				addKeyListener(shop.getMyKeyListener());
 				shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
 			}
-			if ((p2.isHitStory()) && (k2.isKeyPressed(KeyEvent.VK_Y))) {
-				k2.keys[KeyEvent.VK_Y]=false;
+			if ((p2.isHitStory()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
+				k2.keys[KeyEvent.VK_SPACE]=false;
 				showStory=true;
 			}
 			if ((showStory) && (k2.isKeyPressed(KeyEvent.VK_ESCAPE))) {
 				p2.setHitStory(false);
 				showStory=false;
 			}
-			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_Y))){
-				shoot(1000000000);
+			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))){
+				shoot(1000000000,p2);
 			}
-			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_X))){
+			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_Z))){
 				if (spellCoolOf<System.nanoTime()) {
 					p2.changePlayerManapoints(-10);
-					castSpell(250000000);
+					castSpell(250000000,p2);
 				}
 			}
 		c.update(p1);	

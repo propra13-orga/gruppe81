@@ -17,12 +17,19 @@ public class MyKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		this.keys[e.getKeyCode()] = true; 
-		//System.out.println(e.getKeyCode());
+	}
+	public void keyPressed(int keyCode) {
+		System.out.println("KeyCode pressed via LAN: "+keyCode);
+		this.keys[keyCode] = true; 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		this.keys[e.getKeyCode()] = false; 
+	}
+	public void keyReleased(int keyCode) {
+		System.out.println("KeyCode released via LAN: "+keyCode);
+		this.keys[keyCode] = false; 
 	}
 
 	@Override
