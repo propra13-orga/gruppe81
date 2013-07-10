@@ -4,37 +4,91 @@ import java.net.*;
 public class GameServer {
 
 	private Socket echoSocket;
-	private PrintWriter out;
-	private BufferedReader in;
-
+	public PrintWriter serverOut;
+	public BufferedReader serverIn;
+	private PrintWriter clientOut;
+	private BufferedReader clientIn;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
+	private MyKeyListener kND;
+	private int clientCount;
+	private GameServerThread gameServerThread;
+	
 	public GameServer () {
 		try {
-			echoSocket = new Socket("aztec.de", 80);
-			out = new PrintWriter(echoSocket.getOutputStream(), true);
-			in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-		} catch (UnknownHostException e) {
-			System.err.println("Don't know about host.");
-			System.exit(1);
+			serverSocket = new ServerSocket(1337);
 		} catch (IOException e) {
-			System.err.println("Couldn't get I/O for the connection.");
-			System.exit(1);
-		} 
+			System.out.println("Could not listen on port: 1337");
+			System.exit(-1);
+		}
+
+		gameServerThread = new GameServerThread(serverSocket);
+		gameServerThread.start();
+//	    new Thread( new Runnable()
+//	    {
+//	      public void run()
+//	      {
+//	  		clientSocket = null;
+//	        try
+//	        {
+//	          System.out.println( "Warte auf Verbindung vom Client" );
+//				clientSocket = serverSocket.accept();
+//		          System.out.println( "Verbindung vom Client wird hergestellt" );
+//				serverOut = new PrintWriter(clientSocket.getOutputStream(), true);
+//				serverIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//				String clientInput;
+//				kND = new MyKeyListener();
+//				while ((clientInput = serverIn.readLine()) != null) {
+//					System.out.println( "ServerOut: " + clientInput);
+//					serverOut.println(clientInput);
+//					String[] splitClientInput = clientInput.split(" ");
+//					System.out.println( "splitClientInput[0] " + splitClientInput[0]);
+//					if (kND != null) {
+//						System.out.println( "splitClientInput[0] " + splitClientInput[0]);
+//						if (splitClientInput[0].equals("KC")) {
+//							System.out.println( "splitClientInput[1] " + splitClientInput[1]);
+//							System.out.println( "splitClientInput[2] " + splitClientInput[2]);
+//							if (splitClientInput[1].equals("+")) {
+//								kND.keyPressed(Integer.parseInt(splitClientInput[2]));
+//							} else {
+//								kND.keyReleased(Integer.parseInt(splitClientInput[2]));
+//							}
+//						}
+//					}
+//				}
+//				System.out.println( "Hier hängt er!" );
+//	        }
+//	        catch ( IOException e )
+//	        {
+//				System.out.println("Accept failed: 1337");
+//				System.exit(-1);
+//	        }
+//	      }
+//	    }).start();
 	}
 
+	public MyKeyListener getKeyListener () {
+		kND = gameServerThread.getKeyListener();
+		return kND;
+	}
+	
 	public void finish () {
-		out.close();
-		try {
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			echoSocket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		gameServerThread.finish();
+		
+//		serverOut.close();
+//		try {
+//			serverIn.close();
+//			clientSocket.close();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			serverSocket.close();		
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 }

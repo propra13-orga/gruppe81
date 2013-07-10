@@ -94,6 +94,10 @@ public class Player extends GameObject implements Entity{
 		playerRect = new Rectangle(world.startX,world.startY,world.BLOCKSIZE,50);
 	}
 
+	public void setStart(double x, double y){
+		playerRect = new Rectangle((int)x,(int)y,world.BLOCKSIZE,50);
+	}
+
 	public boolean isAlive(){
 		return alive;
 	}
