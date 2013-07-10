@@ -77,8 +77,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
 		if (mainWindow.gameServer!=null) {
-			System.out.println("getKeyListener");
-			this.k2 = mainWindow.gameServer.getKeyListener(); 
+			if (mainWindow.gameServer.getKeyListener()!=null) {
+				System.out.println("getKeyListener");
+				this.k2 = mainWindow.gameServer.getKeyListener(); 
+			} else {
+				this.k2 = new MyKeyListener(); 
+			}
 		} else {
 			this.k2 = new MyKeyListener(); 
 		}
