@@ -92,7 +92,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
-		
+		if (mainWindow.gameServer!=null) {
+			if (mainWindow.gameServer.serverOut!=null) {
+//				world.object
+//				mainWindow.gameServer.serverOut.
+//
+//xxxxxxxxxxxxx
+
+			} else {
+			}
+		} else {
+		}
 		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
