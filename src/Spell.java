@@ -17,10 +17,10 @@ public class Spell extends GameObject implements EntityMovable {
 		DungeonCrawlerGame game;
 		int direction;
 		private boolean hited;
-		private Image picR = new ImageIcon("hadoukenblau1sek5029.gif").getImage();
-		private Image picL = new ImageIcon("hadoukenblau1sek5029L.gif").getImage();
-		private Image picO = new ImageIcon("hadoukenblau1sek5029O.gif").getImage();
-		private Image picU = new ImageIcon("hadoukenblau1sek5029U.gif").getImage();
+		private Image picR = new ImageIcon("hadouken2sek5029.gif").getImage();
+		private Image picL = new ImageIcon("hadouken2sek5029L.gif").getImage();
+		private Image picO = new ImageIcon("hadouken2sek5029O.gif").getImage();
+		private Image picU = new ImageIcon("hadouken2sek5029U.gif").getImage();
 		
 	public Spell(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )

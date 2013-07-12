@@ -21,9 +21,9 @@ public class HealthPack extends GameObject implements EntityMapObject{
 	DungeonCrawlerGame game;
 	Player p;
 	private double x,y;
-	private Image pic = new ImageIcon("Health Pack-32x32.png").getImage();
-	private Image picLeben = new ImageIcon("Health Pack-32x32.png").getImage();
-	private Image picMana = new ImageIcon("Mana Pack-32x32.png").getImage();
+	private Image pic = new ImageIcon("Heiltrank.png").getImage();
+	private Image picLeben = new ImageIcon("Heiltrank.png").getImage();
+	private Image picMana = new ImageIcon("Manatrank.png").getImage();
 
 //	private Image picMoney = new ImageIcon("Money Pack-32x32.png").getImage();
 	//private boolean mapObject = true;
