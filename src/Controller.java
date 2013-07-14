@@ -16,10 +16,11 @@ public class Controller {
 	public EntityMovable tempEntMov;
 	public EntityMapObject tempEntWO;
 	DungeonCrawlerGame game;
+	private int schaden=-12;
 	public Controller(DungeonCrawlerGame game){
 		
 		this.game=game;
-		
+	
 		
 	}
 	
@@ -34,7 +35,27 @@ public class Controller {
 				if(Physics.CollisionWithMovable(tempEntDe, game.em)) {
 					tempEntMov = Physics.CollisionWithWhichMovable(tempEntDe, game.em);
 					System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
-					tempEntDe.changeLifepoints(-12, 250000000);
+					 schaden=-12;
+					
+					
+				
+					
+				//	if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==1)) {schaden=schaden;}
+					if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==2)) {schaden=0;}
+					if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==3)) {schaden=schaden*2;}
+					if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==2)) {schaden=schaden*2;}
+					if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==1)) {schaden=0;}
+				//	if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==3)) {schaden=schaden;}
+				    if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==1)) {schaden=schaden*2;}
+				//	if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==2)) {schaden=schaden;}
+					if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==3)) {schaden=0;}
+					
+					
+					
+					
+					
+					
+					tempEntDe.changeLifepoints(schaden, 250000000);
 					if (!tempEntDe.isAlive()) {
 						removeEntity(tempEntDe);
 					}

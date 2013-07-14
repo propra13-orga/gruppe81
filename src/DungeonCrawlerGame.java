@@ -309,6 +309,16 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
+	private void castSpell2(long coolOf,Player p1){
+		if (spellCoolOf<System.nanoTime()) {
+			
+			spellCoolOf = System.nanoTime()+coolOf;
+			if(c.em.size()< 500){
+				c.addEntity(new Spell2(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+				spellCoolOf = System.nanoTime()+coolOf;
+			}
+		}
+	}
 /**
  * verarbeitet  Spielereingabe und bewegt Spieler, Gegner, Feuer und Mana.
  * 
@@ -349,11 +359,25 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if ((showStory) && (k1.isKeyPressed(KeyEvent.VK_ESCAPE))) {
 				p1.setHitStory(false);
 				showStory=false;
+				
 			}
 			if ((p1.hasWeapon()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				shoot(1000000000,p1);
 			}
+			
+			
+			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_U))){
+				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+				if (spellCoolOf<System.nanoTime()) {
+					p1.changePlayerManapoints(-10);
+					castSpell2(250000000,p1);
+				}
+			}
+			
+			
+			
+			
 			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_Z))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				if (spellCoolOf<System.nanoTime()) {
@@ -398,6 +422,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))){
 				shoot(1000000000,p2);
 			}
+			
+			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_U))){
+				if (spellCoolOf<System.nanoTime()) {
+					p2.changePlayerManapoints(-10);
+					castSpell2(250000000,p2);
+				}
+			}
+			
 			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_Z))){
 				if (spellCoolOf<System.nanoTime()) {
 					p2.changePlayerManapoints(-10);
@@ -502,8 +534,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //				g.drawString("Begleite den Ali während des Abenteuers und helfe ihm",100,325);
 //				g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
 			}
+			p2.draw(g);
 			p1.draw(g); //Drawing Player
-			p2.draw(g); //Drawing Player
+			 //Drawing Player
 		}
 //		if(mob1!=null)
 //		mob1.draw(g);

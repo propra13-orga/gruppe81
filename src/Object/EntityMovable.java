@@ -5,6 +5,9 @@ import java.awt.Rectangle;
 
 public interface EntityMovable {
 	
+	
+	
+	
 	public void update();
 	public void draw(Graphics g);
 	
@@ -16,5 +19,5 @@ public interface EntityMovable {
 	public Rectangle getBounds();
 	public boolean isHited(); 
 	public void hit();
-	
+	public int getElementArt();
 }

@@ -658,6 +658,7 @@ public void pause() {
 
 public void resume() {
 	pause=false;
+	game.shop=null;
 }
 
 public boolean isPaused() {

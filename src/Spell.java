@@ -22,6 +22,7 @@ public class Spell extends GameObject implements EntityMovable {
 		private Image picO = new ImageIcon("hadouken2sek5029O.gif").getImage();
 		private Image picU = new ImageIcon("hadouken2sek5029U.gif").getImage();
 		
+		
 	public Spell(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )
 		this.x = x;
@@ -32,6 +33,8 @@ public class Spell extends GameObject implements EntityMovable {
 		hited = false;
 		setBounds((int)x,(int) y  ,16,16	);
 		
+		
+		elementArt=1;         ///!!!!!!!!!!!!!!!!! 
 		
 	}
 	
