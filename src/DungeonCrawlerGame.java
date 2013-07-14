@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 //import java.awt.event.ActionListener;
 //import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.LinkedList;
 //import java.awt.event.KeyListener;
 
@@ -55,7 +56,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	Bullet b;
 	Shopping shop;
 	private Controller c;
-	private MainWindow mainWindow;
+	public MainWindow mainWindow;
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
 	public LinkedList<EntityMapObject> eMO;
@@ -67,6 +68,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	 * @param mainWindow ist das Fenster in dem das Spiel laeuft
 	 */
 	public DungeonCrawlerGame(MainWindow mainWindow){
+    	
 		this.mainWindow = mainWindow;
 		c = new Controller(this);
 		
@@ -79,33 +81,47 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		em = c.getEntMovList();
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
-		if (mainWindow.gameServer!=null) {
-			if (mainWindow.gameServer.getKeyListener()!=null) {
-				System.out.println("getKeyListener");
-				this.k2 = mainWindow.gameServer.getKeyListener(); 
+		if (mainWindow.gameClient==null) {
+			if (mainWindow.gameServer!=null) {
+				if (mainWindow.gameServer.getKeyListener()!=null) {
+					System.out.println("getKeyListener");
+					this.k2 = mainWindow.gameServer.getKeyListener(); 
+				} else {
+					this.k2 = new MyKeyListener(); 
+				}
 			} else {
 				this.k2 = new MyKeyListener(); 
 			}
+//			addKeyListener(k2);
 		} else {
+			addKeyListener(mainWindow.kNC);
 			this.k2 = new MyKeyListener(); 
 		}
+		addKeyListener(k1);
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
-		addKeyListener(k1);
-//		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
-		if (mainWindow.gameServer!=null) {
-			if (mainWindow.gameServer.serverOut!=null) {
-//				mainWindow.gameServer.serverOut.writeObject(world);
-//				mainWindow.gameServer.serverOut.
+//		System.out.println("Test 1"); 
+//		if (mainWindow.gameServer!=null) {
+//			System.out.println("Test 2"); 
+//			if (mainWindow.gameServer.gameServerThread.serverOut!=null) {
+//				System.out.println("Test 3"); 
+//				try {
+//					System.out.println("World schreiben"); 
+//					mainWindow.gameServer.gameServerThread.serverObjectOut.writeObject(world);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+////				mainWindow.gameServer.serverOut.
+////
+////xxxxxxxxxxxxx
 //
-//xxxxxxxxxxxxx
-
-			} else {
-			}
-		} else {
-		}
+//			} else {
+//			}
+//		} else {
+//		}
 		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -388,6 +404,12 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					castSpell(250000000,p2);
 				}
 			}
+		if (mainWindow.gameServer!=null) {
+			System.out.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY());
+			System.out.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY());
+			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY()+" "+(int)p1.getXDirection()+" "+(int)p1.getYDirection());
+			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY()+" "+(int)p2.getXDirection()+" "+(int)p2.getYDirection());
+		}
 		c.update(p1);	
 		c.update(p2);	
 		p1.update(); //Updating Player

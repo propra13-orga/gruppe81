@@ -12,12 +12,12 @@ public class MainWindow extends JFrame{
 
 	private JButton startButton, sButton, nButton, ncButton, ndButton;
 	private JLabel label;
-	private DungeonCrawlerGame gw;
+	public DungeonCrawlerGame gw;
 	public GameServer gameServer;
-	private GameClient gameClient;
+	public GameClient gameClient;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
 	
-	private MyKeyListenerNetworkClient kNC;
+	public MyKeyListenerNetworkClient kNC;
 	
 
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
@@ -49,7 +49,8 @@ public class MainWindow extends JFrame{
          * Erstelle zwei Buttons: "Start" und "Beenden"
          */
 
-		kNC = new MyKeyListenerNetworkClient(); 
+		kNC = new MyKeyListenerNetworkClient();
+		kNC.setMainWindow(this);
 		addKeyListener(kNC);
 
 		startButton = new JButton("Start");// The JButton name.
@@ -82,7 +83,7 @@ public class MainWindow extends JFrame{
 		ncButton.setLocation(400,150);
 		ncButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
-			gameClient = new GameClient();
+			gameClient = new GameClient(kNC.mainWindow);			
 			kNC.setGameClient(gameClient);
 //			kNC = new MyKeyListenerNetworkClient(gameClient); 
 //			addKeyListener(kNC);
@@ -174,7 +175,7 @@ public class MainWindow extends JFrame{
         remove(ndButton);
         remove(startButton);
         remove(label);
-        gw = new DungeonCrawlerGame(this);
+        gw = new DungeonCrawlerGame(this);        
         gw.setSize(1000, 600);
 //System.out.println("111111");
         add(gw);

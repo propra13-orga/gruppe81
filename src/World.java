@@ -19,8 +19,6 @@ import Object.EntityDestroyable;
 
 
 public class World {
-
-	
 	
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
@@ -189,29 +187,42 @@ public void draw(Graphics g){
    * @Load level from file.txt
    */
 public void getLevel(String fileName) { //reading level from file
-    
-   
 
-    BufferedReader input = null;
-    try {
-        File file = new File(fileName);
-        input = new BufferedReader(new FileReader(file));
-        String line = null;
-//        for (int i = 0; (line = input.readLine()) != null; i++) {
-       int i=0;
-        while ((line = input.readLine())!=null) {
-            
-            x=0;
-        	for (int  j= 0; j < line.length(); j++) {
-       
-//                System.out.print("i="+i+" j="+j+" Gelesen:   ");
-//               System.out.println(line.charAt(j));
-               
-               checkpoints[i][j]=false;
-               exits[i][j] = false;
-               trap[i][j] = false;
-               finish[i][j] = false;
-               isSolid[i][j] =false;
+	BufferedReader input = null;
+	try {
+		int i=0;
+		String line = null;
+		if (game.mainWindow.gameClient != null) {
+			System.out.println("getLevel Clientversion");
+			String[] splitServerInput = fileName.split(" ");
+			if (splitServerInput[0].equals("WORLD")) {
+				i = Integer.parseInt(splitServerInput[1]);
+				if (splitServerInput.length>2) {
+					line = splitServerInput[2]; 					
+				}
+			}
+		} else {
+			System.out.println("getLevel Serverversion "+i);
+			File file = new File(fileName);
+			input = new BufferedReader(new FileReader(file));
+			line = input.readLine();
+		}
+
+		
+		if (game.mainWindow.gameServer!=null) {
+			game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD NEW");
+		}
+		while (line!=null) {
+			if (game.mainWindow.gameServer!=null) {
+				game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD "+i+" "+line);
+			}
+			x=0;
+			for (int  j= 0; j < line.length(); j++) {
+				checkpoints[i][j]=false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				isSolid[i][j] =false;
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -614,6 +625,11 @@ public void getLevel(String fileName) { //reading level from file
         	}
         	y=y+BLOCKSIZE;
         	i++;
+    		if (game.mainWindow.gameClient != null) {
+    			line = null;
+    		} else {
+    			line = input.readLine();
+    		}
         }
     }catch (IOException e) {
         e.printStackTrace();

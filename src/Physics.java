@@ -26,7 +26,7 @@ public class Physics {
 	}
 	
 	
-public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<EntityMovable> em){
+	public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<EntityMovable> em){
 		
 		for(int j =0; j<em.size();j++)
 		{	
@@ -38,6 +38,20 @@ System.out.println("collision!!!!!");
 		}
 		
 		return false;
+	}
+	
+	public static  EntityMovable CollisionWithWhichMovable(EntityDestroyable entD, LinkedList<EntityMovable> em){
+		
+		for(int j =0; j<em.size();j++)
+		{	
+			
+			if(entD.getBounds().intersects(em.get(j).getBounds())) {
+System.out.println("collision!!!!!");
+				return em.get(j);
+			}
+		}
+		
+		return null;
 	}
 	
 	public static  boolean CollisionGameObjectList(GameObject ob, LinkedList<EntityDestroyable> ed){ //For Player, or other game object

@@ -206,6 +206,30 @@ public class Player extends GameObject implements Entity{
 		return yDirection;
 	}
 
+	public double getX(){
+		return playerRect.x;
+	}
+
+	public double getY(){
+		return playerRect.y;
+	}
+
+	public void setX(double x){
+		playerRect.x = (int)x;
+	}
+	
+	public void setX(int x){
+		playerRect.x = x;
+	}
+
+	public void setY(double y){
+		playerRect.y = (int)y;
+	}
+
+	public void setY(int y){
+		playerRect.y = y;
+	}
+
 	public void update(){
 		move();	
 		setBounds(playerRect.getBounds());
@@ -518,17 +542,17 @@ public class Player extends GameObject implements Entity{
 		
 	}
 
-	@Override
-	public void setX(double x) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setY(double y) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+//	@Override
+//	public void setX(double x) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void setY(double y) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	
 	
 }

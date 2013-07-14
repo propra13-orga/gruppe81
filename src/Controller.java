@@ -32,7 +32,8 @@ public class Controller {
 				tempEntDe.update();
 //				if((tempEntDe.getX()>1100 || tempEntDe.getY()>650 || tempEntDe.getX()<0 || tempEntDe.getY()<0) || Physics.CollisionWithMovable(tempEntDe, game.em)) {
 				if(Physics.CollisionWithMovable(tempEntDe, game.em)) {
-System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
+					tempEntMov = Physics.CollisionWithWhichMovable(tempEntDe, game.em);
+					System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 					tempEntDe.changeLifepoints(-12, 250000000);
 					if (!tempEntDe.isAlive()) {
 						removeEntity(tempEntDe);

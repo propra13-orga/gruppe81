@@ -10,8 +10,10 @@ public class GameClient {
 	public BufferedReader clientIn;
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
+	public GameClientThread gameClientThread;
+	private MainWindow mainWindow;
 
-	public GameClient () {
+	public GameClient (MainWindow mainWindow) {
 				
 		try {
 			echoSocket = new Socket("localhost", 1337);
@@ -21,6 +23,8 @@ public class GameClient {
 		    System.out.println( "KeepAlive: " + echoSocket.getKeepAlive() );           
 			clientOut.println( "Teeeeest ");          
 		    System.out.println( "clientIn.readLine()" + clientIn.readLine() );           
+			gameClientThread = new GameClientThread(mainWindow,clientIn,clientOut);
+			gameClientThread.start();
 
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host.");
