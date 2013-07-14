@@ -6,6 +6,8 @@ import java.awt.Rectangle;
 
 public interface EntityDestroyable {
 	
+	
+	
 	public void update();
 	public void draw(Graphics g);
 	public void changeLifepoints(int lifepointsChange, long coolOf);
@@ -21,4 +23,6 @@ public interface EntityDestroyable {
 	public boolean isMapObject();
 	boolean isHited();
 	void hit();
+	public int getElementArt();
+	
 }

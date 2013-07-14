@@ -26,6 +26,7 @@ public class NPC extends GameObject implements EntityDestroyable {
 	Player p;
 	Random r;
 	private boolean NPC = true;
+	private int elementArt;
 	DungeonCrawlerGame game;
 	NPC(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
@@ -34,6 +35,11 @@ public class NPC extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
+		
+		
+		this.elementArt=2;          ///!!!!!!!!!!!!!!!!! 
+		
+		
 		setBounds((int)x, (int)y, 25, 25);
 		
 	}

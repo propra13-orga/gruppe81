@@ -10,8 +10,12 @@ import Object.EntityMovable;
 public class Physics {
 //	private LinkedList<EntityDestroyable> ed = new LinkedList<EntityDestroyable>();
 //	private LinkedList<EntityMovable> em = new LinkedList<EntityMovable>();
-	
-	
+	private static double schaden;
+	public static double getDamage(){
+		
+		
+		return schaden;
+	}
 	public static  boolean CollisionWithDesroyable(EntityMovable entM, LinkedList<EntityDestroyable>	ed){
 		
 		for(int i =0; i<ed.size();i++)
@@ -33,6 +37,10 @@ public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<E
 			
 			if(entD.getBounds().intersects(em.get(j).getBounds())) {
 System.out.println("collision!!!!!");
+//		if ((em.get(j).elementArt==2)&& (entD.elementArt==2)) 
+//				{
+//				schaden=0;
+//				}
 				return true;
 			}
 		}
