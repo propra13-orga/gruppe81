@@ -229,16 +229,18 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 						mainWindow.showDCMenue();
 					}
 				}
-				gameRender();
-				paintScreen();
+				if (delta <1){
+					gameRender();
+					paintScreen();
+					frames++;
+				}
 //				System.out.println("P1 x:"+p1.playerRect.x+" y:"+p1.playerRect.y+" Level:"+currentLevel+" Raum:"+currentRoom);
 			}
-			frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
 			if(System.currentTimeMillis() - timer > 1000){
 				timer +=1000;
 		
-//				System.out.println(updates + " ups, "+ frames + " fps");
+				System.out.println(updates + " ups, "+ frames + " fps");
 			
 				updates=0;
 				frames=0;

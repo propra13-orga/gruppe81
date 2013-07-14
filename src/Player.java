@@ -186,9 +186,14 @@ public class Player extends GameObject implements Entity{
 	public  void setXDirection(double d){
 //		if(!checkForCollision()){
 		
-		xDirection =d;
+		xDirection =(int)d;
 		yDirection =0;
 //		}
+	}
+	
+	public void setXDirection(int d){
+		xDirection =d;
+		yDirection =0;
 	}
 	
 	public void setYDirection(double d){
@@ -196,6 +201,11 @@ public class Player extends GameObject implements Entity{
 		yDirection =(int) d;
 		xDirection =0;
 //		}
+	}
+
+	public void setYDirection(int d){
+		yDirection =d;
+		xDirection =0;
 	}
 
 	public double getXDirection(){
