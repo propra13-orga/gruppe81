@@ -6,6 +6,10 @@ import Object.EntityMapObject;
 import Object.EntityMovable;
 
 
+/**
+ * Controls the player, damage, shop, removes NPC, and other Entities
+ * 
+ */
 public class Controller {
 
 	
@@ -41,14 +45,14 @@ public class Controller {
 				
 					
 				//	if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==1)) {schaden=schaden;}
-					if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==2)) {schaden=0;}
+					if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==2)) {schaden*=0.5;}
 					if ((tempEntDe.getElementArt()==2)&& (tempEntMov.getElementArt()==3)) {schaden=schaden*2;}
 					if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==2)) {schaden=schaden*2;}
-					if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==1)) {schaden=0;}
+					if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==1)) {schaden*=0.5;}
 				//	if ((tempEntDe.getElementArt()==1)&& (tempEntMov.getElementArt()==3)) {schaden=schaden;}
 				    if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==1)) {schaden=schaden*2;}
 				//	if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==2)) {schaden=schaden;}
-					if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==3)) {schaden=0;}
+					if ((tempEntDe.getElementArt()==3)&& (tempEntMov.getElementArt()==3)) {schaden*=0.5;}
 					
 					
 					

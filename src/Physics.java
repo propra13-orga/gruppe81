@@ -6,6 +6,12 @@ import Object.EntityDestroyable;
 import Object.EntityMapObject;
 import Object.EntityMovable;
 
+/**
+ * 
+ * Klasse mit statischen Mehoden und Collission zu überprüfen
+ *
+ */
+
 
 public class Physics {
 //	private LinkedList<EntityDestroyable> ed = new LinkedList<EntityDestroyable>();
@@ -16,6 +22,12 @@ public class Physics {
 		
 		return schaden;
 	}
+	/**
+	 * 
+	 * @param  entM EntityMovable
+	 * @param ed LinkedList<EntityDestroyable>
+	 * @return true oder false
+	 */
 	public static  boolean CollisionWithDesroyable(EntityMovable entM, LinkedList<EntityDestroyable>	ed){
 		
 		for(int i =0; i<ed.size();i++)
@@ -31,6 +43,7 @@ public class Physics {
 	
 	
 	public static  boolean CollisionWithMovable(EntityDestroyable entD, LinkedList<EntityMovable> em){
+		
 		
 		for(int j =0; j<em.size();j++)
 		{	
@@ -61,7 +74,12 @@ System.out.println("collision!!!!!");
 		
 		return null;
 	}
-	
+	/**
+	 * 
+	 * @param ob GameObject
+	 * @param ed LinkedList<EntityDestroyable>
+	 * @return true oder false
+	 */
 	public static  boolean CollisionGameObjectList(GameObject ob, LinkedList<EntityDestroyable> ed){ //For Player, or other game object
 	
 	for(int j =0; j<ed.size();j++){	
@@ -74,6 +92,12 @@ System.out.println("collision!!!!!");
 	return false;
 	}
 	
+	/**
+	 * 
+	 * @param ob GameObject
+	 * @param eWO EntityMapObject
+	 * @return true oder false
+	 */
 	public static  boolean CollisionGameObjectList(GameObject ob, EntityMapObject eWO){ //For Player, or other game object
 		
 		
@@ -84,6 +108,12 @@ System.out.println("collision!!!!!");
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param ob Entity
+	 * @param eWO LinkedList<EntityMapObject> 
+	 * @return true oder false
+	 */
 	public static  boolean CollisionGameObjectList(Entity ob, LinkedList<EntityMapObject> eWO){ //For Player, or other game object
 		
 		for(int i =0; i<eWO.size();i++){			
@@ -96,6 +126,12 @@ System.out.println("collision!!!!!");
 		
 		return false;
 		}
+	/**
+	 * 
+	 * @param ob GameObject
+	 * @param walls ArrayList<Wall>
+	 * @return true oder false
+	 */
 	public static boolean CollisionGameObjectArrayList(GameObject ob, ArrayList<Wall> walls){
 		
 		for(Wall tempWall:walls){

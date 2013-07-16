@@ -3,7 +3,11 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-
+/**
+ * 
+ * Wallobject 
+ *
+ */
 
 public class Wall extends GameObject implements Entity {
 	
