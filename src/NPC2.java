@@ -11,7 +11,7 @@ import Object.EntityDestroyable;
 
 public class NPC2 extends GameObject implements EntityDestroyable {
 	/**
-	 * 
+	 * Klasse,die Gegner 2 erzeugt
 	 */
 	
 	String picPath;

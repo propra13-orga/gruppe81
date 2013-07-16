@@ -26,7 +26,7 @@ import Object.EntityMovable;
 public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 	/**
-	Spiel Klasse
+	 Hauptspiel Klasse
 	 */
 	private static final long serialVersionUID = 1L;
 	//Double buffering
