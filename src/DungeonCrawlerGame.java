@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 //import java.awt.event.ActionListener;
 //import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.LinkedList;
 //import java.awt.event.KeyListener;
 
@@ -25,7 +26,7 @@ import Object.EntityMovable;
 public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 	/**
-	 * @author Dmytro Shlyakhov
+	Spiel Klasse
 	 */
 	private static final long serialVersionUID = 1L;
 	//Double buffering
@@ -55,15 +56,19 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	Bullet b;
 	Shopping shop;
 	private Controller c;
-	private MainWindow mainWindow;
+	public MainWindow mainWindow;
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
 	public LinkedList<EntityMapObject> eMO;
 	private Image blaseImg;
 	
 	// private static boolean hitExit;
-	//Constructor
+	/**Constructor
+	 * Erzeugt eine Instanz des Spiels
+	 * @param mainWindow ist das Fenster in dem das Spiel laeuft
+	 */
 	public DungeonCrawlerGame(MainWindow mainWindow){
+    	
 		this.mainWindow = mainWindow;
 		c = new Controller(this);
 		
@@ -76,33 +81,47 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		em = c.getEntMovList();
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
-		if (mainWindow.gameServer!=null) {
-			if (mainWindow.gameServer.getKeyListener()!=null) {
-				System.out.println("getKeyListener");
-				this.k2 = mainWindow.gameServer.getKeyListener(); 
+		if (mainWindow.gameClient==null) {
+			if (mainWindow.gameServer!=null) {
+				if (mainWindow.gameServer.getKeyListener()!=null) {
+					System.out.println("getKeyListener");
+					this.k2 = mainWindow.gameServer.getKeyListener(); 
+				} else {
+					this.k2 = new MyKeyListener(); 
+				}
 			} else {
 				this.k2 = new MyKeyListener(); 
 			}
+//			addKeyListener(k2);
 		} else {
+			addKeyListener(mainWindow.kNC);
 			this.k2 = new MyKeyListener(); 
 		}
+		addKeyListener(k1);
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
-		addKeyListener(k1);
-//		addKeyListener(k2);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
-		if (mainWindow.gameServer!=null) {
-			if (mainWindow.gameServer.serverOut!=null) {
-//				mainWindow.gameServer.serverOut.writeObject(world);
-//				mainWindow.gameServer.serverOut.
+//		System.out.println("Test 1"); 
+//		if (mainWindow.gameServer!=null) {
+//			System.out.println("Test 2"); 
+//			if (mainWindow.gameServer.gameServerThread.serverOut!=null) {
+//				System.out.println("Test 3"); 
+//				try {
+//					System.out.println("World schreiben"); 
+//					mainWindow.gameServer.gameServerThread.serverObjectOut.writeObject(world);
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+////				mainWindow.gameServer.serverOut.
+////
+////xxxxxxxxxxxxx
 //
-//xxxxxxxxxxxxx
-
-			} else {
-			}
-		} else {
-		}
+//			} else {
+//			}
+//		} else {
+//		}
 		
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
@@ -158,7 +177,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		
 	}
-	
+	/**
+	 *  die Klasse erzeugt einen neuen Raum
+	 * @param levelNumber die Nummer der Leveldatei, die geladen werden soll
+	 
+	 */
 	public void newWorld(int levelNumber){
 		c.ed.clear();
 		c.em.clear();
@@ -172,7 +195,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //		p1 = null;
 //		p1 = new Player(world);
 	}
-	
+	/**
+	 * die Spielerschleife
+	 */
 	public void run(){
 		
 		long lastTime = System.nanoTime();
@@ -204,23 +229,27 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 						mainWindow.showDCMenue();
 					}
 				}
-				gameRender();
-				paintScreen();
+				if (delta <1){
+					gameRender();
+					paintScreen();
+					frames++;
+				}
 //				System.out.println("P1 x:"+p1.playerRect.x+" y:"+p1.playerRect.y+" Level:"+currentLevel+" Raum:"+currentRoom);
 			}
-			frames++;
 		//		System.out.println(System.currentTimeMillis() - timer );
 			if(System.currentTimeMillis() - timer > 1000){
 				timer +=1000;
 		
-//				System.out.println(updates + " ups, "+ frames + " fps");
+				System.out.println(updates + " ups, "+ frames + " fps");
 			
 				updates=0;
 				frames=0;
 			}
 		}
 	}
-	
+	/**
+	 * sorgt für den Levelwechsel wenn der Spieler in den Ausgang laeuft
+	 */
 	private void changestate(){
 		
 		
@@ -252,7 +281,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			p1.playerChangeRoom=false;
 		}
 	}
-	
+	/**
+	 * erzeugt Feuer 
+	 * @param coolOf ist die Zeit in der der Getroffene nicht mehr verletzt wird nach dem Schuss
+	 * @param p1 der Spieler, der den Schuss ausgeloest hat
+	 */
 	private void shoot(long coolOf,Player p1){
 		if (bulletCoolOf<System.nanoTime()) {
 			
@@ -263,7 +296,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
-	
+	/**
+	 * erzeugt Zauber
+	 * @param coolOf ist die Zeit in der der Getroffene nicht mehr verletzt wird nach dem Schuss
+	 * @param p1 der Spieler, der den Schuss ausgeloest hat
+	 */
 	private void castSpell(long coolOf,Player p1){
 		if (spellCoolOf<System.nanoTime()) {
 			
@@ -274,7 +311,20 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			}
 		}
 	}
-
+	private void castSpell2(long coolOf,Player p1){
+		if (spellCoolOf<System.nanoTime()) {
+			
+			spellCoolOf = System.nanoTime()+coolOf;
+			if(c.em.size()< 500){
+				c.addEntity(new Spell2(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
+				spellCoolOf = System.nanoTime()+coolOf;
+			}
+		}
+	}
+/**
+ * verarbeitet  Spielereingabe und bewegt Spieler, Gegner, Feuer und Mana.
+ * 
+ */
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
@@ -311,11 +361,25 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if ((showStory) && (k1.isKeyPressed(KeyEvent.VK_ESCAPE))) {
 				p1.setHitStory(false);
 				showStory=false;
+				
 			}
 			if ((p1.hasWeapon()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				shoot(1000000000,p1);
 			}
+			
+			
+			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_U))){
+				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
+				if (spellCoolOf<System.nanoTime()) {
+					p1.changePlayerManapoints(-10);
+					castSpell2(250000000,p1);
+				}
+			}
+			
+			
+			
+			
 			if ((p1.getPlayerManapoints()>=10) && (k1.isKeyPressed(KeyEvent.VK_Z))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				if (spellCoolOf<System.nanoTime()) {
@@ -360,12 +424,26 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))){
 				shoot(1000000000,p2);
 			}
+			
+			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_U))){
+				if (spellCoolOf<System.nanoTime()) {
+					p2.changePlayerManapoints(-10);
+					castSpell2(250000000,p2);
+				}
+			}
+			
 			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_Z))){
 				if (spellCoolOf<System.nanoTime()) {
 					p2.changePlayerManapoints(-10);
 					castSpell(250000000,p2);
 				}
 			}
+		if (mainWindow.gameServer!=null) {
+			System.out.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY());
+			System.out.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY());
+			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY()+" "+(int)p1.getXDirection()+" "+(int)p1.getYDirection());
+			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY()+" "+(int)p2.getXDirection()+" "+(int)p2.getYDirection());
+		}
 		c.update(p1);	
 		c.update(p2);	
 		p1.update(); //Updating Player
@@ -414,7 +492,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			changestate();
 		}
 	}
-	
+	/**
+	 * bereite das Buffering vor und loesche den alten Inhalt
+	 */
 	private void gameRender(){
 		if(dbImage == null){ //Create the Buffer -Image
 			dbImage = createImage(GWIDTH, GHEIGHT);
@@ -434,8 +514,11 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	}
 	
 	
-	/*Draw all Game content in this method */
 	
+	/**
+	 * Malt die Welt aller Elemente in doubleBuffer
+	 * @param g
+	 */
 	public void draw (Graphics g){
 		if (!world.isPaused()) {
 			world.draw(g);
@@ -453,8 +536,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //				g.drawString("Begleite den Ali während des Abenteuers und helfe ihm",100,325);
 //				g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
 			}
+			p2.draw(g);
 			p1.draw(g); //Drawing Player
-			p2.draw(g); //Drawing Player
+			 //Drawing Player
 		}
 //		if(mob1!=null)
 //		mob1.draw(g);
@@ -465,7 +549,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		}
 		
 	}
-
+/**
+ * Ueberprueft und stellt fest ob der Spieler den Objeck trifft 
+ * boolean true - trifft
+ * boolean false - nicht
+ * @param Player,ist der, der ueberprueft wird
+ * @return
+ */
 	public boolean checkForCollision(Player p1){ //Checking for collision
 		boolean colide = false;
 		for(int i=0;i<world.AWIDTH;i++){
@@ -534,7 +624,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 	
 	
-	
+	/**
+	 * laedt Spelegraphik aus dem doubleBuffer und zeigt sie auf
+	 */
 	private void paintScreen(){
 		Graphics g;
 		try{
@@ -549,16 +641,46 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		
 		
 	}
-	
+	/**
+	 * Fuegt den Gegner hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 */
 	public void addNPC(double x, double y){
 		c.addEntity(new NPC(x, y, this, p1));
 	}
+	/**
+	 * Fuegt Leben, Mana und Geld hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param leben zeigt wiviel Leben es giebt, wenn der Spieler HealthPack sammelt
+	 * @param mana zeigt wiviel Mana es giebt, wenn der Spieler HealthPack sammelt
+	 * @param geld zeigt wiviel Geld es giebt, wenn der Spieler Geld sammelt
+	 */
 	public void addHealthPack(double x, double y, int leben, int mana, int geld){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld));
 	}
+	/**
+	 * Fuegt Leben, Mana und Geld hinzu
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param leben zeigt wiviel Leben es giebt, wenn der Spieler HealthPack sammelt
+	 * @param mana zeigt wiviel Mana es giebt, wenn der Spieler HealthPack sammelt
+	 * @param geld zeigt wiviel Geld es giebt, wenn der Spieler Geld sammelt
+	 * @param special gibt eine zusaetzliche Eigenschaft, wie zB. Collectiable und Shop  
+	 * @param wert gibt an ob die Eigenschaft, die in special steht wahr oder falsch ist
+	 */
 	public void addHealthPack(double x, double y, int leben, int mana, int geld, String special, boolean wert){
 		c.addEntity(new HealthPack(x, y, this, p1,leben, mana, geld),special,wert);
 	}
+	/**
+	 * wird ein beliebiges Element hinzugefuegt
+	 * @param x Koordinate der linken oberen Ecke
+	 * @param y Koordinate der linken oberen Ecke
+	 * @param image das Bild, das angezeigt wird
+	 * @param width
+	 * @param height
+	 */
 	public void addElement(double x, double y,Image image, double width, double height){
 		c.addEntity(new Element(x, y, this, image, width, height));
 	}

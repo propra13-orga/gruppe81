@@ -13,6 +13,7 @@ import Object.EntityDestroyable;
 
 
 public class BOSS2 extends GameObject implements EntityDestroyable {
+	
 	private boolean alive=true;	
 	private int BOSS2Life1;
 	private int BOSS2Life;
@@ -32,6 +33,7 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 	Random r;
 	private boolean BOSS = true;
 	DungeonCrawlerGame game;
+	
 	BOSS2(double x,  double  y, DungeonCrawlerGame game, Player p){
 		r = new Random();
 		tempx =x;
@@ -40,10 +42,13 @@ public class BOSS2 extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
-		this.lifepointsMax=50;
+		this.lifepointsMax=60;
 		this.lifepoints=this.lifepointsMax;
+		elementArt=2;             //Element Feuer
+		
 		setBounds((int)x, (int)y, (int)width, (int)height);
-
+		
+		
 	}
 
 	@Override

@@ -196,6 +196,7 @@ class MyKeyListener extends KeyAdapter{
 		{ 
 			player.changePlayerMoney(gold-player.getPlayerMoney());
 			world.resume();
+			
 		}
 
 	if (event.getKeyCode() == KeyEvent.VK_ENTER)    { enter = true;  up = false; down = false; left= false; right = false; }

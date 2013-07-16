@@ -7,27 +7,24 @@ import javax.swing.ImageIcon;
 import Object.EntityMovable;
 
 
-public class Bullet extends GameObject implements EntityMovable {
+public class Spell2 extends GameObject implements EntityMovable {
 		/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7491567929155038278L;
 		double x,y;
-		
 		Player p;
 		DungeonCrawlerGame game;
 		int direction;
 		private boolean hited;
+		private Image picR = new ImageIcon("hadouken3sek5029.gif").getImage();
+		private Image picL = new ImageIcon("hadouken3sek5029L.gif").getImage();
+		private Image picO = new ImageIcon("hadouken3sek5029O.gif").getImage();
+		private Image picU = new ImageIcon("hadouken3sek5029U.gif").getImage();
 		
-		private Image picR = new ImageIcon("hadouken1sek5029.gif").getImage();
-		private Image picL = new ImageIcon("hadouken1sek5029L.gif").getImage();
-		private Image picO = new ImageIcon("hadouken1sek5029O.gif").getImage();
-		private Image picU = new ImageIcon("hadouken1sek5029U.gif").getImage();
-		public Bullet(double x, double y, Player p,DungeonCrawlerGame game){
+		
+	public Spell2(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )
-		
-		elementArt=2;                              ///!!!!!!!!!!!!!!!!! 
-			
 		this.x = x;
 		this.y = y;
 		this.p =p;
@@ -36,6 +33,8 @@ public class Bullet extends GameObject implements EntityMovable {
 		hited = false;
 		setBounds((int)x,(int) y  ,16,16	);
 		
+		
+		elementArt=3;         ///!!!!!!!!!!!!!!!!! 
 		
 	}
 	
@@ -46,8 +45,8 @@ public class Bullet extends GameObject implements EntityMovable {
 	public void update() {
 		// TODO Bullets are flying  ;)
 		switch(direction){
-		
 		case 0:	x+=1.2;
+				
 				setBounds((int)x,(int) y-10 ,16,16	);
 				break;
 		
@@ -81,33 +80,30 @@ public class Bullet extends GameObject implements EntityMovable {
 		}
 
 */
-	//public int getLastDirection(){
-		//return lastDirection;
-//	}
+
 
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
 		
 		if (this.direction==0) {
-		g.drawImage(picR, (int)x, (int)y-10, null);
-		
-	}
-		if (this.direction==1) {
-			g.drawImage(picU, (int)x, (int)y-10, null);
+			g.drawImage(picR, (int)x, (int)y-10, null);
 			
 		}
 		if (this.direction==2) {
-			g.drawImage(picL, (int)x, (int)y-10, null);
-			
+		
+		g.drawImage(picL, (int)x, (int)y-10, null);
 		}
 		if (this.direction==3) {
+		
 			g.drawImage(picO, (int)x, (int)y-10, null);
-			
+		}
+			if (this.direction==1) {
+				
+				g.drawImage(picU, (int)x, (int)y-10, null);
 		}
 		
 	}
-		
 	@Override
 	public double getX() {
 		// TODO Auto-generated method stub

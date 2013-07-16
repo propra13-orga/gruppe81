@@ -19,8 +19,6 @@ import Object.EntityDestroyable;
 
 
 public class World {
-
-	
 	
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
@@ -44,7 +42,7 @@ public class World {
 	public Image WALL, LEER,SMALLWALL, SMALLWHITE, EXIT,FIRE,ICEFIRE,TRAPUP,NPC2,NPC3,TRAPDOWN,TRAPREGHT,TRAPLEFT,SPIDER,WALLOB,WALLOB_2;
 	public Image WALLOB_3,BOSS1,BOSS3,BOSS2,SNOWGR,SNOWGRASS,EICEWALL,WATER1,WATER2,WATER3,BLACK,SAND,BLUEMEN,GRASS,GRUND,GRUND1,BLUEME1,SHOP;
 	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
-	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,ARMSCHIENE,RUESTUNG;
+	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,STORYTELLER2,STORYTELLER3,ARMSCHIENE,RUESTUNG;
 	public Image PYRAMIDE2,GRASS2;
 	private boolean pause=false;
 	private int x=0, y=0;
@@ -120,9 +118,11 @@ public class World {
 	 EICEWALL = new ImageIcon("garmschuppe.png").getImage();
 	 SNOWGR = new ImageIcon("Snowground.png").getImage();
 	 SNOWGRASS = new ImageIcon("schneegrass.png").getImage();
-	 STORYTELLER = new ImageIcon("NPC.png").getImage();
-	 ARMSCHIENE = new ImageIcon("Armschiene.png").getImage();
-	 RUESTUNG = new ImageIcon("Ruestung.png").getImage();
+	 STORYTELLER = new ImageIcon("Moench_Braun.png").getImage();
+	 STORYTELLER2 = new ImageIcon("Moench_Rot.png").getImage();
+	 STORYTELLER3 = new ImageIcon("Moench_Blau.png").getImage();
+	 ARMSCHIENE = new ImageIcon("Armschiene_R.png").getImage();
+	 RUESTUNG = new ImageIcon("Armor_B.png").getImage();
 	 
 	 NPC3 =new ImageIcon("familiar.gif").getImage();
 	 NPC2 =new ImageIcon("cramp.gif").getImage();
@@ -187,29 +187,42 @@ public void draw(Graphics g){
    * @Load level from file.txt
    */
 public void getLevel(String fileName) { //reading level from file
-    
-   
 
-    BufferedReader input = null;
-    try {
-        File file = new File(fileName);
-        input = new BufferedReader(new FileReader(file));
-        String line = null;
-//        for (int i = 0; (line = input.readLine()) != null; i++) {
-       int i=0;
-        while ((line = input.readLine())!=null) {
-            
-            x=0;
-        	for (int  j= 0; j < line.length(); j++) {
-       
-//                System.out.print("i="+i+" j="+j+" Gelesen:   ");
-//               System.out.println(line.charAt(j));
-               
-               checkpoints[i][j]=false;
-               exits[i][j] = false;
-               trap[i][j] = false;
-               finish[i][j] = false;
-               isSolid[i][j] =false;
+	BufferedReader input = null;
+	try {
+		int i=0;
+		String line = null;
+		if (game.mainWindow.gameClient != null) {
+			System.out.println("getLevel Clientversion");
+			String[] splitServerInput = fileName.split(" ");
+			if (splitServerInput[0].equals("WORLD")) {
+				i = Integer.parseInt(splitServerInput[1]);
+				if (splitServerInput.length>2) {
+					line = splitServerInput[2]; 					
+				}
+			}
+		} else {
+			System.out.println("getLevel Serverversion "+i);
+			File file = new File(fileName);
+			input = new BufferedReader(new FileReader(file));
+			line = input.readLine();
+		}
+
+		
+		if (game.mainWindow.gameServer!=null) {
+			game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD NEW");
+		}
+		while (line!=null) {
+			if (game.mainWindow.gameServer!=null) {
+				game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD "+i+" "+line);
+			}
+			x=0;
+			for (int  j= 0; j < line.length(); j++) {
+				checkpoints[i][j]=false;
+				exits[i][j] = false;
+				trap[i][j] = false;
+				finish[i][j] = false;
+				isSolid[i][j] =false;
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -402,7 +415,7 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
 							break;
-         		case 'M':	blockImage[i][j]=SMALLWHITE;
+         		case 'M':	blockImage[i][j]=LEER;
          					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
          					log("X="+x+" Y="+y);
          					game.addHealthPack(x, y, 0, 20, 0,"collectable",true);
@@ -494,9 +507,15 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							isSolid[i][j] =true;
 							break;
-			// X
 			
-			// x
+				case 'X': 	blockImage[i][j]=GRASS;
+							game.addElement(x, y, STORYTELLER2, 25, 50,"story",true);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
+				case 'x': 	blockImage[i][j]=SMALLWHITE;
+							game.addElement(x, y, STORYTELLER3, 25, 50,"story",true);
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							break;
 							
 			// Y
 			
@@ -606,6 +625,11 @@ public void getLevel(String fileName) { //reading level from file
         	}
         	y=y+BLOCKSIZE;
         	i++;
+    		if (game.mainWindow.gameClient != null) {
+    			line = null;
+    		} else {
+    			line = input.readLine();
+    		}
         }
     }catch (IOException e) {
         e.printStackTrace();
@@ -634,6 +658,7 @@ public void pause() {
 
 public void resume() {
 	pause=false;
+	game.shop=null;
 }
 
 public boolean isPaused() {

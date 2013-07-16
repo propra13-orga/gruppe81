@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +12,8 @@ public class GameServerThread extends Thread implements Runnable {
 
 	private Socket clientSocket;
 	public PrintWriter serverOut;
+//	public OutputStream serverOutStream;
+//	public ObjectOutputStream serverObjectOut;
 	public BufferedReader serverIn;
 	private ServerSocket serverSocket;
     MyKeyListener kND;
@@ -17,6 +21,9 @@ public class GameServerThread extends Thread implements Runnable {
 
 	public GameServerThread (ServerSocket serverSocket) {
 		this.serverSocket = serverSocket;
+//		this.serverOut = serverOut;
+//		this.serverOutStream = serverOutStream;
+//		this.serverObjectOut = serverObjectOut;
 	}
 	
 	public MyKeyListener getKeyListener () {
@@ -33,6 +40,8 @@ public class GameServerThread extends Thread implements Runnable {
 	          System.out.println( "Verbindung vom Client wird hergestellt" );
 			serverOut = new PrintWriter(clientSocket.getOutputStream(), true);
 			serverIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//			serverOutStream = clientSocket.getOutputStream();
+//			serverObjectOut = new ObjectOutputStream(serverOutStream);  
 			String clientInput;
 			kND = new MyKeyListener();
 			while ((clientInput = serverIn.readLine()) != null) {

@@ -6,9 +6,14 @@ public class MyKeyListenerNetworkClient implements KeyListener {
 	
 	boolean[] keys = new boolean[256];
 	private GameClient gameClient;
+	public MainWindow mainWindow;
 	
 	public void setGameClient(GameClient gameClient) {
 		this.gameClient = gameClient;
+	}
+
+	public void setMainWindow(MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
 	}
 
 	public boolean isKeyPressed(int keyCode) {

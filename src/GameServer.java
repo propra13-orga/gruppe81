@@ -4,15 +4,17 @@ import java.net.*;
 public class GameServer {
 
 	private Socket echoSocket;
-	public PrintWriter serverOut;
+//	public PrintWriter serverOut;
+//	public OutputStream serverOutStream;
 	public BufferedReader serverIn;
+//	public ObjectOutputStream serverObjectOut;
 	private PrintWriter clientOut;
 	private BufferedReader clientIn;
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
 	private MyKeyListener kND;
 	private int clientCount;
-	private GameServerThread gameServerThread;
+	public GameServerThread gameServerThread;
 	
 	public GameServer () {
 		try {

@@ -41,10 +41,11 @@ public class BOSS3 extends GameObject implements EntityDestroyable {
 		this.y=y;
 		this.game = game;
 		this.p =p;
-		this.lifepointsMax=500;
+		this.lifepointsMax=60;
 		this.lifepoints=this.lifepointsMax;
 		setBounds((int)x, (int)y, 100, 100);
-
+		
+		elementArt=1;
 	}
 
 	@Override

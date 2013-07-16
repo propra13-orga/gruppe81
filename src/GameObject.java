@@ -10,7 +10,7 @@ abstract class GameObject extends Rectangle
     private Image Bild;
 	public int lifepoints=1;
 	public int lifepointsMax=1;
-   
+	public int elementArt; 
     private int live;
     private static Image imageBuffer;
     private static Graphics graphicsBuffer;
@@ -28,7 +28,8 @@ abstract class GameObject extends Rectangle
     this.y= y;
     this.Bild = Bild;
     this.solid = solid;
-    
+//    this.elementArt=2;                         //2=Feuer
+//    this.elementArt=1;						   //1=Eis,
     }  
 //verändert die Lebenspunkt um lifepointsChange, coolOf gibt an wie Lange das Objekt vor weiteren Veraenderungen geschuetzt ist
 	public void changeLifepoints(int lifepointsChange, long coolOf){
@@ -41,7 +42,10 @@ abstract class GameObject extends Rectangle
 			}
 		}
 	}
-
+	public int getElementArt(){
+		
+		return elementArt;
+	}
 	
 //    
 //    
