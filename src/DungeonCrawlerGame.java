@@ -26,7 +26,7 @@ import Object.EntityMovable;
 public class DungeonCrawlerGame extends JPanel implements Runnable {
 
 	/**
-	Spiel Klasse
+	 Hauptspiel Klasse
 	 */
 	private static final long serialVersionUID = 1L;
 	//Double buffering
@@ -694,7 +694,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		startGame();
 	}
 	
-	//Start game method
+	/**
+	 * Start game method
+	 */
 	
 	public synchronized void startGame(){  //Need to check performance if with synchronized is better than without?
 		if(game==null  || ! running )

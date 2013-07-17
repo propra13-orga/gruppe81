@@ -16,7 +16,11 @@ import javax.swing.ImageIcon;
 import Object.EntityDestroyable;
 	
 
-
+/**
+ * 
+ * Klasse die Karte lädt
+ *
+ */
 
 public class World {
 	
@@ -161,7 +165,10 @@ public class World {
 			
 	
  }
-
+/**
+ * Gibt die Welt auf dem Bildschirm aus.
+ * @param g Graphics
+ */
 public void draw(Graphics g){
 	
 	
@@ -184,7 +191,7 @@ public void draw(Graphics g){
 	}
 }
 
-  /*
+  /**
    * 
    * @Load level from file.txt
    */

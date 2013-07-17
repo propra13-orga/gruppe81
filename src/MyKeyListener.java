@@ -1,5 +1,11 @@
 import java.awt.event.*;
 
+/**
+ * 
+ * 
+ * Keylistener fur das Spiel
+ */
+
 public class MyKeyListener implements KeyListener {
 	
 	boolean[] keys = new boolean[256];

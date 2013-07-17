@@ -6,12 +6,12 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-
+/**
+ * organisiert Einkaufen (Mana, Leben, Waffe)
+ * */
 class Shopping
 {
-//___________________________________________________________________________________________________
 
-//_________________Variable___________________________
 private static boolean enter=false, up=false, down=false, left=false, right=false;
 private boolean [] positionStuff;
 private boolean [] aktivCommodity;
@@ -43,18 +43,22 @@ private Graphics offGraphics;                              //   copy graphics fu
 //++++GRAPHICS__ENDE
 //_________________Variable__ende_____________________
 
-
+/**
+ * Die Klassadresse Schop uebernimmt "publik" Eigenschaft
+ * 
+ * 
+ * */
 	public Shopping(World world,Player player)
 	{
 	//===========================___Konstrukteur___=================================
 	
 		MyKeyL = new MyKeyListener();
 		positionStuff = new boolean[3];
-		this.MyKeyL = MyKeyL;
-		this.world = world;
-		this.player = player;
-		gold = player.getPlayerMoney();
-		positionStuff[0] =true;
+		this.MyKeyL = MyKeyL;// speichert die Adresse
+		this.world = world;// -*-
+		this.player = player; //-*-
+		gold = player.getPlayerMoney(); //  übernimmt den GeldAnzahl
+		positionStuff[0] =true; // Reihenfolge der Waren
 		positionStuff[1] =false;
 		positionStuff[2] =false;
 	
@@ -65,7 +69,6 @@ private Graphics offGraphics;                              //   copy graphics fu
 
 
 
-	//_____________________________________________________name_schpricht_fur_sich_selbst
 	public MyKeyListener getMyKeyListener() { return MyKeyL;  }
 
 	public void setFrame (JFrame MyFrame)  {  this.MyFrame = MyFrame ; }
@@ -74,40 +77,26 @@ private Graphics offGraphics;                              //   copy graphics fu
 	//_____________________________________________________
 
 
-
+/**
+ * übernimmt den Namen der Bilder und ladet dir runter
+ * */
 	public void loadImage( String...args)  
 	{
-	//_____________________________________________________Image____aufLADEN
-
 	int numerator; 
 for (numerator=0; numerator < args.length; numerator++)
 {
-	//++++Was_bist_du
+	
 
 	if ("background".equals(args [numerator]))    
 			{ numerator++;  imgBackground  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  }
- 
-	///////////////////////////////////////////////////////////////////////////////////
 	if ("papyrus".equals(args [numerator]))       
 			{ numerator++;  imgPapyrus  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
-
-	///////////////////////////////////////////////////////////////////////////////////
-
 	if ("mana".equals(args [numerator]))       
 			{ numerator++;  imgMana  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
-
-	///////////////////////////////////////////////////////////////////////////////////
-
 	if ("life".equals(args [numerator]))       
 			{ numerator++;  imgLife  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
-
-	///////////////////////////////////////////////////////////////////////////////////
-
 	if ("weapon".equals(args [numerator]))       
 			{ numerator++;  imgWeapon  = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
-
-	///////////////////////////////////////////////////////////////////////////////////
-
 	if ("munze".equals(args [numerator]))       
 			{ numerator++;  imgMunze = Toolkit.getDefaultToolkit().getImage(args[numerator]);  } 
 
@@ -119,16 +108,16 @@ for (numerator=0; numerator < args.length; numerator++)
 			//for(int j=0;j<i;j++){imgCommodity[j]=Toolkit.getDefaultToolkit().getImage(args[j]);}
 			//} 
 
-
-	//++++Was_bist_du__ENDE
 }
 
-	//______________________________________________________Image____aufladen____Ende
+
 	}
 
 
 
-
+/**
+ * erzeugts das Endebild und gibt das aus(vergroessert)
+ * */
 	public Image paint()
 	{
 	//______________________________________________________paint
@@ -154,12 +143,15 @@ for (numerator=0; numerator < args.length; numerator++)
 	int j = 0;
 	for ( int i=0; i < gold; i++, j+=30)  { offGraphics.drawImage (imgMunze,340+(j),540,MyFrame); }
 
-	return offImage;
+	return offImage;// 
 	//______________________________________________________paint___ENDE
 	}
 
 
-
+/**
+ * Wechsel der Tasten  und kaufen
+ * 
+ * * */
 	public void keyControlling() 
 	{
 	//____________________________________________________was_passiert,_wenn_man_Taste_dru:ckt
@@ -189,11 +181,14 @@ for (numerator=0; numerator < args.length; numerator++)
 	}
 
 
-
+/**
+ * KeyListener
+ * */
 class MyKeyListener extends KeyAdapter{
 //>>>>>>>>>>>>>>>>>> !!  UntreClass  !! >>>>>>>>>>>>>>>>>>>
 
-public void keyPressed(KeyEvent event)
+
+	public void keyPressed(KeyEvent event)
 	{
 	//************* ***************** 
 
@@ -214,10 +209,7 @@ public void keyPressed(KeyEvent event)
 	}
 
 
-//<<<<<<<<<<<<<<<<<<< ENDE  UnterClass   <<<<<<<<<<<<<<<<<<
+
 }
 
-
-
-//_________________________________________________________________________________________________class__Shopping__ENDE
 }

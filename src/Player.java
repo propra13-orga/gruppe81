@@ -6,7 +6,11 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 
-
+/**
+ * 
+ * Spielerklasse
+ *
+ */
 
 public class Player extends GameObject implements Entity{
 

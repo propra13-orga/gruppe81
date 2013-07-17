@@ -12,7 +12,7 @@ import Object.EntityDestroyable;
 
 public class NPC extends GameObject implements EntityDestroyable {
 	/**
-	 * 
+	 * Klasse,die Gegner 1 erzeugt
 	 */
 	private static final long serialVersionUID = -2450052102355866638L;
 	String picPath;
