@@ -38,7 +38,7 @@ public class Player extends GameObject implements Entity{
 	private int playerManapoints;	
 	private int playerManapointsMax;	
 	public int checkpointRoom=1;
-	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spilfeld, für den Spieler
+	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spielfeld, fueür den Spieler
 	private int checkpointY=100;// Koordinate Y -//-
 	private boolean colide, hitExit = false, hitStory = false, hitTrap = false, hitFinish = false, hitShop = false, weapon = false, armor = false;
 	
@@ -146,25 +146,27 @@ public class Player extends GameObject implements Entity{
 			}
 		}
 	}
-
+// Prueft auf welchem Stand ist das Leben vom Spieler
+	
 	public void changePlayerLife(int playerLifeChange){
-		playerLife = this.playerLife+playerLifeChange;
-		if (playerLife<=0) {
+		//Prueft ob das Spieler noch lebt in erstem Bloch der if-Abfrage, wenn nicht dann setze das Leben des Spielers auf "false", wenn es nicht der Fall ist geh in else und setze den Spieler auf Checkpoint
+		playerLife = this.playerLife+playerLifeChange;//this. hier muss die globale Variable verwendet werden,naemlich
+	     if (playerLife<=0) {
 			alive=false;
 		}
 		else {
 			playerRect = new Rectangle(checkpointX,checkpointY,25,50);
 			playerLifepoints = 100;
-			playerChangeRoom =true;
+			playerChangeRoom =true;//merkt sich, dass Der Spieler ein Leben verloren hat und es sein kann, dass er den Raum wechseln muss
 		}
 	}
-
+//Hier setzen wir,die Werte fuer die Variablen checkpointRoom-X-Y 
 	public void setCheckpoint(int checkpointRoom,int checkpointX,int checkpointY){
 		this.checkpointRoom = checkpointRoom;
 		this.checkpointX = checkpointX;
 		this.checkpointY = checkpointY;
 	}
-	
+	// Schaue ob der Spieler ein Leben verloren hat und ob der aktuelle Raum gleich dem checkpointRaum ist, wenn es so ist, dann setze den Spieler auf  die checkpoint-Koordinaten
 	public void useCheckpoint(int room){
 		if ((checkpointRoom==room) && (playerChangeRoom)) {
 			playerRect = new Rectangle(checkpointX,checkpointY,world.BLOCKSIZE,50);

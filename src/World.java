@@ -27,7 +27,7 @@ public class World {
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
-	public boolean [][] checkpoints;
+	public boolean [][] checkpoints;//Ein Array fuer checkpoints eingebaut
 	public boolean[][] isSolid;
 	public boolean [][] exits;
 	public boolean [][] trap;
@@ -146,7 +146,7 @@ public class World {
 	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
-	 checkpoints = new boolean[AWIDTH][AHIGHT];
+	 checkpoints = new boolean[AWIDTH][AHIGHT];// Hier wird checkpoint angelegt
 	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -533,7 +533,8 @@ public void getLevel(String fileName) { //reading level from file
 							startX=j*25;
 							startY=i*25;
 							System.out.println("x: "+startX+" y: "+startY);
-				break;		
+				break;	
+				//Setze checkpoints auf "ja" und markieren, dass hier ein checkpoint hinterlegt ist
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							checkpoints[i][j] = true;
