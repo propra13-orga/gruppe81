@@ -189,6 +189,14 @@ public class Player extends GameObject implements Entity{
 		return armor;
 	}
 	
+	public int getLastDirection(){
+		return lastDirection;
+	}
+	
+//	public void setLastDirection(int d){
+//		lastDirection =d;
+//	}
+
 	public  void setXDirection(double d){
 //		if(!checkForCollision()){
 		
@@ -368,10 +376,6 @@ public class Player extends GameObject implements Entity{
 //		return colide;
 //		
 //	}
-	
-	public int getLastDirection(){
-		return lastDirection;
-	}
 	
 	public void draw(Graphics g){
 //		if ((lastDirection==2) & (displayDirection==0)) {
