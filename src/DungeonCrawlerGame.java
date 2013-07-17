@@ -41,8 +41,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private Thread game;
 	private volatile boolean running = false;
 	private boolean showStory = false;
-	private int currentLevel = 0;
-	private int currentRoom = 1;
+	public int currentLevel = 0;
+	public int currentRoom = 1;
 	double delta = 0; //Time var
 	private long bulletCoolOf =0;
 	private long spellCoolOf =0;
@@ -55,7 +55,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	NPC mob1;
 	Bullet b;
 	Shopping shop;
-	private Controller c;
+	public Controller c;
 	public MainWindow mainWindow;
 	public LinkedList<EntityDestroyable> ed;
 	public LinkedList<EntityMovable> em;
@@ -82,6 +82,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		eMO = c.getEntMO();
 		this.k1 = new MyKeyListener(); 
 		if (mainWindow.gameClient==null) {
+			addKeyListener(k1);
 			if (mainWindow.gameServer!=null) {
 				if (mainWindow.gameServer.getKeyListener()!=null) {
 					System.out.println("getKeyListener");
@@ -97,7 +98,6 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			addKeyListener(mainWindow.kNC);
 			this.k2 = new MyKeyListener(); 
 		}
-		addKeyListener(k1);
 		// mob1 = new NPC( 250, 26, this, p1);
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		
@@ -183,6 +183,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	 
 	 */
 	public void newWorld(int levelNumber){
+		System.out.println("New World: " + levelNumber);
 		c.ed.clear();
 		c.em.clear();
 		c.eWO.clear(); //loescht die Objekte aus den früheren Levels
@@ -213,10 +214,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			delta+= (now-lastTime)/ns;
 			lastTime = now;			
 			if (delta >=1){
+				delta--;
 				if (!world.isPaused()) {
 					gameUpdate();
 					updates ++;
-					delta--;
 	/*				if (hitExit) {
               			newWorld(2);
               			hitExit=false;
@@ -439,8 +440,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				}
 			}
 		if (mainWindow.gameServer!=null) {
-			System.out.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY());
-			System.out.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY());
+//			System.out.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY());
+//			System.out.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY());
 			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 1 "+(int)p1.getX()+" "+(int)p1.getY()+" "+(int)p1.getXDirection()+" "+(int)p1.getYDirection());
 			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY()+" "+(int)p2.getXDirection()+" "+(int)p2.getYDirection());
 		}

@@ -23,6 +23,7 @@ public class World {
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
+	private String[][] blockString;
 	public boolean [][] checkpoints;
 	public boolean[][] isSolid;
 	public boolean [][] exits;
@@ -137,6 +138,7 @@ public class World {
 	// LEER = new ImageIcon("whiteBlock.gif").getImage();
 	 blocks = new Rectangle[AWIDTH][AHIGHT];
 	 blockImage = new Image [AWIDTH][AHIGHT];
+	 blockString = new String [AWIDTH][AHIGHT];
 	 isSolid = new boolean[AWIDTH][AHIGHT];
 	 trap = new boolean[AWIDTH][AHIGHT];
 	 finish = new boolean[AWIDTH][AHIGHT];
@@ -164,11 +166,12 @@ public void draw(Graphics g){
 	
 	
 	//g.setColor(Color.RED);
-	//g.drawString("TEST DRAW STRING", 100, 250);
 	for(int i=0;i <AWIDTH;i++){
 		for(int j=0;j<AHIGHT; j++){
-			if(blockImage[i][j]!=null)
-			g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
+			if(blockImage[i][j]!=null) {
+//				System.out.println("DRAW WORLD: " + blocks[i][j].x + "/" + blocks[i][j].y);
+				g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
+			}
 //			if (walls[i][j]!=null) {
 //				walls[i][j].draw(g);
 //			}
@@ -177,7 +180,6 @@ public void draw(Graphics g){
 	for(Wall tempWall: wallslist){
 	//log(wallslist.get(k).toString());
 	//	wallslist.get(k).update();
-		
 		tempWall.draw(g);
 	}
 }
@@ -193,13 +195,15 @@ public void getLevel(String fileName) { //reading level from file
 		int i=0;
 		String line = null;
 		if (game.mainWindow.gameClient != null) {
-			System.out.println("getLevel Clientversion");
+			System.out.println("getLevel Clientversion: "+fileName);
 			String[] splitServerInput = fileName.split(" ");
 			if (splitServerInput[0].equals("WORLD")) {
 				i = Integer.parseInt(splitServerInput[1]);
 				if (splitServerInput.length>2) {
 					line = splitServerInput[2]; 					
 				}
+			} else {
+				line=null;
 			}
 		} else {
 			System.out.println("getLevel Serverversion "+i);
@@ -210,9 +214,9 @@ public void getLevel(String fileName) { //reading level from file
 
 		
 		if (game.mainWindow.gameServer!=null) {
-			game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD NEW");
+			game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD NEW "+game.currentLevel+" "+game.currentRoom);
 		}
-		while (line!=null) {
+		while ((line!=null) && (i<24)) {
 			if (game.mainWindow.gameServer!=null) {
 				game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD "+i+" "+line);
 			}
@@ -223,6 +227,10 @@ public void getLevel(String fileName) { //reading level from file
 				trap[i][j] = false;
 				finish[i][j] = false;
 				isSolid[i][j] =false;
+//				if (game.mainWindow.gameClient != null) {
+//					System.out.println("LevelData "+i+"/"+j+": "+line.charAt(j));
+//				}
+				
         
               /*  
                 if (line.charAt(j) == '1') {
@@ -249,6 +257,7 @@ public void getLevel(String fileName) { //reading level from file
         					isSolid[i][j] =true;
         					break;
         		case '2': 	blockImage[i][j]=EXIT;
+        					blockString[i][j]= "EXIT";
         					game.addElement(x, y, EXIT, 25, 50);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							exits[i][j] = true;
@@ -421,7 +430,8 @@ public void getLevel(String fileName) { //reading level from file
          					game.addHealthPack(x, y, 0, 20, 0,"collectable",true);
          					break;
         		case 'm': 	blockImage[i][j]=GRASS;
-							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+//        					System.out.println(i+"/"+j+": GRASS");
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
         		case 'N': 	blockImage[i][j]= HEU2;
         					game.addElement(x, y, HEU2, 71, 73);

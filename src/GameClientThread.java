@@ -28,10 +28,24 @@ public class GameClientThread extends Thread implements Runnable {
 			while (1==1) {
 				if ((serverInput = clientIn.readLine()) != null) {
 					String[] splitServerInput = serverInput.split(" ");
-					System.out.println("Client: Input from Server: " + serverInput);
 					if (splitServerInput[0].equals("WORLD")) {
+						System.out.println("Client: Input from Server: " + serverInput);
 						if (mainWindow.gw!=null) {
-							mainWindow.gw.world.getLevel(serverInput);
+							if (splitServerInput[1].equals("NEW")) {
+								mainWindow.gw.p1.setHitExit(true);
+								mainWindow.gw.currentLevel = Integer.valueOf(splitServerInput[2]);
+								mainWindow.gw.currentRoom = Integer.valueOf(splitServerInput[3]);
+//								mainWindow.gw.newWorld(Integer.valueOf(splitServerInput[2]));
+//								mainWindow.gw.c.ed.clear();
+//								mainWindow.gw.c.em.clear();
+//								mainWindow.gw.c.eWO.clear(); //loescht die Objekte aus den früheren Levels
+//								mainWindow.gw.world = null;
+//								mainWindow.gw.world = new World(0, mainWindow.gw);
+//								mainWindow.gw.p1.setWorld(mainWindow.gw.world);
+//								mainWindow.gw.p2.setWorld(mainWindow.gw.world);								
+							} else {
+								mainWindow.gw.world.getLevel(serverInput);
+							}
 						} else {
 							mainWindow.showDCGame();
 						}
@@ -42,12 +56,36 @@ public class GameClientThread extends Thread implements Runnable {
 							mainWindow.gw.p1.setY(Integer.valueOf(splitServerInput[3]));
 							mainWindow.gw.p1.setXDirection(Integer.valueOf(splitServerInput[4]));
 							mainWindow.gw.p1.setYDirection(Integer.valueOf(splitServerInput[5]));
+							if (Integer.valueOf(splitServerInput[5])==-1) {
+								mainWindow.gw.p1.lastDirection =3;								
+							}
+							if (Integer.valueOf(splitServerInput[5])==1) {
+								mainWindow.gw.p1.lastDirection =1;								
+							}
+							if (Integer.valueOf(splitServerInput[4])==-1) {
+								mainWindow.gw.p1.lastDirection =2;								
+							}
+							if (Integer.valueOf(splitServerInput[4])==1) {
+								mainWindow.gw.p1.lastDirection =0;								
+							}
 						}    		  
 						if (splitServerInput[1].equals("2")) {
 							mainWindow.gw.p2.setX(Integer.valueOf(splitServerInput[2]));
 							mainWindow.gw.p2.setY(Integer.valueOf(splitServerInput[3]));
 							mainWindow.gw.p2.setXDirection(Integer.valueOf(splitServerInput[4]));
 							mainWindow.gw.p2.setYDirection(Integer.valueOf(splitServerInput[5]));
+							if (Integer.valueOf(splitServerInput[5])==-1) {
+								mainWindow.gw.p2.lastDirection =3;								
+							}
+							if (Integer.valueOf(splitServerInput[5])==1) {
+								mainWindow.gw.p2.lastDirection =1;								
+							}
+							if (Integer.valueOf(splitServerInput[4])==-1) {
+								mainWindow.gw.p2.lastDirection =2;								
+							}
+							if (Integer.valueOf(splitServerInput[4])==1) {
+								mainWindow.gw.p2.lastDirection =0;								
+							}
 						}    		  
 					}    		  
 				}    		  
