@@ -376,6 +376,10 @@ public class Player extends GameObject implements Entity{
 //	}
 	
 	public void draw(Graphics g){
+		
+	}
+	
+	public void draw(Graphics g,boolean aktiv){
 //		if ((lastDirection==2) & (displayDirection==0)) {
 //			playerImg = playerImgL1;
 //			displayDirection=2;
@@ -502,47 +506,49 @@ public class Player extends GameObject implements Entity{
 //		g.fill3DRect(playerRect.x, playerRect.y-5, world.BLOCKSIZE-5, 4, true);
 //		g.setColor(Color.green);
 //		g.fill3DRect(playerRect.x, playerRect.y-5, (world.BLOCKSIZE-5)*(playerLifepoints/playerLifepointsMax), 4, true);
-		g.setColor(Color.white);
-		g.fill3DRect(5, 5, 202, 12, true);
-		g.setColor(Color.green);
-		g.fill3DRect(6, 6, (int)(200*((float)playerLifepoints/(float)playerLifepointsMax)), 10, true);
-		g.setColor(Color.black);
-		g.drawString(playerLifepoints+"/"+playerLifepointsMax, 10, 15);
-				
-		g.setColor(Color.white);
-		g.fill3DRect(209, 5, 202, 12, true);
-		g.setColor(Color.blue);
-		g.fill3DRect(210, 6, (int)(200*((float)playerManapoints/(float)playerManapointsMax)), 10, true);
-		g.setColor(Color.black);
-		g.drawString(playerManapoints+"/"+playerManapointsMax, 220, 15);
-		g.setColor(Color.white);
-		g.fill3DRect(419, 5, 9, 12, true);
-		g.setColor(Color.red);
-		g.fill3DRect(420, 6, 7, 10, true);
-		g.setColor(Color.white);
-		g.fill3DRect(429, 5, 9, 12, true);
-		if (playerLife>1){
+		if (aktiv) {
+			g.setColor(Color.white);		
+			g.fill3DRect(5, 5, 202, 12, true);
+			g.setColor(Color.green);
+			g.fill3DRect(6, 6, (int)(200*((float)playerLifepoints/(float)playerLifepointsMax)), 10, true);
+			g.setColor(Color.black);
+			g.drawString(playerLifepoints+"/"+playerLifepointsMax, 10, 15);
+					
+			g.setColor(Color.white);
+			g.fill3DRect(209, 5, 202, 12, true);
+			g.setColor(Color.blue);
+			g.fill3DRect(210, 6, (int)(200*((float)playerManapoints/(float)playerManapointsMax)), 10, true);
+			g.setColor(Color.black);
+			g.drawString(playerManapoints+"/"+playerManapointsMax, 220, 15);
+			g.setColor(Color.white);
+			g.fill3DRect(419, 5, 9, 12, true);
 			g.setColor(Color.red);
-			g.fill3DRect(430, 6, 7, 10, true);
-		}
-		g.setColor(Color.white);
-		g.fill3DRect(439, 5, 9, 12, true);
-		if (playerLife>2){
-			g.setColor(Color.red);
-			g.fill3DRect(440, 6, 7, 10, true);
-		}
-		g.setColor(Color.yellow);
-		g.fill3DRect(454, 5, 50, 12, true);
-		g.setColor(Color.black);
-		g.drawString("¥"+playerMoney, 460, 15);
-
-		if (weapon) {
-			g.drawImage(weaponImg, 520, 5, null);   	
-			if (armor) {
-				g.drawImage(armorImg, 550, 5, null);   		
+			g.fill3DRect(420, 6, 7, 10, true);
+			g.setColor(Color.white);
+			g.fill3DRect(429, 5, 9, 12, true);
+			if (playerLife>1){
+				g.setColor(Color.red);
+				g.fill3DRect(430, 6, 7, 10, true);
 			}
-		} else if (armor) {
-			g.drawImage(armorImg, 520, 5, null);   		
+			g.setColor(Color.white);
+			g.fill3DRect(439, 5, 9, 12, true);
+			if (playerLife>2){
+				g.setColor(Color.red);
+				g.fill3DRect(440, 6, 7, 10, true);
+			}
+			g.setColor(Color.yellow);
+			g.fill3DRect(454, 5, 50, 12, true);
+			g.setColor(Color.black);
+			g.drawString("¥"+playerMoney, 460, 15);
+
+			if (weapon) {
+				g.drawImage(weaponImg, 520, 5, null);   	
+				if (armor) {
+					g.drawImage(armorImg, 550, 5, null);   		
+				}
+			} else if (armor) {
+				g.drawImage(armorImg, 520, 5, null);   		
+			}
 		}
 		
 		

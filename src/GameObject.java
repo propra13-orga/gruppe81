@@ -42,6 +42,15 @@ abstract class GameObject extends Rectangle
 			}
 		}
 	}
+
+	public int getLifepoints(){
+		return lifepoints;
+	}
+
+	public void setLifepoints(int lifepoints){
+		this.lifepoints = lifepoints;
+	}
+
 	public int getElementArt(){
 		
 		return elementArt;

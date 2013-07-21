@@ -12,6 +12,7 @@ public class GameServer {
 	private BufferedReader clientIn;
 	private ServerSocket serverSocket;
 	private Socket clientSocket;
+	private MainWindow mainWindow;
 	private MyKeyListener kND;
 	private int clientCount;
 	public GameServerThread gameServerThread;
@@ -69,6 +70,10 @@ public class GameServer {
 //	    }).start();
 	}
 
+//	public void setMainWindow (MainWindow mainWindow) {
+//		this.mainWindow = mainWindow;
+//	}
+	
 	public MyKeyListener getKeyListener () {
 		kND = gameServerThread.getKeyListener();
 		return kND;

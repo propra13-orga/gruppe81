@@ -49,7 +49,7 @@ public class Physics {
 		{	
 			
 			if(entD.getBounds().intersects(em.get(j).getBounds())) {
-System.out.println("collision!!!!!");
+//System.out.println("collision!!!!!");
 //		if ((em.get(j).elementArt==2)&& (entD.elementArt==2)) 
 //				{
 //				schaden=0;

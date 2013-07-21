@@ -75,8 +75,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(currentLevel + currentRoom,  this);
 		System.out.println(world);
 		p1 = new Player(world);
-		p2 = new Player(world);
-		p2.setStart(p1.getX()+25, p1.getY()+25);
+		if (mainWindow.gameServer!=null) {
+			p2 = new Player(world);
+			p2.setStart(p1.getX()+25, p1.getY()+25);
+		}
 		ed = c.getEntDestrList();
 		em = c.getEntMovList();
 		eMO = c.getEntMO();
@@ -191,8 +193,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(levelNumber, this);
 		p1.setWorld(world);
 		p1.useCheckpoint(currentRoom);
-		p2.setWorld(world);
-		p2.useCheckpoint(currentRoom);
+		if (p2!=null) {
+			p2.setWorld(world);
+			p2.useCheckpoint(currentRoom);
+		}
 //		p1 = null;
 //		p1 = new Player(world);
 	}
@@ -292,6 +296,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			
 			bulletCoolOf = System.nanoTime()+coolOf;
 			if(c.em.size()< 500){
+				if (mainWindow.gameServer!=null) {
+					if (this.p1==p1) {
+						mainWindow.gameServer.gameServerThread.serverOut.println("SHOOT 1 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					} else {
+						mainWindow.gameServer.gameServerThread.serverOut.println("SHOOT 2 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					}
+				}
 				c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
 				bulletCoolOf = System.nanoTime()+coolOf;
 			}
@@ -307,6 +318,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			
 			spellCoolOf = System.nanoTime()+coolOf;
 			if(c.em.size()< 500){
+				if (mainWindow.gameServer!=null) {
+					if (this.p1==p1) {
+						mainWindow.gameServer.gameServerThread.serverOut.println("CAST 1 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					} else {
+						mainWindow.gameServer.gameServerThread.serverOut.println("CAST 2 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					}
+				}
 				c.addEntity(new Spell(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
 				spellCoolOf = System.nanoTime()+coolOf;
 			}
@@ -317,6 +335,13 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			
 			spellCoolOf = System.nanoTime()+coolOf;
 			if(c.em.size()< 500){
+				if (mainWindow.gameServer!=null) {
+					if (this.p1==p1) {
+						mainWindow.gameServer.gameServerThread.serverOut.println("CAST2 1 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					} else {
+						mainWindow.gameServer.gameServerThread.serverOut.println("CAST2 2 "+(int)p1.playerRect.getCenterX()+" "+(int)p1.playerRect.getCenterY());
+					}
+				}
 				c.addEntity(new Spell2(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1, this));
 				spellCoolOf = System.nanoTime()+coolOf;
 			}
@@ -347,23 +372,26 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 						p1.lastDirection =0;
 				}
 			}
-			if ((p1.isHitShop()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
-				world.pause();
-				k1.keys[KeyEvent.VK_SPACE]=false;
-				shop = new Shopping(world,p1);
-				shop.setFrame(mainWindow);
-				addKeyListener(shop.getMyKeyListener());
-				shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
+			if (mainWindow.gameClient==null) {
+				if ((p1.isHitShop()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
+					world.pause();
+					k1.keys[KeyEvent.VK_SPACE]=false;
+					shop = new Shopping(world,p1);
+					shop.setFrame(mainWindow);
+					addKeyListener(shop.getMyKeyListener());
+					shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
+				}
+				if ((p1.isHitStory()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
+					k1.keys[KeyEvent.VK_SPACE]=false;
+					showStory=true;
+				}
+				if ((showStory) && (k1.isKeyPressed(KeyEvent.VK_ESCAPE))) {
+					p1.setHitStory(false);
+					showStory=false;
+					
+				}
 			}
-			if ((p1.isHitStory()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))) {
-				k1.keys[KeyEvent.VK_SPACE]=false;
-				showStory=true;
-			}
-			if ((showStory) && (k1.isKeyPressed(KeyEvent.VK_ESCAPE))) {
-				p1.setHitStory(false);
-				showStory=false;
 				
-			}
 			if ((p1.hasWeapon()) && (k1.isKeyPressed(KeyEvent.VK_SPACE))){
 				//c.addEntity(new Bullet(p1.playerRect.getCenterX(), p1.playerRect.getCenterY(), p1));
 				shoot(1000000000,p1);
@@ -388,55 +416,66 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 					castSpell(250000000,p1);
 				}
 			}
-			p2.setYDirection(0);
-			p2.setXDirection(0);
-			if(k2.isKeyPressed(KeyEvent.VK_UP)){
-				p2.setYDirection(-1);
-				p2.lastDirection =3;
-			}
-			else if(k2.isKeyPressed(KeyEvent.VK_DOWN)){
-				p2.setYDirection(+1);
-				p2.lastDirection =1;
-			}else{			
-				if(k2.isKeyPressed(KeyEvent.VK_LEFT)){
-						p2.setXDirection(-1);
-						p2.lastDirection =2;
-				}else if(k2.isKeyPressed(KeyEvent.VK_RIGHT)){
-						p2.setXDirection(+1);       
-						p2.lastDirection =0;
+			if (p2!=null) {
+				p2.setYDirection(0);
+				p2.setXDirection(0);
+				if(k2.isKeyPressed(KeyEvent.VK_UP)){
+					p2.setYDirection(-1);
+					p2.lastDirection =3;
 				}
-			}
-			if ((p2.isHitShop()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
-				world.pause();
-				k2.keys[KeyEvent.VK_SPACE]=false;
-				shop = new Shopping(world,p2);
-				shop.setFrame(mainWindow);
-				addKeyListener(shop.getMyKeyListener());
-				shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
-			}
-			if ((p2.isHitStory()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
-				k2.keys[KeyEvent.VK_SPACE]=false;
-				showStory=true;
-			}
-			if ((showStory) && (k2.isKeyPressed(KeyEvent.VK_ESCAPE))) {
-				p2.setHitStory(false);
-				showStory=false;
-			}
-			if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))){
-				shoot(1000000000,p2);
-			}
-			
-			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_U))){
-				if (spellCoolOf<System.nanoTime()) {
-					p2.changePlayerManapoints(-10);
-					castSpell2(250000000,p2);
+				else if(k2.isKeyPressed(KeyEvent.VK_DOWN)){
+					p2.setYDirection(+1);
+					p2.lastDirection =1;
+				}else{			
+					if(k2.isKeyPressed(KeyEvent.VK_LEFT)){
+							p2.setXDirection(-1);
+							p2.lastDirection =2;
+					}else if(k2.isKeyPressed(KeyEvent.VK_RIGHT)){
+							p2.setXDirection(+1);       
+							p2.lastDirection =0;
+					}
 				}
-			}
-			
-			if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_Z))){
-				if (spellCoolOf<System.nanoTime()) {
-					p2.changePlayerManapoints(-10);
-					castSpell(250000000,p2);
+				if (mainWindow.gameClient!=null) {
+					if ((p2.isHitShop()) && (mainWindow.kNC.isKeyPressed(KeyEvent.VK_SPACE))) {
+						world.pause();
+						k2.keys[KeyEvent.VK_SPACE]=false;
+						shop = new Shopping(world,p2);
+						shop.setFrame(mainWindow);
+						addKeyListener(shop.getMyKeyListener());
+						shop.loadImage("background","shop (1).jpg","papyrus","Pap.png","mana","mana01.png","life","life01.png","weapon","ArmWaffe02.png","munze","Muenze6.png");
+					}
+					if ((p2.isHitStory()) && (mainWindow.kNC.isKeyPressed(KeyEvent.VK_SPACE))) {
+						k2.keys[KeyEvent.VK_SPACE]=false;
+						showStory=true;
+					}
+					if ((showStory) && (mainWindow.kNC.isKeyPressed(KeyEvent.VK_ESCAPE))) {
+						p2.setHitStory(false);
+						showStory=false;
+					}
+				} else {
+					if ((p2.isHitShop()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
+						k2.keys[KeyEvent.VK_SPACE]=false;
+					}
+					if ((p2.isHitStory()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))) {
+						k2.keys[KeyEvent.VK_SPACE]=false;
+					}
+				}
+				if ((p2.hasWeapon()) && (k2.isKeyPressed(KeyEvent.VK_SPACE))){
+					shoot(1000000000,p2);
+				}
+				
+				if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_U))){
+					if (spellCoolOf<System.nanoTime()) {
+						p2.changePlayerManapoints(-10);
+						castSpell2(250000000,p2);
+					}
+				}
+				
+				if ((p2.getPlayerManapoints()>=10) && (k2.isKeyPressed(KeyEvent.VK_Z))){
+					if (spellCoolOf<System.nanoTime()) {
+						p2.changePlayerManapoints(-10);
+						castSpell(250000000,p2);
+					}
 				}
 			}
 		if (mainWindow.gameServer!=null) {
@@ -446,11 +485,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			mainWindow.gameServer.gameServerThread.serverOut.println("PLAYER 2 "+(int)p2.getX()+" "+(int)p2.getY()+" "+(int)p2.getXDirection()+" "+(int)p2.getYDirection());
 		}
 		c.update(p1);	
-		c.update(p2);	
+		if (p2!=null) {
+			c.update(p2);	
+		}	
 		p1.update(); //Updating Player
-		p2.update(); //Updating Player
+		if (p2!=null) {
+			p2.update(); //Updating Player
+		}
 		checkForCollision(p1);
-		checkForCollision(p2);
+		if (p2!=null) {
+			checkForCollision(p2);
+		}
 //		if(mob1!=null)
 //		mob1.update();
 		
@@ -537,8 +582,17 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //				g.drawString("Begleite den Ali während des Abenteuers und helfe ihm",100,325);
 //				g.drawString("das Gegenstück der Armschiene zu finden.",100,365);		
 			}
-			p2.draw(g);
-			p1.draw(g); //Drawing Player
+			if (mainWindow.gameClient!=null) {
+				if (p2!=null) {
+					p2.draw(g,true);
+				}
+				p1.draw(g,false); //Drawing Player
+			} else {
+				if (p2!=null) {
+					p2.draw(g,false);
+				}
+				p1.draw(g,true); //Drawing Player				
+			}
 			 //Drawing Player
 		}
 //		if(mob1!=null)

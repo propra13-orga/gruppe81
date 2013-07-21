@@ -36,9 +36,9 @@ public class Controller {
 			if(tempEntDe!=null){
 				tempEntDe.update();
 //				if((tempEntDe.getX()>1100 || tempEntDe.getY()>650 || tempEntDe.getX()<0 || tempEntDe.getY()<0) || Physics.CollisionWithMovable(tempEntDe, game.em)) {
-				if(Physics.CollisionWithMovable(tempEntDe, game.em)) {
-					tempEntMov = Physics.CollisionWithWhichMovable(tempEntDe, game.em);
-					System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
+				if ((tempEntMov = Physics.CollisionWithWhichMovable(tempEntDe, game.em))!=null) {
+//					tempEntMov = Physics.CollisionWithWhichMovable(tempEntDe, game.em);
+//					System.out.println("X: "+tempEntDe.getX()+"Y: "+tempEntDe.getY());
 					 schaden=-12;
 					
 					
@@ -59,9 +59,20 @@ public class Controller {
 					
 					
 					
-					tempEntDe.changeLifepoints(schaden, 250000000);
+					if (game.mainWindow.gameClient==null) {
+						tempEntDe.changeLifepoints(schaden, 250000000);
+					}
 					if (!tempEntDe.isAlive()) {
-						removeEntity(tempEntDe);
+						if (game.mainWindow.gameServer!=null) {
+							game.mainWindow.gameServer.gameServerThread.serverOut.println("DESTROYABLE REMOVE "+i);
+						}
+						if (game.mainWindow.gameClient==null) {
+							removeEntity(tempEntDe);
+						}
+					} else {
+						if (game.mainWindow.gameServer!=null) {
+							game.mainWindow.gameServer.gameServerThread.serverOut.println("DESTROYABLE LIFE "+i+" "+tempEntDe.getLifepoints()+" "+(int)tempEntDe.getX()+" "+(int)tempEntDe.getY());
+						}
 					}
 				}
 			}
@@ -71,7 +82,12 @@ public class Controller {
 		for (int i=0;i<em.size();i++){
 			tempEntMov = em.get(i);
 			if(((tempEntMov.getX()>1100 || tempEntMov.getY()>650 || tempEntMov.getX()<0 || tempEntMov.getY()<0))|| tempEntMov.isHited() ){
-				removeEntity(tempEntMov);
+				if (game.mainWindow.gameServer!=null) {
+					game.mainWindow.gameServer.gameServerThread.serverOut.println("MOVABLE REMOVE "+i);
+				}
+				if (game.mainWindow.gameClient==null) {
+					removeEntity(tempEntMov);
+				}
 			}
 			if(tempEntMov!=null)
 			tempEntMov.update();

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *  Classe MainWindow erstellt den Frame mit der Hauptmenue und MenueButtons  
@@ -11,7 +12,8 @@ import javax.swing.JLabel;
 public class MainWindow extends JFrame{
 
 	private JButton startButton, sButton, nButton, ncButton, ndButton;
-	private JLabel label;
+	public JLabel label,labelServer,labelClient;
+	public JPanel panel;
 	public DungeonCrawlerGame gw;
 	public GameServer gameServer;
 	public GameClient gameClient;
@@ -19,6 +21,7 @@ public class MainWindow extends JFrame{
 	
 	public MyKeyListenerNetworkClient kNC;
 	
+	MyKeyListener kNt;
 
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
@@ -38,6 +41,11 @@ public class MainWindow extends JFrame{
 		setVisible(true);
 		setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE); 
 		setLocationRelativeTo(null);  // 
+
+        panel = new JPanel();        
+        panel.setSize(800, 400);
+        add(panel);
+
 //		add(gw);
 		
 //		gw.requestFocus(true);
@@ -48,6 +56,10 @@ public class MainWindow extends JFrame{
         /*
          * Erstelle zwei Buttons: "Start" und "Beenden"
          */
+
+//		kNt = new MyKeyListener();
+//		kNt.setMainWindow(this);
+//		addKeyListener(kNt);
 
 		kNC = new MyKeyListenerNetworkClient();
 		kNC.setMainWindow(this);
@@ -72,6 +84,16 @@ public class MainWindow extends JFrame{
 		ndButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
 			gameServer = new GameServer();
+	        System.out.println("setze MainWindow");
+			gameServer.gameServerThread.setMainWindow(kNC.mainWindow);
+			gameServer.gameServerThread.kND.setMainWindow(kNC.mainWindow);
+	        System.out.println("MainWindow gesetzt");
+			if (gameServer.gameServerThread.kND!=null) {
+				kNC.mainWindow.addKeyListener(gameServer.gameServerThread.kND);
+		        System.out.println("kND gesetzt");
+			}
+			requestFocus();
+			
 		}}
 				);
 		ndButton.setVisible(false);
@@ -129,6 +151,12 @@ public class MainWindow extends JFrame{
         label.setSize(400, 70);
         label.setLocation(300, 50);
 //        label.setVisible(false);
+        labelServer = new JLabel("Server:)");
+        labelServer.setSize(400, 70);
+        labelServer.setLocation(100, 100);
+        labelClient = new JLabel("Server:)");
+        labelClient.setSize(400, 70);
+        labelClient.setLocation(700, 100);
 	}
 
 	

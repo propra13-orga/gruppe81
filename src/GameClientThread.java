@@ -29,13 +29,13 @@ public class GameClientThread extends Thread implements Runnable {
 				if ((serverInput = clientIn.readLine()) != null) {
 					String[] splitServerInput = serverInput.split(" ");
 					if (splitServerInput[0].equals("WORLD")) {
-						System.out.println("Client: Input from Server: " + serverInput);
 						if (mainWindow.gw!=null) {
 							if (splitServerInput[1].equals("NEW")) {
-								mainWindow.gw.p1.setHitExit(true);
-								mainWindow.gw.currentLevel = Integer.valueOf(splitServerInput[2]);
-								mainWindow.gw.currentRoom = Integer.valueOf(splitServerInput[3]);
+////								mainWindow.gw.p1.setHitExit(true);
+////								mainWindow.gw.currentLevel = Integer.valueOf(splitServerInput[2]);
+////								mainWindow.gw.currentRoom = Integer.valueOf(splitServerInput[3]);
 //								mainWindow.gw.newWorld(Integer.valueOf(splitServerInput[2]));
+//								mainWindow.gw.world.wallslist.clear();
 //								mainWindow.gw.c.ed.clear();
 //								mainWindow.gw.c.em.clear();
 //								mainWindow.gw.c.eWO.clear(); //loescht die Objekte aus den früheren Levels
@@ -44,7 +44,9 @@ public class GameClientThread extends Thread implements Runnable {
 //								mainWindow.gw.p1.setWorld(mainWindow.gw.world);
 //								mainWindow.gw.p2.setWorld(mainWindow.gw.world);								
 							} else {
-								mainWindow.gw.world.getLevel(serverInput);
+								if (mainWindow.gw.world!=null) {
+									mainWindow.gw.world.getLevel(serverInput);
+								}
 							}
 						} else {
 							mainWindow.showDCGame();
@@ -87,7 +89,44 @@ public class GameClientThread extends Thread implements Runnable {
 								mainWindow.gw.p2.lastDirection =0;								
 							}
 						}    		  
-					}    		  
+					}   
+					if (splitServerInput[0].equals("SHOOT")) {
+						if (Integer.valueOf(splitServerInput[1])==1) {
+							mainWindow.gw.c.addEntity(new Bullet(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p1, mainWindow.gw));
+						} else {
+							mainWindow.gw.c.addEntity(new Bullet(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p2, mainWindow.gw));
+						}
+					}   
+					if (splitServerInput[0].equals("CAST")) {
+						if (Integer.valueOf(splitServerInput[1])==1) {
+							mainWindow.gw.c.addEntity(new Spell(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p1, mainWindow.gw));
+						} else {
+							mainWindow.gw.c.addEntity(new Spell(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p2, mainWindow.gw));
+						}
+					}   
+					if (splitServerInput[0].equals("CAST2")) {
+						if (Integer.valueOf(splitServerInput[1])==1) {
+							mainWindow.gw.c.addEntity(new Spell2(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p1, mainWindow.gw));
+						} else {
+							mainWindow.gw.c.addEntity(new Spell2(Integer.valueOf(splitServerInput[2]), Integer.valueOf(splitServerInput[3]), mainWindow.gw.p2, mainWindow.gw));
+						}
+					}   
+					if (splitServerInput[0].equals("DESTROYABLE")) {
+						if (splitServerInput[1].equals("REMOVE")) {							
+							mainWindow.gw.c.removeEntity(mainWindow.gw.c.ed.get(Integer.valueOf(splitServerInput[2])));
+						}
+						if (splitServerInput[1].equals("LIFE")) {							
+							System.out.println("Client: Input from Server: " + serverInput);
+							mainWindow.gw.c.ed.get(Integer.valueOf(splitServerInput[2])).setLifepoints(Integer.valueOf(splitServerInput[3]));
+							mainWindow.gw.c.ed.get(Integer.valueOf(splitServerInput[2])).setX(Integer.valueOf(splitServerInput[4]));
+							mainWindow.gw.c.ed.get(Integer.valueOf(splitServerInput[2])).setY(Integer.valueOf(splitServerInput[5]));
+						}
+					}   
+					if (splitServerInput[0].equals("MOVABLE")) {
+						if (splitServerInput[1].equals("REMOVE")) {							
+							mainWindow.gw.c.removeEntity(mainWindow.gw.c.em.get(Integer.valueOf(splitServerInput[2])));
+						}
+					}   
 				}    		  
 			}    		  
 		}

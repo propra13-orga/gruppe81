@@ -10,6 +10,7 @@ import java.net.Socket;
 
 public class GameServerThread extends Thread implements Runnable {
 
+	private MainWindow mainWindow;
 	private Socket clientSocket;
 	public PrintWriter serverOut;
 //	public OutputStream serverOutStream;
@@ -24,6 +25,11 @@ public class GameServerThread extends Thread implements Runnable {
 //		this.serverOut = serverOut;
 //		this.serverOutStream = serverOutStream;
 //		this.serverObjectOut = serverObjectOut;
+		kND = new MyKeyListener();
+	}
+	
+	public void setMainWindow (MainWindow mainWindow) {
+		this.mainWindow = mainWindow;
 	}
 	
 	public MyKeyListener getKeyListener () {
@@ -36,33 +42,50 @@ public class GameServerThread extends Thread implements Runnable {
       try
       {
         System.out.println( "Warte auf Verbindung vom Client" );
+		while (mainWindow==null) {
+			
+		}
+		if (mainWindow!=null) {
+	        System.out.println("Checke labelServer");
+//			if (!mainWindow.labelServer.isVisible()) {
+		        System.out.println("Aktiviere labelServer");
+				mainWindow.labelServer.setVisible(true);
+				mainWindow.add(mainWindow.labelServer);
+				mainWindow.repaint();
+//			}
+		}
 			clientSocket = serverSocket.accept();
-	          System.out.println( "Verbindung vom Client wird hergestellt" );
+	        System.out.println( "Verbindung vom Client wird hergestellt" );
 			serverOut = new PrintWriter(clientSocket.getOutputStream(), true);
 			serverIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 //			serverOutStream = clientSocket.getOutputStream();
 //			serverObjectOut = new ObjectOutputStream(serverOutStream);  
 			String clientInput;
-			kND = new MyKeyListener();
 			while ((clientInput = serverIn.readLine()) != null) {
-				System.out.println( "ServerOut: " + clientInput);
-				serverOut.println(clientInput);
-				String[] splitClientInput = clientInput.split(" ");
-				System.out.println( "splitClientInput[0] " + splitClientInput[0]);
-				if (kND != null) {
-					System.out.println( "splitClientInput[0] " + splitClientInput[0]);
-					if (splitClientInput[0].equals("KC")) {
-						System.out.println( "splitClientInput[1] " + splitClientInput[1]);
-						System.out.println( "splitClientInput[2] " + splitClientInput[2]);
-						if (splitClientInput[1].equals("+")) {
-							kND.keyPressed(Integer.parseInt(splitClientInput[2]));
-						} else {
-							kND.keyReleased(Integer.parseInt(splitClientInput[2]));
+				if (mainWindow.gw!=null) {
+//					System.out.println( "ServerOut: " + clientInput);
+					serverOut.println(clientInput);
+					String[] splitClientInput = clientInput.split(" ");
+//					System.out.println( "splitClientInput[0] " + splitClientInput[0]);
+					if (kND != null) {
+//						System.out.println( "splitClientInput[0] " + splitClientInput[0]);
+						if (splitClientInput[0].equals("KC")) {
+//							System.out.println( "splitClientInput[1] " + splitClientInput[1]);
+//							System.out.println( "splitClientInput[2] " + splitClientInput[2]);
+							if (splitClientInput[1].equals("+")) {
+								kND.keyPressed(Integer.parseInt(splitClientInput[2]));
+							} else {
+								kND.keyReleased(Integer.parseInt(splitClientInput[2]));
+							}
 						}
 					}
+				} else {
+//					mainWindow.labelServer.setText(mainWindow.labelServer.getText()+);
+//					mainWindow.add(mainWindow.labelServer);
+//					mainWindow.repaint();
 				}
 			}
-			System.out.println( "Hier hängt er!" );
+//			System.out.println( "Hier hängt er!" );
       }
       catch ( IOException e )
       {
@@ -72,10 +95,16 @@ public class GameServerThread extends Thread implements Runnable {
     }
   
 	public void finish () {
-		serverOut.close();
+		if (serverOut!=null) {
+			serverOut.close();
+		}
 		try {
-			serverIn.close();
-			clientSocket.close();
+			if (serverIn!=null) {
+				serverIn.close();
+			}
+			if (clientSocket!=null) {
+				clientSocket.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

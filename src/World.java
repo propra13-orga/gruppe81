@@ -49,10 +49,11 @@ public class World {
 	public Image BAUM,STEIN,BUSH,HAUS,BANK1,BANK2,BLUMENBETT,KISTE,KISTE1,KISTE3,SAECKE,SAECKE1,GRASSFELD,TANNENBAUM,HOLZ3,WALD,BALKEN;
 	public Image FELD2,HOLZ1,HOLZ2,AXT,BAUMFELD,FELD1,BAUMBANK,HEU1,HEU2,HEU3,KISTE4,WASSERFELD,STORYTELLER,STORYTELLER2,STORYTELLER3,ARMSCHIENE,RUESTUNG;
 	public Image PYRAMIDE2,GRASS2;
-	private boolean pause=false;
+	private boolean pause=false,drawPause=false;
 	private int x=0, y=0;
 	DungeonCrawlerGame game;
 	Controller c;
+	public boolean reload=false;
 	
 
  public World(int levelNumber, DungeonCrawlerGame game){
@@ -171,23 +172,36 @@ public class World {
  */
 public void draw(Graphics g){
 	
-	
-	//g.setColor(Color.RED);
-	for(int i=0;i <AWIDTH;i++){
-		for(int j=0;j<AHIGHT; j++){
-			if(blockImage[i][j]!=null) {
-//				System.out.println("DRAW WORLD: " + blocks[i][j].x + "/" + blocks[i][j].y);
-				g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
+	if (!drawPause) {		
+		//g.setColor(Color.RED);
+		for(int i=0;i <AWIDTH;i++){
+			for(int j=0;j<AHIGHT; j++){
+				if ((blockImage[i][j]!=null) && (blocks[i][j]!=null)) {
+	//				System.out.println("DRAW WORLD: " + blocks[i][j].x + "/" + blocks[i][j].y);
+					g.drawImage(blockImage[i][j], blocks[i][j].x, blocks[i][j].y, null);
+				}
+	//			if (walls[i][j]!=null) {
+	//				walls[i][j].draw(g);
+	//			}
+				}
+		}
+		int ii=0;
+		while (ii!=-1) {
+			if (wallslist!=null){
+				if (!wallslist.isEmpty()){
+					if (wallslist.size()>ii){
+						wallslist.get(ii).draw(g);
+						ii++;
+					} else {
+						ii=-1;
+					}
+				} else {
+					ii=-1;
+				}
+			} else {
+				ii=-1;
 			}
-//			if (walls[i][j]!=null) {
-//				walls[i][j].draw(g);
-//			}
-			}
-	}
-	for(Wall tempWall: wallslist){
-	//log(wallslist.get(k).toString());
-	//	wallslist.get(k).update();
-		tempWall.draw(g);
+		}
 	}
 }
 
@@ -201,11 +215,20 @@ public void getLevel(String fileName) { //reading level from file
 	try {
 		int i=0;
 		String line = null;
+//		if (1 != 1) {
 		if (game.mainWindow.gameClient != null) {
 			System.out.println("getLevel Clientversion: "+fileName);
 			String[] splitServerInput = fileName.split(" ");
 			if (splitServerInput[0].equals("WORLD")) {
 				i = Integer.parseInt(splitServerInput[1]);
+				if (i==0) {
+					drawPause=true;
+					wallslist.clear();
+					game.c.ed.clear();
+					game.c.em.clear();
+					game.c.eWO.clear(); //loescht die Objekte aus den früheren Levels
+					drawPause=false;
+				}
 				if (splitServerInput.length>2) {
 					line = splitServerInput[2]; 					
 				}
@@ -228,6 +251,7 @@ public void getLevel(String fileName) { //reading level from file
 				game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD "+i+" "+line);
 			}
 			x=0;
+			y=i*BLOCKSIZE;
 			for (int  j= 0; j < line.length(); j++) {
 				checkpoints[i][j]=false;
 				exits[i][j] = false;
