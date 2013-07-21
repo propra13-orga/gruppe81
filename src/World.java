@@ -27,8 +27,12 @@ public class World {
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
+<<<<<<< HEAD
+	public boolean [][] checkpoints;//Ein Array fuer checkpoints eingebaut
+=======
 	private String[][] blockString;
 	public boolean [][] checkpoints;
+>>>>>>> 17c3fdd16d3a3cc42abe4565f0ecf817874004c3
 	public boolean[][] isSolid;
 	public boolean [][] exits;
 	public boolean [][] trap;
@@ -56,9 +60,9 @@ public class World {
 	public boolean reload=false;
 	
 
- public World(int levelNumber, DungeonCrawlerGame game){
+ public World(int levelNumber, DungeonCrawlerGame game){ 
 
-	 this.game = game;
+	 this.game = game; //globale Variable
 	 worldPics = new Image[31];
 //	 for(int i=0;i<)
 //	 SMALLWHITE = new ImageIcon("smallwhite.gif").getImage();
@@ -149,7 +153,7 @@ public class World {
 	 finish = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
-	 checkpoints = new boolean[AWIDTH][AHIGHT];
+	 checkpoints = new boolean[AWIDTH][AHIGHT];// Hier wird checkpoint angelegt
 	 wallslist = new ArrayList<Wall>();
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
@@ -211,14 +215,14 @@ public void draw(Graphics g){
    */
 public void getLevel(String fileName) { //reading level from file
 
-	BufferedReader input = null;
+	BufferedReader input = null; // Object input
 	try {
 		int i=0;
 		String line = null;
 //		if (1 != 1) {
 		if (game.mainWindow.gameClient != null) {
 			System.out.println("getLevel Clientversion: "+fileName);
-			String[] splitServerInput = fileName.split(" ");
+			String[] splitServerInput = fileName.split(" "); // splite a String
 			if (splitServerInput[0].equals("WORLD")) {
 				i = Integer.parseInt(splitServerInput[1]);
 				if (i==0) {
@@ -230,7 +234,7 @@ public void getLevel(String fileName) { //reading level from file
 					drawPause=false;
 				}
 				if (splitServerInput.length>2) {
-					line = splitServerInput[2]; 					
+					line = splitServerInput[2]; 		//speichert die Zeile			
 				}
 			} else {
 				line=null;
@@ -239,11 +243,11 @@ public void getLevel(String fileName) { //reading level from file
 			System.out.println("getLevel Serverversion "+i);
 			File file = new File(fileName);
 			input = new BufferedReader(new FileReader(file));
-			line = input.readLine();
-		}
+			line = input.readLine();//liesst die Zeile aus der Datei und schreibt eine Variable rein
+ 		}
 
 		
-		if (game.mainWindow.gameServer!=null) {
+		if (game.mainWindow.gameServer!=null) { 
 			game.mainWindow.gameServer.gameServerThread.serverOut.println("WORLD NEW "+game.currentLevel+" "+game.currentRoom);
 		}
 		while ((line!=null) && (i<24)) {
@@ -276,24 +280,24 @@ public void getLevel(String fileName) { //reading level from file
         		
         		
         		
-        		switch (line.charAt(j)){
+        		switch (line.charAt(j)){  //if-Verzweigung
         	
         		case '0': 	blockImage[i][j]=SMALLWHITE;
             				blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
             				break;
-        		case '1': 	wallslist.add(new Wall(x, y, sol));
+        		case '1': 	wallslist.add(new Wall(x, y, sol)); //erstelle neues Object
 						//	walls[i][j] = new Wall(x, y, sol);
         					blockImage[i][j]= SMALLWALL;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
-        		case '2': 	blockImage[i][j]=EXIT;
+        		case '2': 	blockImage[i][j]=EXIT; // Ausgangstür
         					blockString[i][j]= "EXIT";
         					game.addElement(x, y, EXIT, 25, 50);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							exits[i][j] = true;
 							break;
-        		case '"': 	blockImage[i][j]=EXIT;
+        		case '"': 	blockImage[i][j]=EXIT;  //kein Element
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							exits[i][j] = true;
 							break;
@@ -317,7 +321,7 @@ public void getLevel(String fileName) { //reading level from file
         					break;
 							
 
-        		case '7':	blockImage[i][j]=SMALLWHITE;
+        		case '7':	blockImage[i][j]=SMALLWHITE; // Gegner wird eingefügt
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							//	log("X="+x+" Y="+y);
 							game.addNPC(x, y);
@@ -325,7 +329,7 @@ public void getLevel(String fileName) { //reading level from file
         		case '8': 	blockImage[i][j]= SMALLWALL;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					break;
-        		case '9': 	blockImage[i][j]=EXIT;
+        		case '9': 	blockImage[i][j]=EXIT;  // Endexit
 							game.addElement(x, y, EXIT, 25, 50);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							finish[i][j] = true;
@@ -373,7 +377,7 @@ public void getLevel(String fileName) { //reading level from file
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							trap[i][j] = true;
 							break;
-        		case 'd': 	blockImage[i][j]=PYRAMIDE2;
+        		case 'd': 	blockImage[i][j]=PYRAMIDE2;    // 
         					game.addElement(x, y, PYRAMIDE2, 1000, 600);
         					blocks[i][j] = new Rectangle	(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =false;
@@ -481,7 +485,7 @@ public void getLevel(String fileName) { //reading level from file
         		case 'o': 	blockImage[i][j]=BAUM;
         					game.addElement(x, y, BAUM, 65, 69);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-        					isSolid[i][j] =true;  //setze den Baum als Mauer
+        					isSolid[i][j] =true;         //setze den Baum als Mauer
 							break;
         		case 'P': 	blockImage[i][j]= HEU3;
 							game.addElement(x, y, HEU3, 49, 51);
@@ -531,13 +535,13 @@ public void getLevel(String fileName) { //reading level from file
         		case 'u': 	blockImage[i][j]=SNOWGR;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							break;
-        		case 'V': 	blockImage[i][j]=GRASS;
+        		case 'V': 	blockImage[i][j]=GRASS;  //
         					game.addElement(x, y, ARMSCHIENE, 25, 50,"collectable",true);
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							finish[i][j] = true;
+							finish[i][j] = true;  // Ende des Spiels
         					break;
         		case 'v': 	blockImage[i][j]=GRASS;
-        					game.addElement(x, y, ARMSCHIENE, 25, 25,"weapon",true);
+        					game.addElement(x, y, ARMSCHIENE, 25, 25,"weapon",true); //waffe
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					break;
         		case 'W': 	blockImage[i][j]=FELD2;
@@ -567,7 +571,8 @@ public void getLevel(String fileName) { //reading level from file
 							startX=j*25;
 							startY=i*25;
 							System.out.println("x: "+startX+" y: "+startY);
-				break;		
+				break;	
+				//Setze checkpoints auf "ja" und markieren, dass hier ein checkpoint hinterlegt ist
 				case 'z': 	blockImage[i][j]= GRUND;
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 							checkpoints[i][j] = true;
@@ -672,11 +677,11 @@ public void getLevel(String fileName) { //reading level from file
     			line = input.readLine();
     		}
         }
-    }catch (IOException e) {
+    }catch (IOException e) {    //Fehler bei der Ausgabe
         e.printStackTrace();
-    } finally {
+    } finally {  //schließt ab wenn mit dem Treiber vertig ist
         try {
-            if (input != null) {
+            if (input != null) {  
                 input.close();
             }
         } catch (IOException ex) {

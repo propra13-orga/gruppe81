@@ -278,6 +278,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
             p1.changestate();
 		}
 		if(p1.playerChangeRoom){
+	// Prueft ob aktueller Raum der Raum in dem checkpoint ist ist, wenn nicht setzt den aktuellen Raum gleich checkpointRaum
 			if(p1.checkpointRoom < currentRoom){
 				currentRoom=p1.checkpointRoom;
 				newWorld(currentLevel+currentRoom);
@@ -611,7 +612,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
  * @param Player,ist der, der ueberprueft wird
  * @return
  */
-	public boolean checkForCollision(Player p1){ //Checking for collision
+	public boolean checkForCollision(Player p1){ //Checking for collision hier wurde ueberprueft ob der Spieler etwas trifft
 		boolean colide = false;
 		for(int i=0;i<world.AWIDTH;i++){
 			for(int j=0;j<world.AHIGHT;j++){
@@ -630,6 +631,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 									
 					p1.setHitExit(true);
 				}
+				// Hier wird geprueft ob der Spieler ueber checkpoint gelaufen ist
 				if(world.checkpoints[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
 					
 					
