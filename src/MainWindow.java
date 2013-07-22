@@ -1,7 +1,9 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,9 +13,10 @@ import javax.swing.JPanel;
  */
 public class MainWindow extends JFrame{
 
-	private JButton startButton, sButton, nButton, ncButton, ndButton;
+	public JButton startButton;
+	private JButton sButton, nButton, ncButton, ndButton, bereitButton;
 	public JLabel label,labelServer,labelClient;
-	public JPanel panel;
+//	public JPanel panel;
 	public DungeonCrawlerGame gw;
 	public GameServer gameServer;
 	public GameClient gameClient;
@@ -22,6 +25,7 @@ public class MainWindow extends JFrame{
 	public MyKeyListenerNetworkClient kNC;
 	
 	MyKeyListener kNt;
+	public JEditorPane lobby,chat,chatInput;
 
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
@@ -42,9 +46,9 @@ public class MainWindow extends JFrame{
 		setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE); 
 		setLocationRelativeTo(null);  // 
 
-        panel = new JPanel();        
-        panel.setSize(800, 400);
-        add(panel);
+//        panel = new JPanel();        
+//        panel.setSize(800, 400);
+//        add(panel);
 
 //		add(gw);
 		
@@ -63,7 +67,7 @@ public class MainWindow extends JFrame{
 
 		kNC = new MyKeyListenerNetworkClient();
 		kNC.setMainWindow(this);
-		addKeyListener(kNC);
+//		addKeyListener(kNC);
 
 		startButton = new JButton("Start");// The JButton name.
         add(startButton);
@@ -83,17 +87,29 @@ public class MainWindow extends JFrame{
 		ndButton.setLocation(400,150);
 		ndButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
+	        startButton.setVisible(false);
 			gameServer = new GameServer();
-	        System.out.println("setze MainWindow");
-			gameServer.gameServerThread.setMainWindow(kNC.mainWindow);
-			gameServer.gameServerThread.kND.setMainWindow(kNC.mainWindow);
-	        System.out.println("MainWindow gesetzt");
+//	        System.out.println("setze MainWindow");
+			if (kNC.mainWindow!=null) {
+				gameServer.gameServerThread.setMainWindow(kNC.mainWindow);
+				gameServer.gameServerThread.kND.setMainWindow(kNC.mainWindow);
+//		        System.out.println("MainWindow gesetzt");
+			}
 			if (gameServer.gameServerThread.kND!=null) {
 				kNC.mainWindow.addKeyListener(gameServer.gameServerThread.kND);
-		        System.out.println("kND gesetzt");
+//		        System.out.println("kND gesetzt");
 			}
-			requestFocus();
-			
+//			kNC.mainWindow.labelServer.setVisible(true);
+//			kNC.mainWindow.add(kNC.mainWindow.labelServer);
+			kNC.mainWindow.lobby.setText(kNC.mainWindow.lobby.getText()+"Spieler 1 betritt die Lobby..."+(char)KeyEvent.VK_ENTER);
+			kNC.mainWindow.lobby.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.lobby);
+			kNC.mainWindow.chat.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.chat);
+			kNC.mainWindow.chatInput.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.chatInput);
+			kNC.mainWindow.repaint();
+			requestFocus();			
 		}}
 				);
 		ndButton.setVisible(false);
@@ -105,10 +121,20 @@ public class MainWindow extends JFrame{
 		ncButton.setLocation(400,150);
 		ncButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
+	        startButton.setVisible(false);
+	        bereitButton.setVisible(true);
 			gameClient = new GameClient(kNC.mainWindow);			
 			kNC.setGameClient(gameClient);
-//			kNC = new MyKeyListenerNetworkClient(gameClient); 
-//			addKeyListener(kNC);
+			addKeyListener(kNC);
+			kNC.mainWindow.lobby.setText(kNC.mainWindow.lobby.getText()+"Spieler 1 ist in der Lobby."+(char)KeyEvent.VK_ENTER);
+			kNC.mainWindow.lobby.setText(kNC.mainWindow.lobby.getText()+"Spieler 2 betritt die Lobby..."+(char)KeyEvent.VK_ENTER);
+			kNC.mainWindow.lobby.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.lobby);
+			kNC.mainWindow.chat.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.chat);
+			kNC.mainWindow.chatInput.setVisible(true);
+			kNC.mainWindow.add(kNC.mainWindow.chatInput);
+			kNC.mainWindow.repaint();
 			requestFocus(true);
 		}}
 				);
@@ -147,6 +173,18 @@ public class MainWindow extends JFrame{
             }
         });
         sButton.setVisible(true);
+		bereitButton = new JButton("bereit");
+        add(bereitButton);
+        bereitButton.setSize(400, 70);
+        bereitButton.setLocation(400, 250);
+        bereitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	if (kNC.mainWindow.gameClient!=null) {
+            		kNC.mainWindow.gameClient.clientOut.println("PLAYER READY");
+            	}
+            }
+        });
+        bereitButton.setVisible(false);
         label = new JLabel("Geschafft!!! Bist ein wahrer hIro :)");
         label.setSize(400, 70);
         label.setLocation(300, 50);
@@ -154,7 +192,19 @@ public class MainWindow extends JFrame{
         labelServer = new JLabel("Server:)");
         labelServer.setSize(400, 70);
         labelServer.setLocation(100, 100);
-        labelClient = new JLabel("Server:)");
+        lobby = new JEditorPane();
+        lobby.setFocusable(false);
+        lobby.setSize(400, 70);
+        lobby.setLocation(100, 100);
+        chat = new JEditorPane();
+        chat.setFocusable(false);
+        chat.setSize(400, 300);
+        chat.setLocation(700, 100);
+        chatInput = new JEditorPane();
+        chatInput.setFocusable(false);
+        chatInput.setSize(400, 70);
+        chatInput.setLocation(700, 400);
+        labelClient = new JLabel("Client:)");
         labelClient.setSize(400, 70);
         labelClient.setLocation(700, 100);
 	}
@@ -197,12 +247,18 @@ public class MainWindow extends JFrame{
    */
     public void showDCGame() {
         label.setVisible(false);
+        remove(bereitButton);
         remove(sButton);
         remove(nButton);
         remove(ncButton);
         remove(ndButton);
         remove(startButton);
+        remove(labelClient);
+        remove(labelServer);
         remove(label);
+        remove(lobby);
+        remove(chat);
+        remove(chatInput);
         gw = new DungeonCrawlerGame(this);        
         gw.setSize(1000, 600);
 //System.out.println("111111");

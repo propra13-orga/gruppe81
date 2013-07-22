@@ -1,3 +1,4 @@
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -126,6 +127,9 @@ public class GameClientThread extends Thread implements Runnable {
 						if (splitServerInput[1].equals("REMOVE")) {							
 							mainWindow.gw.c.removeEntity(mainWindow.gw.c.em.get(Integer.valueOf(splitServerInput[2])));
 						}
+					}   
+					if (splitServerInput[0].equals("<")) {
+						mainWindow.chat.setText(mainWindow.chat.getText()+serverInput+(char)KeyEvent.VK_ENTER);
 					}   
 				}    		  
 			}    		  

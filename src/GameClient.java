@@ -22,8 +22,8 @@ public class GameClient {
 			clientOut = new PrintWriter(echoSocket.getOutputStream(), true);
 			clientIn = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 		    System.out.println( "KeepAlive: " + echoSocket.getKeepAlive() );           
-			clientOut.println( "Teeeeest ");          
-		    System.out.println( "clientIn.readLine()" + clientIn.readLine() );           
+//			clientOut.println( "Teeeeest ");          
+//		    System.out.println( "clientIn.readLine()" + clientIn.readLine() );           
 			gameClientThread = new GameClientThread(mainWindow,clientIn,clientOut);
 			gameClientThread.start();
 

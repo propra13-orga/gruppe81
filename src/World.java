@@ -27,12 +27,8 @@ public class World {
 	public int levelNumber = 1;
 	public Rectangle[][] blocks;
 	private Image[][] blockImage;
-<<<<<<< HEAD
 	public boolean [][] checkpoints;//Ein Array fuer checkpoints eingebaut
-=======
 	private String[][] blockString;
-	public boolean [][] checkpoints;
->>>>>>> 17c3fdd16d3a3cc42abe4565f0ecf817874004c3
 	public boolean[][] isSolid;
 	public boolean [][] exits;
 	public boolean [][] trap;

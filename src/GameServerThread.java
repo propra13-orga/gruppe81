@@ -1,3 +1,4 @@
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,15 +22,18 @@ public class GameServerThread extends Thread implements Runnable {
 
 
 	public GameServerThread (ServerSocket serverSocket) {
+		kND = new MyKeyListener();
 		this.serverSocket = serverSocket;
 //		this.serverOut = serverOut;
 //		this.serverOutStream = serverOutStream;
 //		this.serverObjectOut = serverObjectOut;
-		kND = new MyKeyListener();
 	}
 	
 	public void setMainWindow (MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
+		if (this.mainWindow!=null) {
+	        System.out.println("MainWindow im Thread gesetzt");
+		}
 	}
 	
 	public MyKeyListener getKeyListener () {
@@ -46,15 +50,17 @@ public class GameServerThread extends Thread implements Runnable {
 			
 		}
 		if (mainWindow!=null) {
-	        System.out.println("Checke labelServer");
+//	        System.out.println("Checke labelServer");
 //			if (!mainWindow.labelServer.isVisible()) {
-		        System.out.println("Aktiviere labelServer");
-				mainWindow.labelServer.setVisible(true);
-				mainWindow.add(mainWindow.labelServer);
-				mainWindow.repaint();
+//		        System.out.println("Aktiviere labelServer");
+//				mainWindow.labelServer.setVisible(true);
+//				mainWindow.add(mainWindow.labelServer);
+//				mainWindow.repaint();
 //			}
 		}
 			clientSocket = serverSocket.accept();
+			mainWindow.lobby.setText(mainWindow.lobby.getText()+"Spieler 2 betritt die Lobby..."+(char)KeyEvent.VK_ENTER);
+			mainWindow.repaint();
 	        System.out.println( "Verbindung vom Client wird hergestellt" );
 			serverOut = new PrintWriter(clientSocket.getOutputStream(), true);
 			serverIn = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -62,10 +68,10 @@ public class GameServerThread extends Thread implements Runnable {
 //			serverObjectOut = new ObjectOutputStream(serverOutStream);  
 			String clientInput;
 			while ((clientInput = serverIn.readLine()) != null) {
+				String[] splitClientInput = clientInput.split(" ");
 				if (mainWindow.gw!=null) {
 //					System.out.println( "ServerOut: " + clientInput);
-					serverOut.println(clientInput);
-					String[] splitClientInput = clientInput.split(" ");
+//					serverOut.println(clientInput);
 //					System.out.println( "splitClientInput[0] " + splitClientInput[0]);
 					if (kND != null) {
 //						System.out.println( "splitClientInput[0] " + splitClientInput[0]);
@@ -80,9 +86,14 @@ public class GameServerThread extends Thread implements Runnable {
 						}
 					}
 				} else {
-//					mainWindow.labelServer.setText(mainWindow.labelServer.getText()+);
-//					mainWindow.add(mainWindow.labelServer);
-//					mainWindow.repaint();
+					if (splitClientInput[0].equals("<")) {
+						mainWindow.chat.setText(mainWindow.chat.getText()+clientInput+(char)KeyEvent.VK_ENTER);
+					}
+					if (splitClientInput[0].equals("PLAYER")) {
+						if (splitClientInput[1].equals("READY")) {
+							mainWindow.startButton.setVisible(true);
+						}
+					}
 				}
 			}
 //			System.out.println( "Hier hängt er!" );
