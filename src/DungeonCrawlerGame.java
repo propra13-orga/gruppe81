@@ -8,6 +8,10 @@ import java.awt.Toolkit;
 //import java.awt.event.ActionListener;
 //import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 //import java.awt.event.KeyListener;
@@ -15,6 +19,8 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 //import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import files.game.createFile;
 //import Object.EntityDestroyable;
 
 import Object.EntityDestroyable;
@@ -61,6 +67,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	public LinkedList<EntityMovable> em;
 	public LinkedList<EntityMapObject> eMO;
 	private Image blaseImg;
+	private createFile save;
 	
 	// private static boolean hitExit;
 	/**Constructor
@@ -75,6 +82,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		world = new World(currentLevel + currentRoom,  this);
 		System.out.println(world);
 		p1 = new Player(world);
+		
 		if (mainWindow.gameServer!=null) {
 			p2 = new Player(world);
 			p2.setStart(p1.getX()+25, p1.getY()+25);
@@ -124,7 +132,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 //			}
 //		} else {
 //		}
-		
+		save = new createFile();
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
 		setFocusable(true);
@@ -355,6 +363,14 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void gameUpdate(){
 		if(running && game !=null){
 			//Update state
+			if(k1.isKeyPressed(KeyEvent.VK_S)){
+				save.openFile();
+				save.addRecords(p1.getX(), p1.getY(), p1.getLive(),p1.getLifepoints(), p1.playerMoney, p1.hasArmor(), p1.hasWeapon(), currentLevel,currentRoom);
+				save.closeFile();
+			}
+			if(k1.isKeyPressed(KeyEvent.VK_L)){
+				loadSavedGame();
+			}
 			p1.setYDirection(0);
 			p1.setXDirection(0);
 			if(k1.isKeyPressed(KeyEvent.VK_UP)){
@@ -795,4 +811,46 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		c.addEntity(new BOSS2(x, y, this, p1));
 	}
 
+	public void loadSavedGame(){
+		BufferedReader input = null;
+		String line = null;
+		File file = new File("save.txt");
+		try {
+			input = new BufferedReader(new FileReader(file));
+		} catch (FileNotFoundException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		try {
+			line = input.readLine();
+			String[] splitLine = line.split(":");
+			newWorld(Integer.valueOf(splitLine[7])+Integer.valueOf(splitLine[8]));
+			p1.setX(Integer.valueOf(splitLine[0]));
+			p1.setY(Integer.valueOf(splitLine[1]));
+			p1.setLive(Integer.valueOf(splitLine[2]));
+			p1.setLifepoints(Integer.valueOf(splitLine[3]));
+			p1.playerMoney=Integer.valueOf(splitLine[4]);
+			if(Integer.valueOf(splitLine[5])==1){
+				p1.setArmor(true);
+			}else{
+				p1.setArmor(false);
+			}
+			if(Integer.valueOf(splitLine[6])==1){
+				p1.setWeapon(true);
+			}else{
+				p1.setWeapon(false);
+			}
+		currentLevel=Integer.valueOf(splitLine[7]);
+		currentRoom=Integer.valueOf(splitLine[8]);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}//liesst die Zeile aus der Datei und schreibt eine Variable rein
+		try {
+			input.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

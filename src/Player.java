@@ -30,8 +30,8 @@ public class Player extends GameObject implements Entity{
 	
 	private boolean alive=true;	
 	public boolean playerChangeRoom=false;
-	private int playerMoney; // Das Geld des Spielers	
-	private int playerLife;	// Das Leben des Spielers(der Spieler hat 3 Leben)
+	public int playerMoney; // Das Geld des Spielers	
+	public int playerLife;	// Das Leben des Spielers(der Spieler hat 3 Leben)
 	private long playerCoolOf;	
 	private int playerLifepoints;	
 	private int playerLifepointsMax;	
