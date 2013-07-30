@@ -1,4 +1,5 @@
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
@@ -14,12 +15,13 @@ import javax.swing.JPanel;
 public class MainWindow extends JFrame{
 
 	public JButton startButton;
-	private JButton sButton, nButton, ncButton, ndButton, bereitButton;
+	private JButton sButton, nButton, ncButton, ndButton, bereitButton, editorButton;
 	public JLabel label,labelServer,labelClient;
 //	public JPanel panel;
 	public DungeonCrawlerGame gw;
 	public GameServer gameServer;
 	public GameClient gameClient;
+	public Editor editor;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
 	
 	public MyKeyListenerNetworkClient kNC;
@@ -173,7 +175,20 @@ public class MainWindow extends JFrame{
             }
         });
         sButton.setVisible(true);
-		bereitButton = new JButton("bereit");
+
+        editorButton = new JButton("Editor");// The JButton name.
+        add(editorButton);
+        // getContentPane().add(startButton);
+        editorButton.setSize(400, 70);
+        editorButton.setLocation(300, 150);
+        editorButton.setVisible(true);
+        editorButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			MyMouseListener myMouseListener = new MyMouseListener(); 
+            editor = new Editor(kNC.mainWindow,myMouseListener);
+		}});
+
+        bereitButton = new JButton("bereit");
         add(bereitButton);
         bereitButton.setSize(400, 70);
         bereitButton.setLocation(400, 250);
@@ -285,5 +300,11 @@ public class MainWindow extends JFrame{
 			
 	
 	}
+	
+//	public void paint(Graphics g) {
+//		if (editor!=null) {
+//			editor.paint();
+//		}
+//	}
 
 }
