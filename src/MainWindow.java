@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
 public class MainWindow extends JFrame{
 
 	public JButton startButton;
-	private JButton sButton, nButton, ncButton, ndButton, bereitButton, editorButton;
+	private JButton sButton, nButton, ncButton, ndButton, bereitButton, editorButton, backButton;
 	public JLabel label,labelServer,labelClient;
 //	public JPanel panel;
 	public DungeonCrawlerGame gw;
@@ -27,7 +28,7 @@ public class MainWindow extends JFrame{
 	public MyKeyListenerNetworkClient kNC;
 	
 	MyKeyListener kNt;
-	public JEditorPane lobby,chat,chatInput;
+	public JEditorPane lobby,chat,chatInput,ip;
 
 //	DungeonCrawlerGame gw =new DungeonCrawlerGame();
 	
@@ -82,6 +83,22 @@ public class MainWindow extends JFrame{
             showDCGame();
 		}});
 
+		backButton = new JButton("Zurück");// The JButton name.
+        add(backButton);
+        backButton.setSize(400, 70);
+        backButton.setLocation(300, 150);
+        backButton.setVisible(false);
+        backButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			ip.setVisible(false);
+			nButton.setVisible(true);
+			startButton.setVisible(true);
+			editorButton.setVisible(true);
+			backButton.setVisible(false);
+			ndButton.setVisible(false);
+			ncButton.setVisible(false);
+		}});
+
 		ndButton = new JButton("Netzwerk Spiel starten");//The JButton name.
 		//getContentPane().add(sButton);
 		add(ndButton);
@@ -90,6 +107,9 @@ public class MainWindow extends JFrame{
 		ndButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
 	        startButton.setVisible(false);
+			ip.setVisible(false);
+	        ncButton.setVisible(false);
+	        ndButton.setVisible(false);
 			gameServer = new GameServer();
 //	        System.out.println("setze MainWindow");
 			if (kNC.mainWindow!=null) {
@@ -116,6 +136,14 @@ public class MainWindow extends JFrame{
 				);
 		ndButton.setVisible(false);
 
+        ip = new JEditorPane();
+        ip.setFocusable(true);
+        ip.setSize(70, 10);
+        ip.setLocation(700, 100);
+        ip.setText("127.0.0.1");        
+        ip.setVisible(false);
+		add(ip);
+		
 		ncButton = new JButton("Netzwerk Spiel beitreten");//The JButton name.
 		//getContentPane().add(sButton);
 		add(ncButton);
@@ -123,9 +151,12 @@ public class MainWindow extends JFrame{
 		ncButton.setLocation(400,150);
 		ncButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
+			ip.setVisible(false);
+	        ncButton.setVisible(false);
+	        ndButton.setVisible(false);
 	        startButton.setVisible(false);
 	        bereitButton.setVisible(true);
-			gameClient = new GameClient(kNC.mainWindow);			
+			gameClient = new GameClient(kNC.mainWindow,ip.getText());			
 			kNC.setGameClient(gameClient);
 			addKeyListener(kNC);
 			kNC.mainWindow.lobby.setText(kNC.mainWindow.lobby.getText()+"Spieler 1 ist in der Lobby."+(char)KeyEvent.VK_ENTER);
@@ -150,13 +181,28 @@ public class MainWindow extends JFrame{
 		nButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
 			nButton.setVisible(false);
+			startButton.setVisible(false);
+			editorButton.setVisible(false);
+			ip.setVisible(true);
+			backButton.setVisible(true);
 			ndButton.setVisible(true);
 			ncButton.setVisible(true);
 		}}
 				);
 		nButton.setVisible(true);
 
-		
+        editorButton = new JButton("Editor");// The JButton name.
+        add(editorButton);
+        // getContentPane().add(startButton);
+        editorButton.setSize(400, 70);
+        editorButton.setLocation(300, 150);
+        editorButton.setVisible(true);
+        editorButton.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+			MyMouseListener myMouseListener = new MyMouseListener(); 
+            editor = new Editor(kNC.mainWindow,myMouseListener);
+		}});
+
 		
 		sButton = new JButton("Beenden");// The JButton name.
         // getContentPane().add(sButton);
@@ -176,18 +222,6 @@ public class MainWindow extends JFrame{
         });
         sButton.setVisible(true);
 
-        editorButton = new JButton("Editor");// The JButton name.
-        add(editorButton);
-        // getContentPane().add(startButton);
-        editorButton.setSize(400, 70);
-        editorButton.setLocation(300, 150);
-        editorButton.setVisible(true);
-        editorButton.addActionListener(new java.awt.event.ActionListener()
-		{public void actionPerformed(ActionEvent arg0) {
-			MyMouseListener myMouseListener = new MyMouseListener(); 
-            editor = new Editor(kNC.mainWindow,myMouseListener);
-		}});
-
         bereitButton = new JButton("bereit");
         add(bereitButton);
         bereitButton.setSize(400, 70);
@@ -196,6 +230,7 @@ public class MainWindow extends JFrame{
             public void actionPerformed(ActionEvent arg0) {
             	if (kNC.mainWindow.gameClient!=null) {
             		kNC.mainWindow.gameClient.clientOut.println("PLAYER READY");
+        	        bereitButton.setVisible(false);
             	}
             }
         });
@@ -213,7 +248,7 @@ public class MainWindow extends JFrame{
         lobby.setLocation(100, 100);
         chat = new JEditorPane();
         chat.setFocusable(false);
-        chat.setSize(400, 300);
+        chat.setSize(500, 300);
         chat.setLocation(700, 100);
         chatInput = new JEditorPane();
         chatInput.setFocusable(false);
@@ -238,6 +273,7 @@ public class MainWindow extends JFrame{
         add(ncButton);
         add(ndButton);
         add(label);
+        add(backButton);
         repaint();
     }	
 
@@ -252,8 +288,10 @@ public class MainWindow extends JFrame{
         add(nButton);
         add(ncButton);
         add(ndButton);
+        add(editorButton);
         label.setVisible(true);
         add(label);
+        add(backButton);
         repaint();
     }	
 
@@ -268,12 +306,14 @@ public class MainWindow extends JFrame{
         remove(ncButton);
         remove(ndButton);
         remove(startButton);
+        remove(editorButton);
         remove(labelClient);
         remove(labelServer);
         remove(label);
         remove(lobby);
         remove(chat);
         remove(chatInput);
+        remove(backButton);
         gw = new DungeonCrawlerGame(this);        
         gw.setSize(1000, 600);
 //System.out.println("111111");

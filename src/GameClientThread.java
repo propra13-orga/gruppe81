@@ -31,6 +31,7 @@ public class GameClientThread extends Thread implements Runnable {
 					String[] splitServerInput = serverInput.split(" ");
 					if (splitServerInput[0].equals("WORLD")) {
 						if (mainWindow.gw!=null) {
+							mainWindow.gw.noDrawing = true;
 							if (splitServerInput[1].equals("NEW")) {
 ////								mainWindow.gw.p1.setHitExit(true);
 ////								mainWindow.gw.currentLevel = Integer.valueOf(splitServerInput[2]);
@@ -126,6 +127,11 @@ public class GameClientThread extends Thread implements Runnable {
 					if (splitServerInput[0].equals("MOVABLE")) {
 						if (splitServerInput[1].equals("REMOVE")) {							
 							mainWindow.gw.c.removeEntity(mainWindow.gw.c.em.get(Integer.valueOf(splitServerInput[2])));
+						}
+					}   
+					if (splitServerInput[0].equals("WALLQUEST")) {
+						if (splitServerInput[1].equals("REMOVE")) {							
+							mainWindow.gw.world.wallquest.clear();
 						}
 					}   
 					if (splitServerInput[0].equals("<")) {

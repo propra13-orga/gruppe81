@@ -40,7 +40,7 @@ public class Player extends GameObject implements Entity{
 	public int checkpointRoom=1;
 	private int checkpointX=100;// Koordinate X von Ccheckpoints/ die Position auf dem Spielfeld, fueür den Spieler
 	private int checkpointY=100;// Koordinate Y -//-
-	private boolean colide, hitExit = false, hitStory = false, hitTrap = false, hitFinish = false, hitShop = false, weapon = false, armor = false;
+	private boolean colide, hitExit = false, hitWaterhole = false, hitStory = false, hitTrap = false, hitFinish = false, hitShop = false, weapon = false, armor = false;
 	
 	public Player(World world){
 		this.world = world;
@@ -283,6 +283,14 @@ public class Player extends GameObject implements Entity{
 	
 	public boolean isHitExit(){
 		return hitExit;
+	}
+	
+	public void setHitWaterhole(boolean hitWaterhole){
+		this.hitWaterhole = hitWaterhole;
+	}
+	
+	public boolean isHitWaterhole(){
+		return hitWaterhole;
 	}
 	
 	public void setHitShop(boolean hitShop){

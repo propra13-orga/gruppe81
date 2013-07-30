@@ -77,6 +77,9 @@ public class Controller {
 					if(game.world.getLevelNumber()==3 && game.ed.size()<1){
 					//	System.out.println("game.ed.size()="+game.ed.size());
 						game.world.wallquest.clear();
+						if (game.mainWindow.gameServer!=null) {
+							game.mainWindow.gameServer.gameServerThread.serverOut.println("WALLQUEST REMOVE ");
+						}
 					}
 				}
 			}

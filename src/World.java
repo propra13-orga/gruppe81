@@ -31,6 +31,7 @@ public class World {
 	private String[][] blockString;
 	public boolean[][] isSolid;
 	public boolean [][] exits;
+	public boolean [][] waterhole;
 	public boolean [][] trap;
 	public boolean [][] finish;
 	public boolean [][] npc;
@@ -148,6 +149,7 @@ public class World {
 	 isSolid = new boolean[AWIDTH][AHIGHT];
 	 trap = new boolean[AWIDTH][AHIGHT];
 	 finish = new boolean[AWIDTH][AHIGHT];
+	 waterhole = new boolean[AWIDTH][AHIGHT];
 	 exits = new boolean[AWIDTH][AHIGHT];
 	 walls = new Wall[AWIDTH][AHIGHT];
 	 checkpoints = new boolean[AWIDTH][AHIGHT];// Hier wird checkpoint angelegt
@@ -236,6 +238,7 @@ public void getLevel(String fileName) { //reading level from file
 				i = Integer.parseInt(splitServerInput[1]);
 				if (i==0) {
 					drawPause=true;
+					wallquest.clear();
 					wallslist.clear();
 					game.c.ed.clear();
 					game.c.em.clear();
@@ -268,6 +271,7 @@ public void getLevel(String fileName) { //reading level from file
 			for (int  j= 0; j < line.length(); j++) {
 				checkpoints[i][j]=false;
 				exits[i][j] = false;
+				waterhole[i][j] = false;
 				trap[i][j] = false;
 				finish[i][j] = false;
 				isSolid[i][j] =false;
@@ -445,8 +449,7 @@ public void getLevel(String fileName) { //reading level from file
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;	
-        		case 'i': 	blockImage[i][j]= FELD2;
-        					blockImage[i][j]=FELD2;
+        		case 'i': 	blockImage[i][j]=FELD2;
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
 			
 							break;	
@@ -639,10 +642,13 @@ public void getLevel(String fileName) { //reading level from file
         		case '<': 	blockImage[i][j]= WASSERFELD;
 							game.addElement(x, y, WASSERFELD, 28, 22);
 							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
-							isSolid[i][j] =true;
+							waterhole[i][j] =true;
 							break;
 							
-				//case '>':
+				case '>':	blockImage[i][j]=FELD2;
+							blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+							waterhole[i][j] =true;
+							break;
 							
         		case '(': 	blockImage[i][j]= SAECKE1;
 							game.addElement(x, y, SAECKE1, 77, 101);
@@ -693,6 +699,9 @@ public void getLevel(String fileName) { //reading level from file
         	i++;
     		if (game.mainWindow.gameClient != null) {
     			line = null;
+    			if (i==24) {
+    				game.noDrawing = false;
+    			}
     		} else {
     			line = input.readLine();
     		}

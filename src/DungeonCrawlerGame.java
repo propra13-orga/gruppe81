@@ -47,6 +47,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private Thread game;
 	private volatile boolean running = false;
 	private boolean showStory = false;
+	public boolean noDrawing = false;
+	public boolean waterholeDone = false;
 	public int currentLevel = 0;
 	public int currentRoom = 1;
 	double delta = 0; //Time var
@@ -83,7 +85,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		System.out.println(world);
 		p1 = new Player(world);
 		
-		if (mainWindow.gameServer!=null) {
+		if (mainWindow.gameServer!=null || mainWindow.gameClient!=null) {
 			p2 = new Player(world);
 			p2.setStart(p1.getX()+25, p1.getY()+25);
 		}
@@ -194,6 +196,8 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	 */
 	public void newWorld(int levelNumber){
 		System.out.println("New World: " + levelNumber);
+		world.wallquest.clear();
+		world.wallslist.clear();
 		c.ed.clear();
 		c.em.clear();
 		c.eWO.clear(); //loescht die Objekte aus den früheren Levels
@@ -253,7 +257,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			if(System.currentTimeMillis() - timer > 1000){
 				timer +=1000;
 		
-				System.out.println(updates + " ups, "+ frames + " fps");
+//				System.out.println(updates + " ups, "+ frames + " fps");
 			
 				updates=0;
 				frames=0;
@@ -266,7 +270,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	private void changestate(){
 		
 		
-		if (p1.isHitExit()) {
+		if (((mainWindow.gameServer!=null || mainWindow.gameClient!=null) && p1.isHitExit() && p2.isHitExit()) || (mainWindow.gameServer==null && mainWindow.gameClient==null && p1.isHitExit())) {
 			showStory=false;
 			currentRoom++;
 			
@@ -284,6 +288,9 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	            newWorld(currentLevel+currentRoom);
 			}
             p1.changestate();
+    		if(p2!=null){
+    			p2.changestate();
+    		}
 		}
 		if(p1.playerChangeRoom){
 	// Prueft ob aktueller Raum der Raum in dem checkpoint ist ist, wenn nicht setzt den aktuellen Raum gleich checkpointRaum
@@ -293,6 +300,25 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				p1.changestate();
 			}
 			p1.playerChangeRoom=false;
+		}
+		if (((mainWindow.gameServer!=null || mainWindow.gameClient!=null) && p1.isHitWaterhole() && p2.isHitWaterhole() && !waterholeDone)) {
+			addHealthPack(50, 50, 0, 20, 0,"collectable",true);
+			addHealthPack(50, 50+150+150, 0, 20, 0,"collectable",true);			
+			for (int ii=1;ii<=10;ii++){
+				addHealthPack(50+ii*15-ii*5, 50+ii*15+ii*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+ii*15+ii*5, 50+ii*15-ii*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+150+150-ii*15-ii*5, 50+ii*15-ii*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+150+150-ii*15+ii*5, 50+ii*15+ii*5, 0, 20, 0,"collectable",true);
+			}
+			for (int ii=1;ii<10;ii++){
+				addHealthPack(50+150+ii*15-(10-ii)*5, 50+150+ii*15+(10-ii)*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+150+ii*15+(10-ii)*5, 50+150+ii*15-(10-ii)*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+ii*15-ii*5, 50+150+150-ii*15-ii*5, 0, 20, 0,"collectable",true);
+				addHealthPack(50+ii*15+ii*5, 50+150+150-ii*15+ii*5, 0, 20, 0,"collectable",true);
+			}
+			addHealthPack(50+150+150, 50, 0, 20, 0,"collectable",true);			
+			addHealthPack(50+150+150, 50+150+150, 0, 20, 0,"collectable",true);			
+			waterholeDone=true;
 		}
 	}
 	/**
@@ -583,7 +609,7 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 	 * @param g
 	 */
 	public void draw (Graphics g){
-		if (!world.isPaused()) {
+		if (!world.isPaused() && !noDrawing) {
 			world.draw(g);
 			c.draw(g);
 			if (showStory) {
@@ -643,9 +669,10 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 				
 				}
 				if(world.exits[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
-	
-									
 					p1.setHitExit(true);
+				}
+				if(world.waterhole[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){
+					p1.setHitWaterhole(true);
 				}
 				// Hier wird geprueft ob der Spieler ueber checkpoint gelaufen ist
 				if(world.checkpoints[i][j] && (p1.playerRect.intersects(world.blocks[i][j]))){

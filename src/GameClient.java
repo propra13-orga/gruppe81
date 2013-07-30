@@ -13,10 +13,11 @@ public class GameClient {
 	public GameClientThread gameClientThread;
 	private MainWindow mainWindow;
 
-	public GameClient (MainWindow mainWindow) {
+	public GameClient (MainWindow mainWindow,String ip) {
 				
 		try {
-			echoSocket = new Socket("localhost", 1337);
+			echoSocket = new Socket(ip, 1337);
+//			echoSocket = new Socket("localhost", 1337);
 //			echoSocket = new Socket("10.84.30.36", 1337);
 //			echoSocket = new Socket("192.168.178.53", 1338);
 			clientOut = new PrintWriter(echoSocket.getOutputStream(), true);
