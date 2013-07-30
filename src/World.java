@@ -41,6 +41,7 @@ public class World {
 	NPC mob;
 	public Image worldPics[];
 	public ArrayList<Wall> wallslist;
+	public ArrayList<Wall> wallquest;
 	public Wall walls[][];
 	boolean sol = true;
 	//Block images
@@ -151,6 +152,10 @@ public class World {
 	 walls = new Wall[AWIDTH][AHIGHT];
 	 checkpoints = new boolean[AWIDTH][AHIGHT];// Hier wird checkpoint angelegt
 	 wallslist = new ArrayList<Wall>();
+	 wallquest = new ArrayList<Wall>();
+
+	
+	 
 	 getLevel("level"+levelNumber+".txt");
 	// loadArrays();
 	
@@ -202,7 +207,15 @@ public void draw(Graphics g){
 				ii=-1;
 			}
 		}
+		if(wallquest.size()>0){
+		for(int i=0;i<wallquest.size();i++){
+			if(wallquest.get(i)!=null)
+			wallquest.get(i).draw(g);
+		}
+	
+		}
 	}
+		
 }
 
   /**
@@ -287,6 +300,17 @@ public void getLevel(String fileName) { //reading level from file
         					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
         					isSolid[i][j] =true;
         					break;
+        					
+        		case 'y': 	wallquest.add(new Wall(x, y, sol)); //erstelle neues Object
+				//	walls[i][j] = new Wall(x, y, sol);
+						//	blockImage[i][j]= SMALLWALL;
+						//	blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+        				//	isSolid[i][j] =true;
+        					blockImage[i][j]= FELD2;
+        					blockImage[i][j]=FELD2;
+        					blocks[i][j] = new Rectangle(x,y, BLOCKSIZE,BLOCKSIZE);
+					break;
+        					
         		case '2': 	blockImage[i][j]=EXIT; // Ausgangstür
         					blockString[i][j]= "EXIT";
         					game.addElement(x, y, EXIT, 25, 50);
@@ -692,7 +716,9 @@ private void log(String s){
 //	System.out.println(s);
 }
 
-
+public int getLevelNumber(){
+	 return levelNumber;
+}
 
 public void pause() {
 	pause=true;

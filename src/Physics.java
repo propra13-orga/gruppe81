@@ -135,9 +135,10 @@ System.out.println("collision!!!!!");
 	public static boolean CollisionGameObjectArrayList(GameObject ob, ArrayList<Wall> walls){
 		
 		for(Wall tempWall:walls){
-		if(	tempWall.intersects(ob))
+		if(	ob.getBounds().intersects(tempWall)){
+			System.out.println("Intersect at"+ob.getX() +":"+ob.getY()+" with "+tempWall.getX()+" "+tempWall.getY());
 			return true;
-			
+			}
 		}
 		
 		return false;

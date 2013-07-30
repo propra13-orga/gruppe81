@@ -257,6 +257,7 @@ public class Player extends GameObject implements Entity{
 	public void update(){
 		move();	
 		setBounds(playerRect.getBounds());
+		
 	//	if(Physics.CollisionGameObjectEntMO(this, eWO))
 	}
 	
@@ -316,11 +317,21 @@ public class Player extends GameObject implements Entity{
 //		if (!checkForCollision()){
 		playerRect.x+=(xDirection);
 		playerRect.y+=(yDirection);
+		setBounds(playerRect.getBounds());
 //		System.out.println("Move to"+playerRect.x +":"+playerRect.y);
 //		}else{
 //			setYDirection(0);
 //			setXDirection(0);
 //		 } 
+			if(Physics.CollisionGameObjectArrayList(this, world.wallquest)){
+	//			double xx= this.getXDirection();
+	//			double yy= this.getYDirection();
+				System.out.println("Move at"+playerRect.x +":"+playerRect.y+" xDirection"+xDirection+" yDirection"+yDirection);
+				playerRect.x-=(xDirection);
+				playerRect.y-=(yDirection);
+				setBounds(playerRect.getBounds());
+				
+			}
 		}
 	}
 	

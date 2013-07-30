@@ -56,8 +56,7 @@ public class Controller {
 					
 					
 					
-					
-					
+						
 					
 					if (game.mainWindow.gameClient==null) {
 						tempEntDe.changeLifepoints(schaden, 250000000);
@@ -73,6 +72,11 @@ public class Controller {
 						if (game.mainWindow.gameServer!=null) {
 							game.mainWindow.gameServer.gameServerThread.serverOut.println("DESTROYABLE LIFE "+i+" "+tempEntDe.getLifepoints()+" "+(int)tempEntDe.getX()+" "+(int)tempEntDe.getY());
 						}
+					}
+					System.out.println("game.ed.size()="+game.ed.size());
+					if(game.world.getLevelNumber()==3 && game.ed.size()<1){
+					//	System.out.println("game.ed.size()="+game.ed.size());
+						game.world.wallquest.clear();
 					}
 				}
 			}
