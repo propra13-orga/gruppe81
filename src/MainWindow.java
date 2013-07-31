@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class MainWindow extends JFrame{
 
 	public JButton startButton;
-	private JButton sButton, nButton, ncButton, ndButton, bereitButton, editorButton, backButton;
+	private JButton sButton, nButton, ncButton, ndButton, bereitButton, editorButton, backButton,startButtonTest;
 	public JLabel label,labelServer,labelClient;
 //	public JPanel panel;
 	public DungeonCrawlerGame gw;
@@ -24,7 +24,7 @@ public class MainWindow extends JFrame{
 	public GameClient gameClient;
 	public Editor editor;
 	private FlowLayout myLayout = new FlowLayout(FlowLayout.CENTER);
-	
+	public static GFrame  editorFrame;
 	public MyKeyListenerNetworkClient kNC;
 	
 	MyKeyListener kNt;
@@ -82,6 +82,21 @@ public class MainWindow extends JFrame{
 		{public void actionPerformed(ActionEvent arg0) {
             showDCGame();
 		}});
+		
+		//===============Test level Button
+		
+		startButtonTest = new JButton("Start own lvl");// The JButton name.
+        add(startButtonTest);
+        // getContentPane().add(startButton);
+        startButtonTest.setSize(400, 70);
+        startButtonTest.setLocation(300, 290);
+        startButtonTest.setVisible(true);
+		startButtonTest.addActionListener(new java.awt.event.ActionListener()
+		{public void actionPerformed(ActionEvent arg0) {
+            showDCGameTest();
+		}});
+		
+		// =========================End of Testlevel button
 
 		backButton = new JButton("Zurück");// The JButton name.
         add(backButton);
@@ -199,8 +214,9 @@ public class MainWindow extends JFrame{
         editorButton.setVisible(true);
         editorButton.addActionListener(new java.awt.event.ActionListener()
 		{public void actionPerformed(ActionEvent arg0) {
-			MyMouseListener myMouseListener = new MyMouseListener(); 
-            editor = new Editor(kNC.mainWindow,myMouseListener);
+		//	MyMouseListener myMouseListener = new MyMouseListener(); 
+        //   editor = new Editor(kNC.mainWindow,myMouseListener);
+			editorFrame = new GFrame();
 		}});
 
 		
@@ -274,6 +290,7 @@ public class MainWindow extends JFrame{
         add(ndButton);
         add(label);
         add(backButton);
+        add(startButtonTest);
         repaint();
     }	
 
@@ -292,6 +309,7 @@ public class MainWindow extends JFrame{
         label.setVisible(true);
         add(label);
         add(backButton);
+        add(startButtonTest);
         repaint();
     }	
 
@@ -306,6 +324,7 @@ public class MainWindow extends JFrame{
         remove(ncButton);
         remove(ndButton);
         remove(startButton);
+        remove(startButtonTest);
         remove(editorButton);
         remove(labelClient);
         remove(labelServer);
@@ -325,6 +344,33 @@ public class MainWindow extends JFrame{
         pack();
     }
     
+    public void showDCGameTest() {
+        label.setVisible(false);
+        remove(bereitButton);
+        remove(sButton);
+        remove(nButton);
+        remove(ncButton);
+        remove(ndButton);
+        remove(startButton);
+        remove(startButtonTest);
+        remove(editorButton);
+        remove(labelClient);
+        remove(labelServer);
+        remove(label);
+        remove(lobby);
+        remove(chat);
+        remove(chatInput);
+        remove(backButton);
+        gw = new DungeonCrawlerGame(this, true);        
+        gw.setSize(1000, 600);
+//System.out.println("111111");
+        add(gw);
+//System.out.println("211111");
+//        gw.newWorld(1);
+        gw.startGame();    // Startet das Spiel
+        gw.requestFocus(); // Tastatureingabe
+        pack();
+    }
     
     /**
      * Startmethode

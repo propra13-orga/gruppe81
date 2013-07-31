@@ -12,7 +12,7 @@ class Editor
 FileWriter fileOut;
  
 //++++Index
-private static Frame MainFrame;
+private static GFrame MainFrame;
 private static MyMouseListener MouseListener; 
 private static ListElement paintListener;
 private static ListElement editorListElement;
@@ -32,18 +32,18 @@ private Graphics offGraphics;                              //   copy graphics fu
 //++++GRAPHICS__ENDE
 //_________________Variable__ende_____________________
 
-	public Editor(Frame MainFrame, MyMouseListener MouseListener)
+	public Editor(GFrame MainFrame, MyMouseListener MouseListener)
 	{
 	//===========================___Konstrukteur___=================================
 	this.MouseListener = MouseListener;
-	this.MainFrame = MainFrame;
+	this.MainFrame  = MainFrame;
 	editorListElement = new ListElement();
 	paintListener = new ListElement();
 	imgPaint  = Toolkit.getDefaultToolkit().getImage("paint01.png");  
 	img$  = Toolkit.getDefaultToolkit().getImage("$.png");
 	img0  = Toolkit.getDefaultToolkit().getImage("0.png");
-	img2  = Toolkit.getDefaultToolkit().getImage("2.png");
-	img3  = Toolkit.getDefaultToolkit().getImage("3.png");
+	img2  = Toolkit.getDefaultToolkit().getImage("02.png");
+	img3  = Toolkit.getDefaultToolkit().getImage("03.png");
 	img7  = Toolkit.getDefaultToolkit().getImage("7.png");
 	imgQ  = Toolkit.getDefaultToolkit().getImage("Q.png");
 	imgB  = Toolkit.getDefaultToolkit().getImage("B.png");
@@ -67,6 +67,12 @@ private Graphics offGraphics;                              //   copy graphics fu
 	//===========================___Konstrukteur___=================================ENDE
 	}
 
+	public void setFrame ( GFrame MainFrame )
+	{
+		this.MainFrame = MainFrame; 
+	}
+	
+	
 	public Image paint()
 	{
 	//______________________________________________________paint
@@ -97,7 +103,7 @@ public void writerFile() throws IOException
 	{
 	try
 		{
-		fileOut = new FileWriter("LevelEditor.txt");
+		fileOut = new FileWriter("level999.txt");
 		
 			for ( int i= 0, y = 0; i < 24; i++, y += 25 )
 			{

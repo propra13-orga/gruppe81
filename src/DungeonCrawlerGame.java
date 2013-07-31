@@ -114,74 +114,65 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 		b = new Bullet(p1.getX(), p1.getY(), p1,this);
 		
 		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
-//		System.out.println("Test 1"); 
-//		if (mainWindow.gameServer!=null) {
-//			System.out.println("Test 2"); 
-//			if (mainWindow.gameServer.gameServerThread.serverOut!=null) {
-//				System.out.println("Test 3"); 
-//				try {
-//					System.out.println("World schreiben"); 
-//					mainWindow.gameServer.gameServerThread.serverObjectOut.writeObject(world);
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-////				mainWindow.gameServer.serverOut.
-////
-////xxxxxxxxxxxxx
-//
-//			} else {
-//			}
-//		} else {
-//		}
+
 		save = new createFile();
 		setPreferredSize(gameDim);
 		setBackground(Color.BLACK);
 		setFocusable(true);
 		requestFocus(true);
 		
-		//Handles users key inputs
-	/*	addKeyListener(new KeyAdapter() {
-			public void keyPressed (KeyEvent e){
-				
-				int c = e.getKeyCode();
-			//	System.out.println(c);  //debugging string to see which number gets var c 
-				if(c==KeyEvent.VK_LEFT){
-					if (!p1.checkForCollision())
-					{
-					p1.setXDirection(-1);
-					}
-				}
-				
-				if(c== KeyEvent.VK_RIGHT){
-					if (!p1.checkForCollision())
-					{
-					p1.setXDirection(1);
-					}
-				}
-				if(c==KeyEvent.VK_UP){
-					if (!p1.checkForCollision())
-					{
-					p1.setYDirection(-1);
-					}
-				}
-				if(c==KeyEvent.VK_DOWN){
-					if (!p1.checkForCollision())
-					{
-					p1.setYDirection(1);
-					}
-				}
-				
-			}
-			public void keyReleased (KeyEvent e){
-				p1.setYDirection(0);
-				p1.setXDirection(0);
-			}
-			public void keyTyped (KeyEvent e){
+
+	} 
+	
+	public DungeonCrawlerGame(MainWindow mainWindow, boolean test){
+    	
+		this.mainWindow = mainWindow;
+		c = new Controller(this);
+		if(test){
+			world = new World(999,  this);
+		}else{
+		world = new World(currentLevel + currentRoom,  this);
+		}
+		System.out.println(world);
+		p1 = new Player(world);
 		
+		if (mainWindow.gameServer!=null || mainWindow.gameClient!=null) {
+			p2 = new Player(world);
+			p2.setStart(p1.getX()+25, p1.getY()+25);
+		}
+		ed = c.getEntDestrList();
+		em = c.getEntMovList();
+		eMO = c.getEntMO();
+		this.k1 = new MyKeyListener(); 
+		if (mainWindow.gameClient==null) {
+			addKeyListener(k1);
+			if (mainWindow.gameServer!=null) {
+				if (mainWindow.gameServer.getKeyListener()!=null) {
+					System.out.println("getKeyListener");
+					this.k2 = mainWindow.gameServer.getKeyListener(); 
+				} else {
+					this.k2 = new MyKeyListener(); 
+				}
+			} else {
+				this.k2 = new MyKeyListener(); 
 			}
-		});
-		*/
+//			addKeyListener(k2);
+		} else {
+			addKeyListener(mainWindow.kNC);
+			this.k2 = new MyKeyListener(); 
+		}
+		// mob1 = new NPC( 250, 26, this, p1);
+		b = new Bullet(p1.getX(), p1.getY(), p1,this);
+		
+		blaseImg = new ImageIcon("Sprechblase_mit_Text1.png").getImage();
+
+		save = new createFile();
+		setPreferredSize(gameDim);
+		setBackground(Color.BLACK);
+		setFocusable(true);
+		requestFocus(true);
+		
+
 	} 
 	
 	public void changelevel(){
@@ -880,4 +871,6 @@ public class DungeonCrawlerGame extends JPanel implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+
 }
