@@ -85,7 +85,7 @@ public class MainWindow extends JFrame{
 		
 		//===============Test level Button
 		
-		startButtonTest = new JButton("Start own lvl");// The JButton name.
+		startButtonTest = new JButton("Start eigene Level");// The JButton name.
         add(startButtonTest);
         // getContentPane().add(startButton);
         startButtonTest.setSize(400, 70);
@@ -333,6 +333,13 @@ public class MainWindow extends JFrame{
         remove(chat);
         remove(chatInput);
         remove(backButton);
+        SoundListing soundListing = new SoundListing();
+        try {
+			soundListing.playSampleFile("Kazaki.wav");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         gw = new DungeonCrawlerGame(this);        
         gw.setSize(1000, 600);
 //System.out.println("111111");
