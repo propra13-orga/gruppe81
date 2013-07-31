@@ -9,10 +9,10 @@ import javax.swing.ImageIcon;
 import Object.EntityDestroyable;
 
 
+/**
+ * Klasse,die Gegner 2 erzeugt
+ */
 public class NPC2 extends GameObject implements EntityDestroyable {
-	/**
-	 * Klasse,die Gegner 2 erzeugt
-	 */
 	
 	String picPath;
 	private Image pic = new ImageIcon("cramp.gif").getImage();

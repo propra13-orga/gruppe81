@@ -9,13 +9,13 @@ import Object.EntityDestroyable;
 import Object.EntityMapObject;
 import Object.EntityMovable;
 
+/**
+ * Wird als Klasse fur Objekte, die man aufsammeln kann, benutzt.
+ * Z.b. Manatrank, Healpack etc.
+ */
 
 public class HealthPack extends GameObject implements EntityMapObject{
 
-	/**
-	 * Wird als Klasse fur Objekte, die man aufsammeln kann, benutzt.
-	 * Z.b. Manatrank, Healpack etc.
-	 */
 	private static final long serialVersionUID = 7056820136332853615L;
 	
 	Controller c;

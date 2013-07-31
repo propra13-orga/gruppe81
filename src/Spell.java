@@ -7,6 +7,9 @@ import javax.swing.ImageIcon;
 import Object.EntityMovable;
 
 
+/**
+ * Klasse fuer den ersten Zauber
+ */
 public class Spell extends GameObject implements EntityMovable {
 		/**
 	 * 
@@ -23,6 +26,13 @@ public class Spell extends GameObject implements EntityMovable {
 		private Image picU = new ImageIcon("hadouken2sek5029U.gif").getImage();
 		
 		
+		/**
+		 * erzeuge einen Zauber
+		 * @param x Start Koordinate des Zaubers
+		 * @param y Start Koordinate des Zaubers
+		 * @param p Spieler der geschossen hatx
+		 * @param game das Spiel Objekt
+		 */
 	public Spell(double x, double y, Player p,DungeonCrawlerGame game){
 		//if(p1.lastDirection==0 )
 		this.x = x;
@@ -41,6 +51,9 @@ public class Spell extends GameObject implements EntityMovable {
 	
 	
 	
+	/**
+	 * bewege den Zauber und schaue ob er was trifft
+	 */
 	@Override
 	public void update() {
 		// TODO Bullets are flying  ;)
@@ -82,6 +95,10 @@ public class Spell extends GameObject implements EntityMovable {
 */
 
 
+	/**
+	 * male den Zauber in der passenden Ausrichtung
+	 * @param g
+	 */
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub

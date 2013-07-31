@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 
+/**
+ * Frame fuer den Editor
+ */
 public class GFrame extends Frame {
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>___class___GameFrame_____ 
 private int height, width;

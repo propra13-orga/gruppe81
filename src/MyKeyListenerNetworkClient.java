@@ -2,6 +2,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.*;
 
+/**
+ * Klasse fuer die Tastatureingaben beim Client
+ */
 public class MyKeyListenerNetworkClient implements KeyListener {
 	
 	boolean[] keys = new boolean[256];

@@ -9,10 +9,11 @@ import javax.swing.ImageIcon;
 import Object.EntityDestroyable;
 
 
+/**
+ * Klasse,die Gegner 3 erzeugt
+ */
+
 public class NPC3 extends GameObject implements EntityDestroyable {
-	/**
-	 * Klasse,die Gegner 3 erzeugt
-	 */
 	
 	String picPath;
 	private Image pic = new ImageIcon("familiar.gif").getImage();

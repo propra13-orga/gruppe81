@@ -7,10 +7,10 @@ import javax.swing.ImageIcon;
 import Object.EntityMovable;
 
 
+/**
+* Klasse fuer Kugeln die vom Spieler abgefeuert werden
+*/
 public class Bullet extends GameObject implements EntityMovable {
-		/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7491567929155038278L;
 		double x,y;
 		
@@ -42,6 +42,9 @@ public class Bullet extends GameObject implements EntityMovable {
 	
 	
 	
+	/**
+	 * Bewege den Schuss und schaue ob er was trifft 
+	 */
 	@Override
 	public void update() {
 		// TODO Bullets are flying  ;)
@@ -85,6 +88,9 @@ public class Bullet extends GameObject implements EntityMovable {
 		//return lastDirection;
 //	}
 
+/**
+ * Male die Kugel in der richtigen Ausrichtung
+ */
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub

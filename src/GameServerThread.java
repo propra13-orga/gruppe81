@@ -9,6 +9,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
+/**
+ * Klasse fuer die Kommunikation im Netzwerkmodus von Serverseite
+ */
 public class GameServerThread extends Thread implements Runnable {
 
 	private MainWindow mainWindow;

@@ -1,6 +1,9 @@
 import java.io.*;
 import javax.sound.sampled.*;
 
+/**
+ * Klasse zur Ausgabe der Musik
+ */
 public class SoundListing
 {
 //========================================================SoundListing=======
@@ -8,6 +11,10 @@ private static AudioInputStream ais;
 private static AudioFormat format;
 private static Clip clip;
 
+/**
+ * Spielt eine Musikdatei ab.
+ * @param name, Name der Musikdatei
+ */
 public static void playSampleFile ( String name ) throws Exception
 	{
 	//+++++++++

@@ -2,6 +2,9 @@ import java.awt.event.KeyEvent;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Klasse fuer den Verbindungsaufbau im Netzwerkmodus von Serverseite
+ */
 public class GameServer {
 
 	private Socket echoSocket;

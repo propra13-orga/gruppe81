@@ -10,11 +10,12 @@ import Object.EntityMapObject;
 import Object.EntityMovable;
 
 
+/**
+ * Spielelement
+ */
+
 public class Element extends GameObject implements EntityMapObject{
 
-	/**
-	 * Spielelement
-	 */
 	private static final long serialVersionUID = 7056820136332853615L;
 	
 	Controller c;

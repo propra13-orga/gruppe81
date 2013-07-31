@@ -5,6 +5,9 @@ import java.awt.Image.*;
 import java.awt.Toolkit;
 import java.io.*;
 
+/**
+ * Klasse fuer den Level Editor 
+ */
 class Editor 
 {
 
@@ -32,6 +35,11 @@ private Graphics offGraphics;                              //   copy graphics fu
 //++++GRAPHICS__ENDE
 //_________________Variable__ende_____________________
 
+/**
+ * Konstruktor
+ * @param MainFrame, der Frame in dem der Editor angezeigt wird
+ * @param MouseListener, der verwendete MouseListener
+ */
 	public Editor(GFrame MainFrame, MyMouseListener MouseListener)
 	{
 	//===========================___Konstrukteur___=================================
@@ -67,12 +75,15 @@ private Graphics offGraphics;                              //   copy graphics fu
 	//===========================___Konstrukteur___=================================ENDE
 	}
 
-	public void setFrame ( GFrame MainFrame )
-	{
-		this.MainFrame = MainFrame; 
-	}
+//	public void setFrame ( GFrame MainFrame )
+//	{
+//		this.MainFrame = MainFrame; 
+//	}
 	
 	
+	/**
+	 * Paint Methode, baut aus den Einzelgrafiken das gesamte Bild zusammen
+	 */
 	public Image paint()
 	{
 	//______________________________________________________paint
@@ -99,6 +110,10 @@ writerFile();
 	}
 
 
+	/**
+	 * Speichert das Level staendig in die Datei level999,txt
+	 * 
+	 */
 public void writerFile() throws IOException
 	{
 	try
@@ -117,6 +132,9 @@ public void writerFile() throws IOException
 		} catch (IOException e)  {  }
 	}
 
+/**
+ * Malt und waehlt aus, abhaengig von den Bewegungen mit der Maus
+ */
 public void mouseControlling() 
 {
 //____________________________________________________

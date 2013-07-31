@@ -9,11 +9,11 @@ import javax.swing.ImageIcon;
 
 import Object.EntityDestroyable;
 
+/**
+ * Klasse,die Gegner 1 erzeugt
+ */
 
 public class NPC extends GameObject implements EntityDestroyable {
-	/**
-	 * Klasse,die Gegner 1 erzeugt
-	 */
 	private static final long serialVersionUID = -2450052102355866638L;
 	String picPath;
 	private Image pic = new ImageIcon("Gegner1.png").getImage();

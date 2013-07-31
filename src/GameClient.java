@@ -1,6 +1,9 @@
 import java.io.*;
 import java.net.*;
 
+/**
+ * Klasse fuer den Verbindungsaufbau im Netzwerkmodus von Serverseite
+ */
 public class GameClient {
 
 	private Socket echoSocket;
