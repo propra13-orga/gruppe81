@@ -8,8 +8,8 @@ class ListElement
 //______________________________________________________class______pencilListElement_____________________________
 
 //++++Variable
-private Element head;       // указатель на первый элемент
-private Element tail;       // указатель последний элемент
+private Element head;       
+private Element tail;       
 //++++Variable_END
 
 
@@ -27,28 +27,28 @@ private Element tail;       // указатель последний элеме�
 
 
 
-    void addElement(int x, int y,int width ,int height, Image imgNew, char newSign )           //добавить спереди
+    void addElement(int x, int y,int width ,int height, Image imgNew, char newSign )          
     {
 //__________________________________________
-        Element setNew = new Element();		//создаём новый элемент
-        setNew.x = x;					//инициализируем данные.
-        setNew.y = y;					//инициализируем данные.
+        Element setNew = new Element();		
+        setNew.x = x;					
+        setNew.y = y;					
 
-        setNew.width = width;              //инициализируем данные.
-        setNew.height = height;              //инициализируем данные.
+        setNew.width = width;              
+        setNew.height = height;             
 	setNew.imgElement = imgNew;
 	setNew.sign = newSign;
 
-                                    // указатель на следующий элемент автоматически инициализируется как null
-        if(head == null)            //если список пуст
-        {                           //то указываем ссылки начала и конца на новый элемент
-            head = setNew;               //т.е. список теперь состоит из одного элемента
+                                    
+        if(head == null)            
+        {                           
+            head = setNew;               
             tail = setNew;
         }
         else	
 	{
-            setNew.next = head;          // новый элемент теперь ссылается на "бывший" первый
-            head = setNew;               //а указатель на первый элемент теперь ссылается на новый элемент
+            setNew.next = head;          
+            head = setNew;               
 	}
 //__________________________________________
     }
@@ -58,8 +58,8 @@ private Element tail;       // указатель последний элеме�
 public Image getElement (int x, int y)
     {
 //______________check__and_getElement
-	Element check = head;             //получаем ссылку на первый элемент  
-	while (check != null)                 //пока элемент существуе
+	Element check = head;            
+	while (check != null)                 
 		{
 		//+++
 		if ( (check.x <= x) && ((check.x + check.width) >= x) )
@@ -67,7 +67,7 @@ public Image getElement (int x, int y)
 			if ( (check.y <= y) && ((check.y +check.height) >= y) )  { return check.imgElement; }    
 			} 
 
-		check = check.next;                     //и переключаемся на следующий
+		check = check.next;                    
 		//+++
 		}
 	return null;
@@ -79,8 +79,8 @@ public Image getElement (int x, int y)
 public char getSign (int x, int y)
     {
 //______________check__and_getElement
-	Element check = head;             //получаем ссылку на первый элемент  
-	while (check != null)                 //пока элемент существуе
+	Element check = head;               
+	while (check != null)                 
 		{
 		//+++
 		if ( (check.x <= x) && ((check.x + check.width) >= x) )
@@ -88,7 +88,7 @@ public char getSign (int x, int y)
 			if ( (check.y <= y) && ((check.y +check.height) >= y) )  { return check.sign; }    
 			} 
 
-		check = check.next;                     //и переключаемся на следующий
+		check = check.next;                     
 		//+++
 		}
 	return 'q';
@@ -100,8 +100,8 @@ public char getSign (int x, int y)
 public void substitutionElement( int x, int y, Image imgNew, char newSign )                     
 	{
 //______________check__and_substitution
-	Element check = head;             //получаем ссылку на первый элемент  
-	while (check != null)                 //пока элемент существуе
+	Element check = head;             
+	while (check != null)                 
 		{
 		//+++
 		if ( (check.x < x) && ((check.x + check.width) > x) )
@@ -109,7 +109,7 @@ public void substitutionElement( int x, int y, Image imgNew, char newSign )
 			if ( (check.y < y) && ((check.y +check.height) > y) )  { check.imgElement = imgNew;  check.sign = newSign;}    
 			} 
 
-		check = check.next;                     //и переключаемся на следующий
+		check = check.next;                     
 		//+++
 		}
 //_______________substitution______ENDE
