@@ -24,6 +24,9 @@ public class GameClientThread extends Thread implements Runnable {
 		this.clientOut = clientOut;
 	}
 	
+	/**
+	 * verarbeite die Daten vom Server
+	 */
 	public void run()
     {
 		try

@@ -78,7 +78,7 @@ private Graphics offGraphics;                              //   copy graphics fu
 
 
 /**
- * übernimmt den Namen der Bilder und ladet dir runter
+ * Uebernimmt den Namen der Bilder und laedt diese
  * */
 	public void loadImage( String...args)  
 	{

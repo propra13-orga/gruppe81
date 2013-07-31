@@ -222,7 +222,7 @@ public void draw(Graphics g){
 
   /**
    * 
-   * @Load level from file.txt
+   * Load level from file.txt
    */
 public void getLevel(String fileName) { //reading level from file
 

@@ -43,6 +43,9 @@ public class GameServerThread extends Thread implements Runnable {
 		return kND;
 	}
 
+	/**
+	 * akzeptiert die Verbindung vom Client und verarbeitet die Daten des Clients
+	 */
 	public void run()
     {
 		clientSocket = null;

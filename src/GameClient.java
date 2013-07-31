@@ -16,6 +16,11 @@ public class GameClient {
 	public GameClientThread gameClientThread;
 	private MainWindow mainWindow;
 
+	/**
+	 * verbindet sich mit dem Server
+	 * @param mainWindow
+	 * @param ip IP Adresse des Gameservers
+	 */
 	public GameClient (MainWindow mainWindow,String ip) {
 				
 		try {

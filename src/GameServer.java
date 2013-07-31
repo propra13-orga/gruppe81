@@ -21,6 +21,10 @@ public class GameServer {
 	private int clientCount;
 	public GameServerThread gameServerThread;
 	
+	/**
+	 * Konstruktor
+	 * Lauscht auf Port 1337 auf eine Anfrage fuer das Netzwerkspiel
+	 */
 	public GameServer () {
 		try {
 			serverSocket = new ServerSocket(1337);
